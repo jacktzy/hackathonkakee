@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".general.LoginActivity"
+    android:paddingVertical="16dp"
+    android:paddingHorizontal="32dp"
+    android:background="@color/blueBG">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginVertical="32dp"
+        android:src="@drawable/logo2"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/logo"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello"
+        android:layout_below="@+id/logo"
+        android:textColor="@color/primary"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:id="@+id/helloTV"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login_welcome"
+        android:layout_below="@+id/helloTV"
+        android:textColor="@color/primary"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:id="@+id/welcomeTV"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/login_et_frame"
+        android:layout_below="@id/welcomeTV"
+        android:layout_marginTop="30dp"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:id="@+id/emailEt"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/login_et_frame"
+        android:layout_below="@+id/emailEt"
+        android:layout_marginTop="15dp"
+        android:id="@+id/passwordEt"
+        android:hint="@string/password"
+        android:textSize="16sp"
+        android:padding="16dp"
+        android:inputType="textPassword" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Forgot password"
+        android:textColor="@color/primary"
+        android:textStyle="bold"
+        android:layout_below="@id/passwordEt"
+        android:textAlignment="textEnd"
+        android:layout_margin="5dp"
+        android:id="@+id/forgotPasswordTvBtn"/>
+    
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:id="@+id/loginBtn"
+        android:layout_below="@id/forgotPasswordTvBtn"
+        app:cornerRadius="10dp"
+        android:visibility="visible"/>
+
+    <ProgressBar
+        android:id="@+id/createAccLoadPB"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_below="@id/forgotPasswordTvBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:indeterminateTint="@color/primary"
+        android:visibility="invisible" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginBtn"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Don't have an account? " />
+
+        <TextView
+            android:id="@+id/createAccountTvBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Account"
+            android:textStyle="bold"
+            android:textColor="@color/primary"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

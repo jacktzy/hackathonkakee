@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "553569555176",
+    "project_id": "hackathonkakee-3b1c1",
+    "storage_bucket": "hackathonkakee-3b1c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:553569555176:android:17c76db361c2406ee5af5d",
+        "android_client_info": {
+          "package_name": "com.yydds.hackathonkakee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "553569555176-603u5ilmqsu0nd5k6t16v1se9uivqcu5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvRYfhYMT3IKGL-pCybmFAx2eeslOHgMI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "553569555176-603u5ilmqsu0nd5k6t16v1se9uivqcu5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

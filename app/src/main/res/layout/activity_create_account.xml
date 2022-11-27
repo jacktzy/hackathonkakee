@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".general.CreateAccountActivity"
+    android:background="@color/blueBG"
+    android:paddingVertical="16dp"
+    android:paddingHorizontal="32dp">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginVertical="24dp"
+        android:src="@drawable/logo2"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/logo"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Let's get started!"
+        android:layout_below="@+id/logo"
+        android:textColor="@color/primary"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:id="@+id/getStartedTV"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/login_et_frame"
+        android:layout_below="@id/getStartedTV"
+        android:layout_marginTop="15dp"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:id="@+id/nameEt"
+        android:hint="Name"
+        android:inputType="textEmailAddress"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/login_et_frame"
+        android:layout_below="@id/nameEt"
+        android:layout_marginTop="15dp"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:id="@+id/emailEt"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/login_et_frame"
+        android:layout_below="@+id/emailEt"
+        android:layout_marginTop="15dp"
+        android:id="@+id/passwordEt"
+        android:hint="@string/password"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:inputType="textPassword"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/login_et_frame"
+        android:layout_below="@+id/passwordEt"
+        android:layout_marginTop="15dp"
+        android:id="@+id/confirmPasswordEt"
+        android:hint="Confirm password"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:inputType="textPassword"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="200dp"
+        android:layout_height="55dp"
+        android:hint="Select role"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_below="@id/confirmPasswordEt"
+        android:layout_marginTop="15dp"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        android:outlineSpotShadowColor="@color/primary"
+        android:id="@+id/role_DD"
+        app:placeholderTextColor="@color/primary">
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:textColor="@color/black"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create Account"
+        android:textSize="12sp"
+        android:padding="12dp"
+        android:id="@+id/createAccountBtn"
+        android:layout_below="@id/role_DD"
+        app:cornerRadius="10dp"
+        android:visibility="visible"
+        android:layout_marginTop="15dp"/>
+
+    <ProgressBar
+        android:id="@+id/createAccLoadPB"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_below="@id/role_DD"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:indeterminateTint="@color/primary"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/createAccountBtn"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Already have an account? "
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/loginTvBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:textStyle="bold"
+            android:textColor="@color/primary"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
