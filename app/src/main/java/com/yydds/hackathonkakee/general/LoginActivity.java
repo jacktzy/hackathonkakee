@@ -77,7 +77,6 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
-                Toast.makeText(LoginActivity.this, "Login successfully.", Toast.LENGTH_SHORT).show();
                 DocumentReference documentReference = FirebaseFirestore.getInstance().collection("Users").document(authResult.getUser().getUid());
                 documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -91,6 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                         finish();
                     }
                 });
+                Toast.makeText(LoginActivity.this, "Login successfully.", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
