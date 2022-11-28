@@ -90,16 +90,36 @@ public class CreateAccountActivity extends AppCompatActivity {
         String password = passwordEt.getText().toString();
         String confirmPassword = confirmPasswordEt.getText().toString();
 
-        boolean isValidated = validateData(name, email, password, confirmPassword, role);
-        if (!isValidated) return;
+        if (!validateData(name, email, password, confirmPassword, role)) return;
 
         createAccountInFirebase(name, email, password, role);
 
     }
 
     private boolean validateData(String name, String email, String password, String confirmPassword, String role) {
+        if (name.isEmpty()) {
+            nameEt.setError("Please enter name.");
+            nameEt.requestFocus();
+            return false;
+        }
+        if (email.isEmpty()) {
+            emailEt.setError("Please enter email.");
+            emailEt.requestFocus();
+            return false;
+        }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             emailEt.setError("Email is invalid");
+
+            return false;
+        }
+        if (password.isEmpty()) {
+            passwordEt.setError("Please enter password");
+            passwordEt.requestFocus();
+            return false;
+        }
+        if (confirmPassword.isEmpty()) {
+            confirmPasswordEt.setError("Please confirm password.");
+            confirmPasswordEt.requestFocus();
             return false;
         }
         if (password.length() < 6) {

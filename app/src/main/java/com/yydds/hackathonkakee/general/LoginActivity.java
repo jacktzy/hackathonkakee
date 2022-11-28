@@ -56,24 +56,26 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser() {
-        //TODO login user method
-        changeInProgress(true);
         String email = emailEt.getText().toString();
         String password = passwordEt.getText().toString();
 
         if (email.isEmpty()) {
             emailEt.setError("Please enter email.");
+            emailEt.requestFocus();
             return;
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             emailEt.setError("Email is invalid");
+            emailEt.requestFocus();
             return;
         }
         if (password.isEmpty()) {
             passwordEt.setError("Please enter password.");
+            passwordEt.requestFocus();
             return;
         }
 
+        changeInProgress(true);
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
