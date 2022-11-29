@@ -2,6 +2,7 @@ package com.yydds.hackathonkakee.general;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.versionedparcelable.ParcelImpl;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -79,20 +80,31 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
-                DocumentReference documentReference = FirebaseFirestore.getInstance().collection("Users").document(authResult.getUser().getUid());
+                DocumentReference documentReference = FirebaseFirestore.getInstance().collection("Participants").document(authResult.getUser().getUid());
                 documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.getString("role").equals("Participant")) {
-                            startActivity(new Intent(getApplicationContext(), ParticipantHomePageActivity.class));
-                        } else if (documentSnapshot.getString("role").equals("Organizer")) {
-                            startActivity(new Intent(getApplicationContext(), OrganizerHomePageActivity.class));
+                        System.out.println(documentReference.getId());
+                        if (documentSnapshot.exists()) {
+                            Intent intent = new Intent(getApplicationContext(), ParticipantHomePageActivity.class);
+                            intent.putExtra("participantID", firebaseAuth.getCurrentUser().getUid());
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(getApplicationContext(), OrganizerHomePageActivity.class);
+                            intent.putExtra("organizerID", firebaseAuth.getCurrentUser().getUid());
+                            startActivity(intent);
                         }
+                        changeInProgress(false);
+                        Toast.makeText(LoginActivity.this, "Login successfully.", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
                         changeInProgress(false);
                         finish();
                     }
                 });
-                Toast.makeText(LoginActivity.this, "Login successfully.", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

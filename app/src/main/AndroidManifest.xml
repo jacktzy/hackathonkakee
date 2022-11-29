@@ -15,6 +15,13 @@
         android:theme="@style/Theme.HackathonKakee"
         tools:targetApi="31">
         <activity
+            android:name=".organizer.CreateNewHackathonActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".organizer.OrganizerHomePageActivity"
             android:exported="false">
             <meta-data

@@ -26,6 +26,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.yydds.hackathonkakee.R;
+import com.yydds.hackathonkakee.classes.Organizer;
+import com.yydds.hackathonkakee.classes.Participant;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -145,20 +147,27 @@ public class CreateAccountActivity extends AppCompatActivity {
             public void onSuccess(AuthResult authResult) {
                 //Save user data in firestore database.
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                System.out.println(user.getUid() + ", " + user.getEmail());
-                DocumentReference documentReference = firebaseFirestore.collection("Users").document(user.getUid());
-                Map<String, Object> userInfo = new HashMap<>();
-                userInfo.put("name", name);
-                userInfo.put("email", email);
-                userInfo.put("role", role);
-                System.out.println(userInfo);
-                documentReference.set(userInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        firebaseAuth.signOut();
-                        Toast.makeText(CreateAccountActivity.this, "Successfully create account.", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                if (role.equals("Participant")) {
+                    DocumentReference documentReference = firebaseFirestore.collection("Participants").document(user.getUid());
+                    Participant participant = new Participant(name, email);
+                    documentReference.set(participant).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            firebaseAuth.signOut();
+                            Toast.makeText(CreateAccountActivity.this, "Create account successfully.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else if (role.equals("Organizer")) {
+                    DocumentReference documentReference = firebaseFirestore.collection("Organizers").document(user.getUid());
+                    Organizer organizer = new Organizer(name, email);
+                    documentReference.set(organizer).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            firebaseAuth.signOut();
+                            Toast.makeText(CreateAccountActivity.this, "Create account successfully.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
                 changeInProgress(false);
                 finish();
             }
