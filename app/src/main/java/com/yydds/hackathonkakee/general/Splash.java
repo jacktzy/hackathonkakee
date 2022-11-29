@@ -33,17 +33,20 @@ public class Splash extends AppCompatActivity {
                     startActivity(new Intent(Splash.this, LoginActivity.class));
                     finish();
                 } else {
-                    DocumentReference documentReference = FirebaseFirestore.getInstance().collection("Users").document(currentUser.getUid());
+                    DocumentReference documentReference = FirebaseFirestore.getInstance().collection("Participants").document(currentUser.getUid());
                     documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            if (documentSnapshot.getString("role").equals("Participant")) {
-                                startActivity(new Intent(getApplicationContext(), ParticipantHomePageActivity.class));
-                                finish();
-                            } else if (documentSnapshot.getString("role").equals("Organizer")) {
-                                startActivity(new Intent(getApplicationContext(), OrganizerHomePageActivity.class));
-                                finish();
+                            if (documentSnapshot.exists()) {
+                                Intent intent = new Intent(getApplicationContext(), ParticipantHomePageActivity.class);
+                                intent.putExtra("participantID", currentUser.getUid());
+                                startActivity(intent);
+                            } else {
+                                Intent intent = new Intent(getApplicationContext(), OrganizerHomePageActivity.class);
+                                intent.putExtra("organizerID", currentUser.getUid());
+                                startActivity(intent);
                             }
+                            finish();
                         }
                     });
                 }

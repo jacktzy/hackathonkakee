@@ -58,7 +58,7 @@
         android:id="@+id/passwordEt"
         android:hint="@string/password"
         android:textSize="16sp"
-        android:padding="16dp"
+        android:padding="12dp"
         android:inputType="textPassword" />
 
     <TextView
@@ -80,7 +80,7 @@
         android:padding="12dp"
         android:id="@+id/loginBtn"
         android:layout_below="@id/forgotPasswordTvBtn"
-        app:cornerRadius="10dp"
+        app:cornerRadius="40dp"
         android:visibility="visible"/>
 
     <ProgressBar

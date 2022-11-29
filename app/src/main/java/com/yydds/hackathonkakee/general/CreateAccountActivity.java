@@ -26,6 +26,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.yydds.hackathonkakee.R;
+import com.yydds.hackathonkakee.classes.Organizer;
+import com.yydds.hackathonkakee.classes.Participant;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -90,16 +92,36 @@ public class CreateAccountActivity extends AppCompatActivity {
         String password = passwordEt.getText().toString();
         String confirmPassword = confirmPasswordEt.getText().toString();
 
-        boolean isValidated = validateData(name, email, password, confirmPassword, role);
-        if (!isValidated) return;
+        if (!validateData(name, email, password, confirmPassword, role)) return;
 
         createAccountInFirebase(name, email, password, role);
 
     }
 
     private boolean validateData(String name, String email, String password, String confirmPassword, String role) {
+        if (name.isEmpty()) {
+            nameEt.setError("Please enter name.");
+            nameEt.requestFocus();
+            return false;
+        }
+        if (email.isEmpty()) {
+            emailEt.setError("Please enter email.");
+            emailEt.requestFocus();
+            return false;
+        }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             emailEt.setError("Email is invalid");
+
+            return false;
+        }
+        if (password.isEmpty()) {
+            passwordEt.setError("Please enter password");
+            passwordEt.requestFocus();
+            return false;
+        }
+        if (confirmPassword.isEmpty()) {
+            confirmPasswordEt.setError("Please confirm password.");
+            confirmPasswordEt.requestFocus();
             return false;
         }
         if (password.length() < 6) {
@@ -125,20 +147,27 @@ public class CreateAccountActivity extends AppCompatActivity {
             public void onSuccess(AuthResult authResult) {
                 //Save user data in firestore database.
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                System.out.println(user.getUid() + ", " + user.getEmail());
-                DocumentReference documentReference = firebaseFirestore.collection("Users").document(user.getUid());
-                Map<String, Object> userInfo = new HashMap<>();
-                userInfo.put("name", name);
-                userInfo.put("email", email);
-                userInfo.put("role", role);
-                System.out.println(userInfo);
-                documentReference.set(userInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        firebaseAuth.signOut();
-                        Toast.makeText(CreateAccountActivity.this, "Successfully create account.", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                if (role.equals("Participant")) {
+                    DocumentReference documentReference = firebaseFirestore.collection("Participants").document(user.getUid());
+                    Participant participant = new Participant(name, email);
+                    documentReference.set(participant).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            firebaseAuth.signOut();
+                            Toast.makeText(CreateAccountActivity.this, "Create account successfully.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else if (role.equals("Organizer")) {
+                    DocumentReference documentReference = firebaseFirestore.collection("Organizers").document(user.getUid());
+                    Organizer organizer = new Organizer(name, email);
+                    documentReference.set(organizer).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            firebaseAuth.signOut();
+                            Toast.makeText(CreateAccountActivity.this, "Create account successfully.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
                 changeInProgress(false);
                 finish();
             }
