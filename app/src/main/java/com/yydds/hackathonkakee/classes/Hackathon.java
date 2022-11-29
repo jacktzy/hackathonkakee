@@ -8,8 +8,6 @@ public class Hackathon {
     private LinkedList<String> participantsID, teamsID;
 
     //TODO finalize constructor (now only testing stage)
-
-
     public Hackathon(String name, String shortDesc, String longDesc, String mode, String venue, String organizerID, int prizePool, int maxTeamMembers) {
         this.name = name;
         this.shortDesc = shortDesc;
