@@ -38,7 +38,7 @@ public class OrganizerHomePageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(OrganizerHomePageActivity.this, CreateNewHackathonActivity.class);
-                System.out.println(organizerID);
+//                System.out.println(organizerID);
                 intent.putExtra("organizerID", organizerID);
                 startActivity(intent);
             }
@@ -46,7 +46,9 @@ public class OrganizerHomePageActivity extends AppCompatActivity {
         myHackathonBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO open my hackathon activity
+                Intent intent = new Intent(OrganizerHomePageActivity.this, OrganizerMyHackathon.class);
+                intent.putExtra("organizerID", organizerID);
+                startActivity(intent);
             }
         });
         logoutIV.setOnClickListener(new View.OnClickListener() {
