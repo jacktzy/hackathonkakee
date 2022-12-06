@@ -1,14 +1,19 @@
 package com.yydds.hackathonkakee.classes;
 
+import com.google.firebase.Timestamp;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Hackathon {
-    private String name, shortDesc, longDesc, mode, imageUrl, venue, organizerID;
+    private String name, shortDesc, longDesc, mode, iconUri, venue, organizerID;
     private int prizePool, maxTeamMembers;
-    private LinkedList<String> participantsID, teamsID;
+    private ArrayList<String> participantsID, teamsID;
+    private Timestamp startDateTS, endDateTS;
 
     //TODO finalize constructor (now only testing stage)
-    public Hackathon(String name, String shortDesc, String longDesc, String mode, String venue, String organizerID, int prizePool, int maxTeamMembers) {
+    public Hackathon(String name, String shortDesc, String longDesc, String mode, String venue, String organizerID, String iconUri, Timestamp startDateTS, Timestamp endDateTS, int prizePool, int maxTeamMembers) {
         this.name = name;
         this.shortDesc = shortDesc;
         this.longDesc = longDesc;
@@ -16,22 +21,31 @@ public class Hackathon {
         this.venue = venue;
         this.prizePool = prizePool;
         this.maxTeamMembers = maxTeamMembers;
-        this.participantsID = new LinkedList<>();
-        this.teamsID = new LinkedList<>();
-        this.imageUrl = "";
+        this.participantsID = new ArrayList<>();
+        this.teamsID = new ArrayList<>();
+        this.iconUri = iconUri;
         this.organizerID = organizerID;
+        this.startDateTS = startDateTS;
+        this.endDateTS = endDateTS;
     }
 
-    public LinkedList<String> getTeamsID() {
+    public Hackathon() {
+    }
+
+    public ArrayList<String> getParticipantsID() {
+        return participantsID;
+    }
+
+    public void setParticipantsID(ArrayList<String> participantsID) {
+        this.participantsID = participantsID;
+    }
+
+    public ArrayList<String> getTeamsID() {
         return teamsID;
     }
 
-    public void setTeamsID(LinkedList<String> teamsID) {
+    public void setTeamsID(ArrayList<String> teamsID) {
         this.teamsID = teamsID;
-    }
-
-    public LinkedList<String> getParticipantsID() {
-        return participantsID;
     }
 
     public String getOrganizerID() {
@@ -40,10 +54,6 @@ public class Hackathon {
 
     public void setOrganizerID(String organizerID) {
         this.organizerID = organizerID;
-    }
-
-    public void setParticipantsID(LinkedList<String> participantsID) {
-        this.participantsID = participantsID;
     }
 
     public String getName() {
@@ -78,12 +88,12 @@ public class Hackathon {
         this.mode = mode;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getIconUri() {
+        return iconUri;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setIconUri(String iconUri) {
+        this.iconUri = iconUri;
     }
 
     public String getVenue() {
@@ -108,5 +118,21 @@ public class Hackathon {
 
     public void setMaxTeamMembers(int maxTeamMembers) {
         this.maxTeamMembers = maxTeamMembers;
+    }
+
+    public Timestamp getStartDateTS() {
+        return startDateTS;
+    }
+
+    public void setStartDateTS(Timestamp startDateTS) {
+        this.startDateTS = startDateTS;
+    }
+
+    public Timestamp getEndDateTS() {
+        return endDateTS;
+    }
+
+    public void setEndDateTS(Timestamp endDateTS) {
+        this.endDateTS = endDateTS;
     }
 }
