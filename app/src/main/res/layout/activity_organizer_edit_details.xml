@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".organizerEditDetails"
+    android:background="@color/greyBG">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/organizer_pages_toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="56dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="32dp"
+            android:paddingBottom="12dp">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/default_image"
+                android:layout_centerHorizontal="true"
+                android:layout_marginVertical="10dp"
+                android:id="@+id/hackathonIconIv"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:padding="12dp"
+                android:layout_below="@+id/hackathonIconIv"
+                android:background="@drawable/login_et_frame"
+                android:layout_marginVertical="10dp"
+                android:hint="Hackathon Name"
+                android:id="@+id/hackathonNameEt"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:padding="12dp"
+                android:layout_below="@+id/hackathonNameEt"
+                android:background="@drawable/login_et_frame"
+                android:layout_marginVertical="10dp"
+                android:hint="Venue"
+                android:id="@+id/hackathonVenueEt"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:padding="12dp"
+                android:layout_below="@+id/hackathonVenueEt"
+                android:background="@drawable/login_et_frame"
+                android:layout_marginVertical="10dp"
+                android:hint="Prize Pool"
+                android:id="@+id/prizePoolEt"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:padding="12dp"
+                android:layout_below="@+id/prizePoolEt"
+                android:background="@drawable/login_et_frame"
+                android:layout_marginVertical="10dp"
+                android:hint="Maximum Team Members"
+                android:id="@+id/maxTeamMembersEt"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select mode"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_below="@id/maxTeamMembersEt"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
+                android:outlineSpotShadowColor="@color/primary"
+                android:id="@+id/mode_DD"
+                app:placeholderTextColor="@color/primary"
+                android:layout_marginVertical="10dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/modeActv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:textColor="@color/black"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/dateGroup"
+                android:layout_below="@id/mode_DD"
+                android:layout_marginVertical="10dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/startDateBtn"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:text="01 JAN 1900"
+                    android:textColor="@color/black"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toEndOf="@+id/startDateTitle"
+                    app:layout_constraintStart_toStartOf="@+id/startDateTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/startDateTitle"
+                    app:strokeColor="@color/primary"
+                    app:strokeWidth="1dp"
+                    android:layout_marginTop="5dp"
+                    app:cornerRadius="10dp"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/endDateBtn"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:text="01 JAN 1900"
+                    android:textColor="@color/black"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toEndOf="@+id/endDateTitle"
+                    app:layout_constraintStart_toStartOf="@+id/endDateTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/endDateTitle"
+                    app:strokeColor="@color/primary"
+                    app:strokeWidth="1dp"
+                    android:layout_marginTop="5dp"
+                    app:cornerRadius="10dp"/>
+
+                <TextView
+                    android:id="@+id/startDateTitle"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:text="Start Date"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/endDateTitle"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="End Date"
+                    app:layout_constraintStart_toEndOf="@+id/startDateTitle"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:padding="12sp"
+                android:layout_below="@+id/dateGroup"
+                android:background="@drawable/login_et_frame"
+                android:layout_marginVertical="10dp"
+                android:hint="Short Description"
+                android:id="@+id/shortDescEt"
+                android:minLines="5"
+                android:gravity="top"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:padding="12sp"
+                android:layout_below="@+id/shortDescEt"
+                android:background="@drawable/login_et_frame"
+                android:layout_marginVertical="10dp"
+                android:hint="Long Description"
+                android:id="@+id/longDescEt"
+                android:minLines="15"
+                android:gravity="top"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/createHackathonBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/longDescEt"
+                android:text="Save"
+                app:cornerRadius="20dp" />
+
+            <ProgressBar
+                android:id="@+id/createHackathonLoadPB"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_below="@id/longDescEt"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:indeterminateTint="@color/primary"
+                android:visibility="invisible" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Delete Hackathon"
+                android:id="@+id/deleteHackathonBtn"
+                android:layout_below="@id/createHackathonBtn"
+                android:backgroundTint="#FF0000"
+                app:cornerRadius="20dp"
+                android:visibility="gone"/>
+
+            <ProgressBar
+                android:id="@+id/deleteHackathonLoadPB"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_below="@id/createHackathonBtn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:indeterminateTint="#FF0000"
+                android:visibility="gone" />
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+
+
+</RelativeLayout>

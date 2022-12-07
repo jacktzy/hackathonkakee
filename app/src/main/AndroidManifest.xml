@@ -76,6 +76,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+<<<<<<< HEAD
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -83,6 +84,36 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+=======
+
+        <activity
+            android:name=".organizerShowTeams"
+            android:exported="false"
+            android:parentActivityName=".organizerMainPage" />
+        <activity
+            android:name=".organizerCreateAnnouncement"
+            android:exported="false"
+            android:parentActivityName=".organizerAnnouncement" />
+        <activity
+            android:name=".organizerEditAnnouncement"
+            android:exported="false"
+            android:parentActivityName=".organizerAnnouncement" />
+        <activity
+            android:name=".organizerAnnouncement"
+            android:exported="false"
+            android:parentActivityName=".organizerMainPage" />
+        <activity
+            android:name=".organizerShowParticipants"
+            android:exported="false"
+            android:parentActivityName=".organizerMainPage" />
+        <activity
+            android:name=".organizerEditDetails"
+            android:exported="false"
+            android:parentActivityName=".organizerMainPage" />
+        <activity
+            android:name=".organizerMainPage"
+            android:exported="false"/>
+>>>>>>> c5938c4 (Organizer part combine)
     </application>
 
 </manifest>

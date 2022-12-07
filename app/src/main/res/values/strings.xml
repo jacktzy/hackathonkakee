@@ -7,4 +7,9 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="edit_details">Edit Details</string>
+    <string name="show_participants">Show Participants</string>
+    <string name="show_teams">Show Teams</string>
+    <string name="announcement">Announcement</string>
+    <string name="manage_news">Manage News</string>
 </resources>
