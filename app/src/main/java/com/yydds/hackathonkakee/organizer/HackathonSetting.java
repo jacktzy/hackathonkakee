@@ -1,33 +1,36 @@
-package com.yydds.hackathonkakee;
+package com.yydds.hackathonkakee.organizer;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.yydds.hackathonkakee.organizer.ShowParticipants;
-import com.yydds.hackathonkakee.organizer.ShowTeams;
+import com.yydds.hackathonkakee.R;
 
-public class organizerMainPage extends AppCompatActivity {
+public class HackathonSetting extends AppCompatActivity {
     private TextView editDetails, showParticipants, showTeams, announcement, manageNews;
     ImageView backArrowIv;
     TextView pageTitleTv;
+    String organizerID, hackathonID, hackathonName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_organizer_main_page);
+        setContentView(R.layout.activity_hackathon_setting);
+        organizerID = getIntent().getStringExtra("organizerID");
+        hackathonID = getIntent().getStringExtra("hackathonID");
+        hackathonName = getIntent().getStringExtra("hackathonName");
 
         initializeComponent();
     }
 
     private void initializeComponent() {
-        String hackathonEvent = "HACKATHON_NAME";
         pageTitleTv = findViewById(R.id.pageTitleTv);
-        pageTitleTv.setText(hackathonEvent);
+        pageTitleTv.setText(hackathonName);
         backArrowIv = findViewById(R.id.backArrowIv);
         backArrowIv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,15 +47,17 @@ public class organizerMainPage extends AppCompatActivity {
         editDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(organizerMainPage.this, organizerEditDetails.class);
-//                startActivity(intent);
+                Intent intent = new Intent(HackathonSetting.this, CreateNewHackathonActivity.class);
+                intent.putExtra("organizerID", organizerID);
+                intent.putExtra("hackathonID", hackathonID);
+                startActivity(intent);
             }
         });
 
         showParticipants.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(organizerMainPage.this, ShowParticipants.class);
+                Intent intent = new Intent(HackathonSetting.this, ShowParticipants.class);
                 startActivity(intent);
             }
         });
@@ -60,7 +65,7 @@ public class organizerMainPage extends AppCompatActivity {
         showTeams.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(organizerMainPage.this, ShowTeams.class);
+                Intent intent = new Intent(HackathonSetting.this, ShowTeams.class);
                 startActivity(intent);
             }
         });
@@ -68,9 +73,19 @@ public class organizerMainPage extends AppCompatActivity {
         announcement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(organizerMainPage.this, organizerAnnouncement.class);
+                Intent intent = new Intent(HackathonSetting.this, ManageAnnouncement.class);
+                intent.putExtra("hackathonID", hackathonID);
                 startActivity(intent);
             }
         });
     }
+
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        Toast.makeText(this, "resume", Toast.LENGTH_SHORT).show();
+//        if (hackathonID == null || hackathonID.isEmpty()) {
+//            finish();
+//        }
+//    }
 }

@@ -86,25 +86,25 @@
         <activity
             android:name=".organizer.ShowTeams"
             android:exported="false"
-            android:parentActivityName=".organizerMainPage" />
+            android:parentActivityName=".organizer.HackathonSetting" />
         <activity
             android:name=".organizer.CreateAnnouncement"
             android:exported="false"
-            android:parentActivityName=".organizerAnnouncement" />
+            android:parentActivityName=".organizer.ManageAnnouncement" />
         <activity
             android:name=".organizer.EditAnnouncement"
             android:exported="false"
-            android:parentActivityName=".organizerAnnouncement" />
+            android:parentActivityName=".organizer.ManageAnnouncement" />
         <activity
-            android:name=".organizerAnnouncement"
+            android:name=".organizer.ManageAnnouncement"
             android:exported="false"
-            android:parentActivityName=".organizerMainPage" />
+            android:parentActivityName=".organizer.HackathonSetting" />
         <activity
             android:name=".organizer.ShowParticipants"
             android:exported="false"
-            android:parentActivityName=".organizerMainPage" />
+            android:parentActivityName=".organizer.HackathonSetting" />
         <activity
-            android:name=".organizerMainPage"
+            android:name=".organizer.HackathonSetting"
             android:exported="false"/>
     </application>
 
