@@ -1,4 +1,4 @@
-package com.yydds.hackathonkakee;
+package com.yydds.hackathonkakee.classes;
 
 public class Announcement {
     private String date, detail;

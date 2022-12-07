@@ -10,13 +10,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.yydds.hackathonkakee.classes.Participant;
+
 import java.util.ArrayList;
 
 public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.ViewHolder>{
     private Context context;
-    private ArrayList<Participants> list;
+    private ArrayList<Participant> list;
 
-    public ParticipantAdapter(Context context, ArrayList<Participants> list) {
+    public ParticipantAdapter(Context context, ArrayList<Participant> list) {
         this.context = context;
         this.list = list;
     }
@@ -30,9 +32,9 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.no.setText("No: " + list.get(position).getNo());
+        holder.no.setText("No: " );
         holder.name.setText("Name: " + list.get(position).getName());
-        holder.team.setText("Team: " + list.get(position).getTeam());
+        holder.team.setText("Team: " );
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override

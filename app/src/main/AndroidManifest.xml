@@ -87,15 +87,15 @@
 =======
 
         <activity
-            android:name=".organizerShowTeams"
+            android:name=".organizer.ShowTeams"
             android:exported="false"
             android:parentActivityName=".organizerMainPage" />
         <activity
-            android:name=".organizerCreateAnnouncement"
+            android:name=".organizer.CreateAnnouncement"
             android:exported="false"
             android:parentActivityName=".organizerAnnouncement" />
         <activity
-            android:name=".organizerEditAnnouncement"
+            android:name=".organizer.EditAnnouncement"
             android:exported="false"
             android:parentActivityName=".organizerAnnouncement" />
         <activity
@@ -103,11 +103,7 @@
             android:exported="false"
             android:parentActivityName=".organizerMainPage" />
         <activity
-            android:name=".organizerShowParticipants"
-            android:exported="false"
-            android:parentActivityName=".organizerMainPage" />
-        <activity
-            android:name=".organizerEditDetails"
+            android:name=".organizer.ShowParticipants"
             android:exported="false"
             android:parentActivityName=".organizerMainPage" />
         <activity

@@ -1,8 +1,6 @@
 package com.yydds.hackathonkakee;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +10,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.yydds.hackathonkakee.classes.Announcement;
+import com.yydds.hackathonkakee.organizer.CreateAnnouncement;
+import com.yydds.hackathonkakee.organizer.EditAnnouncement;
 
 import java.util.ArrayList;
 
@@ -44,7 +46,7 @@ public class organizerAnnouncement extends AppCompatActivity {
         adapter = new AnnouncementAdapter(this, list1, new AnnouncementAdapter.ItemClickListener() {
             @Override
             public void onItemClick(Announcement details) {
-                Intent intent = new Intent(organizerAnnouncement.this, organizerEditAnnouncement.class);
+                Intent intent = new Intent(organizerAnnouncement.this, EditAnnouncement.class);
                 startActivity(intent);
 
 //                Toast.makeText(organizerAnnouncement.this, "Make me", Toast.LENGTH_LONG).show();
@@ -61,7 +63,7 @@ public class organizerAnnouncement extends AppCompatActivity {
         createAnnouncement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(organizerAnnouncement.this, organizerCreateAnnouncement.class);
+                Intent intent = new Intent(organizerAnnouncement.this, CreateAnnouncement.class);
                 startActivity(intent);
             }
         });

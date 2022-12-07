@@ -1,15 +1,15 @@
 package com.yydds.hackathonkakee;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.yydds.hackathonkakee.organizer.ShowParticipants;
+import com.yydds.hackathonkakee.organizer.ShowTeams;
 
 public class organizerMainPage extends AppCompatActivity {
     private TextView editDetails, showParticipants, showTeams, announcement, manageNews;
@@ -44,15 +44,15 @@ public class organizerMainPage extends AppCompatActivity {
         editDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(organizerMainPage.this, organizerEditDetails.class);
-                startActivity(intent);
+//                Intent intent = new Intent(organizerMainPage.this, organizerEditDetails.class);
+//                startActivity(intent);
             }
         });
 
         showParticipants.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(organizerMainPage.this, organizerShowParticipants.class);
+                Intent intent = new Intent(organizerMainPage.this, ShowParticipants.class);
                 startActivity(intent);
             }
         });
@@ -60,7 +60,7 @@ public class organizerMainPage extends AppCompatActivity {
         showTeams.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(organizerMainPage.this, organizerShowTeams.class);
+                Intent intent = new Intent(organizerMainPage.this, ShowTeams.class);
                 startActivity(intent);
             }
         });

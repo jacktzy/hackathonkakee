@@ -1,11 +1,11 @@
-package com.yydds.hackathonkakee;
+package com.yydds.hackathonkakee.classes;
 
-public class Teams{
+public class Team {
     private int no;
     private String teamName;
     private String[] teamMember;
 
-    public Teams(int no, String teamName, String[] teamMember) {
+    public Team(int no, String teamName, String[] teamMember) {
         this.no = no;
         this.teamName = teamName;
         this.teamMember = teamMember;

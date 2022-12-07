@@ -10,15 +10,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.yydds.hackathonkakee.classes.Team;
+
 import java.util.ArrayList;
 
 public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder>{
     private Context context;
-    private ArrayList<Teams> list;
+    private ArrayList<Team> list;
     private ItemClickListener mItemListener;
 
 
-    public TeamAdapter(Context context, ArrayList<Teams> list, ItemClickListener itemClickListener) {
+    public TeamAdapter(Context context, ArrayList<Team> list, ItemClickListener itemClickListener) {
         this.context = context;
         this.list = list;
         this.mItemListener = itemClickListener;
@@ -60,7 +62,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder>{
     }
 
     public interface ItemClickListener {
-        void onItemClick(Teams details);
+        void onItemClick(Team details);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

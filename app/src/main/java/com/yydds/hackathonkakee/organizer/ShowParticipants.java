@@ -1,7 +1,5 @@
-package com.yydds.hackathonkakee;
+package com.yydds.hackathonkakee.organizer;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,12 +9,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.yydds.hackathonkakee.ParticipantAdapter;
+import com.yydds.hackathonkakee.R;
+import com.yydds.hackathonkakee.classes.Participant;
+
 import java.util.ArrayList;
 
-public class organizerShowParticipants extends AppCompatActivity {
+public class ShowParticipants extends AppCompatActivity {
     RecyclerView recyclerView;
     ParticipantAdapter adapter;
-    ArrayList<Participants> list;
+    ArrayList<Participant> list;
     ImageView backArrowIv;
     TextView pageTitleTv;
 
@@ -26,17 +28,17 @@ public class organizerShowParticipants extends AppCompatActivity {
         setContentView(R.layout.activity_organizer_show_participants);
 
         initializeComponent();
-        setupRecycleView();
+//        setupRecycleView();
     }
 
     private void setupRecycleView() {
         recyclerView = findViewById(R.id.recyclerview);
         list = new ArrayList<>();
 
-        list.add(new Participants(1, "Wong", "NO idea"));
-        list.add(new Participants(2, "Tan", "Naudas-la"));
-        list.add(new Participants(3, "Jacky", "Indo"));
-        list.add(new Participants(4, "Yang", "Malaysia"));
+//        list.add(new Participant(1, "Wong", "NO idea"));
+//        list.add(new Participant(2, "Tan", "Naudas-la"));
+//        list.add(new Participant(3, "Jacky", "Indo"));
+//        list.add(new Participant(4, "Yang", "Malaysia"));
 
         adapter = new ParticipantAdapter(this,list);
         LinearLayoutManager llm = new LinearLayoutManager(this, RecyclerView.VERTICAL,false);

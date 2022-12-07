@@ -1,7 +1,5 @@
-package com.yydds.hackathonkakee;
+package com.yydds.hackathonkakee.organizer;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,12 +11,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.yydds.hackathonkakee.R;
+import com.yydds.hackathonkakee.TeamAdapter;
+import com.yydds.hackathonkakee.classes.Team;
+
 import java.util.ArrayList;
 
-public class organizerShowTeams extends AppCompatActivity {
+public class ShowTeams extends AppCompatActivity {
     RecyclerView recyclerView;
     TeamAdapter adapter;
-    ArrayList<Teams> list;
+    ArrayList<Team> list;
     ImageView editRanking;
     AlertDialog.Builder dialogBuilder;
     AlertDialog dialog;
@@ -40,15 +42,15 @@ public class organizerShowTeams extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerview);
         list = new ArrayList<>();
 
-        list.add(new Teams(1, "Wong", new String[]{"Wong" , "Jacky"}));
-        list.add(new Teams(2, "Tan", new String[]{"Wong" , "Jacky"}));
-        list.add(new Teams(3, "Jacky", new String[]{"Wong" , "Jacky"}));
-        list.add(new Teams(4, "Yang", new String[]{"Wong" , "Jacky"}));
+        list.add(new Team(1, "Wong", new String[]{"Wong" , "Jacky"}));
+        list.add(new Team(2, "Tan", new String[]{"Wong" , "Jacky"}));
+        list.add(new Team(3, "Jacky", new String[]{"Wong" , "Jacky"}));
+        list.add(new Team(4, "Yang", new String[]{"Wong" , "Jacky"}));
 
         adapter = new TeamAdapter(this, list, new TeamAdapter.ItemClickListener() {
             @Override
-            public void onItemClick(Teams details) {
-                dialogBuilder = new AlertDialog.Builder(organizerShowTeams.this);
+            public void onItemClick(Team details) {
+                dialogBuilder = new AlertDialog.Builder(ShowTeams.this);
                 final View contactPopView = getLayoutInflater().inflate(R.layout.pop_up_window_ranking, null);
                 dialogBuilder.setView(contactPopView);
                 dialog = dialogBuilder.create();
@@ -59,7 +61,7 @@ public class organizerShowTeams extends AppCompatActivity {
                 save.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(organizerShowTeams.this, "Successfully", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ShowTeams.this, "Successfully", Toast.LENGTH_LONG).show();
                         dialog.dismiss();
                     }
                 });
