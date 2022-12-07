@@ -1,4 +1,4 @@
-package com.yydds.hackathonkakee.Utility;
+package com.yydds.hackathonkakee.organizer;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,15 +16,14 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.squareup.picasso.Picasso;
 import com.yydds.hackathonkakee.R;
 import com.yydds.hackathonkakee.classes.Hackathon;
-import com.yydds.hackathonkakee.organizer.CreateNewHackathonActivity;
 
 import java.text.SimpleDateFormat;
 
-public class HackathonAdapter extends FirestoreRecyclerAdapter<Hackathon, HackathonAdapter.HackathonViewHolder> {
+public class MyHackathonAdapter extends FirestoreRecyclerAdapter<Hackathon, MyHackathonAdapter.HackathonViewHolder> {
 
     Context context;
 
-    public HackathonAdapter(@NonNull FirestoreRecyclerOptions<Hackathon> options, Context context) {
+    public MyHackathonAdapter(@NonNull FirestoreRecyclerOptions<Hackathon> options, Context context) {
         super(options);
         this.context = context;
     }
@@ -43,11 +42,12 @@ public class HackathonAdapter extends FirestoreRecyclerAdapter<Hackathon, Hackat
         holder.shortDesc.setText(hackathon.getShortDesc());
 
         holder.itemView.setOnClickListener((v) -> {
-            Intent intent = new Intent(context, CreateNewHackathonActivity.class);
+            Intent intent = new Intent(context, HackathonSetting.class);
             intent.putExtra("organizerID", hackathon.getOrganizerID());
 //            intent.putExtra("hackathonID", holder.getItemId());
             String hackathonID = this.getSnapshots().getSnapshot(position).getId();
             intent.putExtra("hackathonID", hackathonID);
+            intent.putExtra("hackathonName", hackathon.getName());
             context.startActivity(intent);
         });
     }

@@ -188,7 +188,8 @@
                 android:text="Create Hackathon"
                 android:id="@+id/createHackathonBtn"
                 android:layout_below="@id/longDescEt"
-                app:cornerRadius="20dp" />
+                app:cornerRadius="20dp"
+                android:visibility="visible"/>
 
             <ProgressBar
                 android:id="@+id/createHackathonLoadPB"

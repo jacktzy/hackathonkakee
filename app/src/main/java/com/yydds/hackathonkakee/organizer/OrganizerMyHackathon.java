@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.DownloadManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,14 +13,13 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.yydds.hackathonkakee.R;
-import com.yydds.hackathonkakee.Utility.HackathonAdapter;
 import com.yydds.hackathonkakee.classes.Hackathon;
 
 public class OrganizerMyHackathon extends AppCompatActivity {
     TextView pageTitleTv;
     String organizerID;
     RecyclerView recyclerView;
-    HackathonAdapter hackathonAdapter;
+    MyHackathonAdapter hackathonAdapter;
     ImageView backArrowIv;
 
     @Override
@@ -52,7 +50,7 @@ public class OrganizerMyHackathon extends AppCompatActivity {
         Query query = FirebaseFirestore.getInstance().collection("Hackathons").whereEqualTo("organizerID", organizerID);
         FirestoreRecyclerOptions<Hackathon> options = new FirestoreRecyclerOptions.Builder<Hackathon>().setQuery(query, Hackathon.class).build();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        hackathonAdapter = new HackathonAdapter(options, this);
+        hackathonAdapter = new MyHackathonAdapter(options, this);
         recyclerView.setAdapter(hackathonAdapter);
     }
 

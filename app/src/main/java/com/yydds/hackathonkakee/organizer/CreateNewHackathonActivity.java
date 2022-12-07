@@ -30,6 +30,8 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -45,6 +47,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class CreateNewHackathonActivity extends AppCompatActivity {
 
@@ -182,7 +185,7 @@ public class CreateNewHackathonActivity extends AppCompatActivity {
         mode = hackathon.getMode();
         startDateTS = hackathon.getStartDateTS();
         endDateTS = hackathon.getEndDateTS();
-        System.out.println(hackathon.getStartDateTS().toDate().getDay() + " " + hackathon.getStartDateTS().toDate().getMonth() + " " + hackathon.getStartDateTS().toDate().getYear());
+//        System.out.println(hackathon.getStartDateTS().toDate().getDay() + " " + hackathon.getStartDateTS().toDate().getMonth() + " " + hackathon.getStartDateTS().toDate().getYear());
         startDateBtn.setText(makeDateString(hackathon.getStartDateTS().toDate().getDate(), hackathon.getStartDateTS().toDate().getMonth() + 1, hackathon.getStartDateTS().toDate().getYear() + 1900));
         endDateBtn.setText(makeDateString(hackathon.getEndDateTS().toDate().getDay(), hackathon.getEndDateTS().toDate().getMonth() + 1, hackathon.getEndDateTS().toDate().getYear() + 1900));
     }
@@ -239,8 +242,24 @@ public class CreateNewHackathonActivity extends AppCompatActivity {
         documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
+                //delete deleted hackathonID announcements
+                Query query = FirebaseFirestore.getInstance().collection("Announcements").whereEqualTo("hackathonID", hackathonID);
+                query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                        for (DocumentSnapshot ds : list) {
+                            ds.getReference().delete();
+                        }
+                    }
+                });
+
                 Toast.makeText(CreateNewHackathonActivity.this, "Delete hackathon successfully.", Toast.LENGTH_SHORT).show();
                 finish();
+                Intent intent = new Intent(getApplicationContext(), OrganizerMyHackathon.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("organizerID", organizerID);
+                startActivity(intent);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

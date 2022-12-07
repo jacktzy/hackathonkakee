@@ -1,26 +1,50 @@
 package com.yydds.hackathonkakee.classes;
 
+import com.google.firebase.Timestamp;
+
 public class Announcement {
-    private String date, detail;
+    private String title, content, hackathonID;
+    private Timestamp timestamp;
 
-    public Announcement(String date, String detail) {
-        this.date = date;
-        this.detail = detail;
+    public Announcement(String title, String content, String hackathonID, Timestamp timestamp) {
+        this.title = title;
+        this.content = content;
+        this.hackathonID = hackathonID;
+        this.timestamp = timestamp;
     }
 
-    public String getDate() {
-        return date;
+    public Announcement() {
     }
 
-    public String getDetail() {
-        return detail;
+    public String getHackathonID() {
+        return hackathonID;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setHackathonID(String hackathonID) {
+        this.hackathonID = hackathonID;
     }
 
-    public void setDetail(String detail) {
-        this.detail = detail;
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }
