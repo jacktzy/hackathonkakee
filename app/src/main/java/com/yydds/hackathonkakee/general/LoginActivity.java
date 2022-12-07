@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -27,7 +29,9 @@ import com.yydds.hackathonkakee.participant.ParticipantHomePageActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText emailEt, passwordEt;
+//    EditText emailEt, passwordEt;
+    TextInputEditText emailTIET, passwordTIET;
+    TextInputLayout emailTIL, passwordTIL;
     Button loginBtn;
     TextView createAccountTvBtn, forgotPasswordTvBtn;
     ProgressBar login_load_PB;
@@ -43,8 +47,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initializeComponent() {
-        emailEt = findViewById(R.id.emailEt);
-        passwordEt = findViewById(R.id.passwordEt);
+        emailTIET = findViewById(R.id.emailTIET);
+        emailTIL = findViewById(R.id.emailTIL);
+        passwordTIET = findViewById(R.id.passwordTIET);
+        passwordTIL = findViewById(R.id.passwordTIL);
         loginBtn = findViewById(R.id.loginBtn);
         createAccountTvBtn = findViewById(R.id.createAccountTvBtn);
         forgotPasswordTvBtn = findViewById(R.id.forgotPasswordTvBtn);
@@ -57,24 +63,33 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser() {
-        String email = emailEt.getText().toString();
-        String password = passwordEt.getText().toString();
+        String email = emailTIET.getText().toString();
+        String password = passwordTIET.getText().toString();
+        boolean isValid = true;
 
         if (email.isEmpty()) {
-            emailEt.setError("Please enter email.");
-            emailEt.requestFocus();
-            return;
+            emailTIL.setErrorEnabled(true);
+            emailTIL.setError("Please enter email.");
+            isValid = false;
+        } else {
+            emailTIL.setErrorEnabled(false);
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailEt.setError("Email is invalid");
-            emailEt.requestFocus();
-            return;
+            emailTIL.setErrorEnabled(true);
+            emailTIL.setError("Email is invalid");
+            isValid = false;
+        } else {
+            emailTIL.setErrorEnabled(false);
         }
         if (password.isEmpty()) {
-            passwordEt.setError("Please enter password.");
-            passwordEt.requestFocus();
-            return;
+            passwordTIL.setErrorEnabled(true);
+            passwordTIL.setError("Please enter password.");
+            isValid = false;
+        } else {
+            passwordTIL.setErrorEnabled(false);
         }
+
+        if (!isValid) return;
 
         changeInProgress(true);
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {

@@ -20,6 +20,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,7 +39,8 @@ public class CreateAccountActivity extends AppCompatActivity {
     String[] roles = {"Participant", "Organizer"};
     String role = "";
 
-    EditText nameEt, emailEt, passwordEt, confirmPasswordEt;
+    TextInputLayout nameTIL, emailTIL, passwordTIL, confirmPasswordTIL;
+    TextInputEditText nameTIET, emailTIET, passwordTIET, confirmPasswordTIET;
     Button createAccountBtn;
     TextView loginTvBtn;
     AutoCompleteTextView autoCompleteTV;
@@ -62,10 +65,14 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
     private void initializeComponents() {
-        nameEt = findViewById(R.id.nameEt);
-        emailEt = findViewById(R.id.emailEt);
-        passwordEt = findViewById(R.id.passwordEt);
-        confirmPasswordEt = findViewById(R.id.confirmPasswordEt);
+        nameTIL = findViewById(R.id.nameTIL);
+        nameTIET = findViewById(R.id.nameTIET);
+        emailTIL = findViewById(R.id.emailTIL);
+        emailTIET = findViewById(R.id.emailTIET);
+        passwordTIL = findViewById(R.id.passwordTIL);
+        passwordTIET = findViewById(R.id.passwordTIET);
+        confirmPasswordTIL = findViewById(R.id.confirmPasswordTIL);
+        confirmPasswordTIET = findViewById(R.id.confirmPasswordTIET);
         createAccountBtn = findViewById(R.id.createAccountBtn);
         loginTvBtn = findViewById(R.id.loginTvBtn);
         createAccLoadPB = findViewById(R.id.createAccLoadPB);
@@ -87,10 +94,10 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
     private void createAccount() {
-        String name = nameEt.getText().toString();
-        String email = emailEt.getText().toString();
-        String password = passwordEt.getText().toString();
-        String confirmPassword = confirmPasswordEt.getText().toString();
+        String name = nameTIET.getText().toString();
+        String email = emailTIET.getText().toString();
+        String password = passwordTIET.getText().toString();
+        String confirmPassword = confirmPasswordTIET.getText().toString();
 
         if (!validateData(name, email, password, confirmPassword, role)) return;
 
@@ -99,44 +106,57 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
     private boolean validateData(String name, String email, String password, String confirmPassword, String role) {
+        boolean isValid = true;
         if (name.isEmpty()) {
-            nameEt.setError("Please enter name.");
-            nameEt.requestFocus();
-            return false;
+            nameTIL.setErrorEnabled(true);
+            nameTIL.setError("Please enter name.");
+            isValid = false;
+        } else {
+            nameTIL.setErrorEnabled(false);
         }
         if (email.isEmpty()) {
-            emailEt.setError("Please enter email.");
-            emailEt.requestFocus();
-            return false;
+            emailTIL.setErrorEnabled(true);
+            emailTIL.setError("Please enter email.");
+            isValid = false;
+        } else {
+            emailTIL.setErrorEnabled(false);
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailEt.setError("Email is invalid");
-
-            return false;
+            emailTIL.setErrorEnabled(true);
+            emailTIL.setError("Email is invalid");
+            isValid = false;
+        } else {
+            emailTIL.setErrorEnabled(false);
         }
         if (password.isEmpty()) {
-            passwordEt.setError("Please enter password");
-            passwordEt.requestFocus();
-            return false;
-        }
-        if (confirmPassword.isEmpty()) {
-            confirmPasswordEt.setError("Please confirm password.");
-            confirmPasswordEt.requestFocus();
-            return false;
+            passwordTIL.setError("Please enter password");
+            isValid = false;
+        } else {
+            passwordTIL.setErrorEnabled(false);
         }
         if (password.length() < 6) {
-            passwordEt.setError("Password length must be at least 6 characters");
-            return false;
+            passwordTIL.setError("Password length must be at least 6 characters");
+            isValid = false;
+        } else {
+            passwordTIL.setErrorEnabled(false);
         }
         if (!password.equals(confirmPassword)) {
-            confirmPasswordEt.setError("Password not matched");
-            return false;
+            confirmPasswordTIL.setError("Password not matched");
+            isValid = false;
+        } else {
+            confirmPasswordTIL.setErrorEnabled(false);
+        }
+        if (confirmPassword.isEmpty()) {
+            confirmPasswordTIL.setError("Please confirm password.");
+            isValid = false;
+        } else {
+            confirmPasswordTIL.setErrorEnabled(false);
         }
         if (role.isEmpty()) {
             autoCompleteTV.setError("Please select role");
-            return false;
+            isValid = false;
         }
-        return true;
+        return isValid;
     }
 
     private void createAccountInFirebase(String name, String email, String password, String role) {

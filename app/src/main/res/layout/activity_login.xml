@@ -35,31 +35,55 @@
         android:textColor="@color/primary"
         android:textSize="30sp"
         android:textStyle="bold"
+        android:layout_marginBottom="15dp"
         android:id="@+id/welcomeTV"/>
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailTIL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/login_et_frame"
-        android:layout_below="@id/welcomeTV"
-        android:layout_marginTop="30dp"
-        android:textSize="16sp"
-        android:padding="12dp"
-        android:id="@+id/emailEt"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"/>
+        android:layout_below="@+id/welcomeTV"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:hint="Email"
+        app:errorIconDrawable="@drawable/ic_baseline_error_24"
+        app:startIconDrawable="@drawable/ic_baseline_email_24"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusBottomEnd="10dp"
+        android:layout_marginVertical="5dp">
 
-    <EditText
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailTIET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordTIL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/login_et_frame"
-        android:layout_below="@+id/emailEt"
-        android:layout_marginTop="15dp"
-        android:id="@+id/passwordEt"
-        android:hint="@string/password"
-        android:textSize="16sp"
-        android:padding="12dp"
-        android:inputType="textPassword" />
+        android:layout_below="@+id/emailTIL"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:hint="Password"
+        app:errorIconDrawable="@drawable/ic_baseline_error_24"
+        app:startIconDrawable="@drawable/ic_baseline_lock_24"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:endIconMode="password_toggle"
+        android:layout_marginVertical="5dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordTIET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:layout_width="match_parent"
@@ -67,7 +91,7 @@
         android:text="Forgot password"
         android:textColor="@color/primary"
         android:textStyle="bold"
-        android:layout_below="@id/passwordEt"
+        android:layout_below="@id/passwordTIL"
         android:textAlignment="textEnd"
         android:layout_margin="5dp"
         android:id="@+id/forgotPasswordTvBtn"/>
