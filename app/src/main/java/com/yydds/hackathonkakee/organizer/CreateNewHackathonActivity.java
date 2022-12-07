@@ -49,7 +49,7 @@ import java.util.Date;
 public class CreateNewHackathonActivity extends AppCompatActivity {
 
     final String[] modes = {"Online", "Hybrid", "Physical"};
-    String mode = "", hackathonName, hackathonVenue, shortDesc, longDesc, iconUri = "";
+    String mode = "", hackathonName, hackathonVenue, shortDesc, longDesc, iconUri = "", newHackathonID = "";
     int prizePool, maxTeamMembers;
     boolean iconIsLoaded, isCurrentDateStart = true, gotImageFromDB = false;
     Intent uploadedImageIntent;
@@ -215,7 +215,7 @@ public class CreateNewHackathonActivity extends AppCompatActivity {
         if (hackathonID != null && !hackathonID.isEmpty()) {
             documentReference = firebaseFirestore.collection("Hackathons").document(hackathonID);
         } else {
-            documentReference = firebaseFirestore.collection("Hackathons").document(Utility.generateID());
+            documentReference = firebaseFirestore.collection("Hackathons").document(newHackathonID);
         }
         documentReference.set(newHackathon).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -345,8 +345,14 @@ public class CreateNewHackathonActivity extends AppCompatActivity {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Hackathon icon is uploading......");
             progressDialog.show();
+            newHackathonID = Utility.generateID();
 
-            StorageReference reference = storageReference.child("hackathonIcon/" + hackathonName + ".png");
+            StorageReference reference;
+            if (hackathonID != null && !hackathonID.isEmpty()) {
+                reference = storageReference.child("hackathonIcon/" + hackathonID + ".png");
+            } else {
+                reference = storageReference.child("hackathonIcon/" + newHackathonID + ".png");
+            }
             reference.putFile(uploadedImageIntent.getData())
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
