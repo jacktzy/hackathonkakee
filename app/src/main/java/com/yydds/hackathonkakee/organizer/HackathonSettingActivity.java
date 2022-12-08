@@ -5,13 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.yydds.hackathonkakee.R;
 
-public class HackathonSetting extends AppCompatActivity {
+public class HackathonSettingActivity extends AppCompatActivity {
     private TextView editDetails, showParticipants, showTeams, announcement, manageNews;
     ImageView backArrowIv;
     TextView pageTitleTv;
@@ -47,7 +46,7 @@ public class HackathonSetting extends AppCompatActivity {
         editDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HackathonSetting.this, CreateNewHackathonActivity.class);
+                Intent intent = new Intent(HackathonSettingActivity.this, CreateNewHackathonActivity.class);
                 intent.putExtra("organizerID", organizerID);
                 intent.putExtra("hackathonID", hackathonID);
                 startActivity(intent);
@@ -57,7 +56,7 @@ public class HackathonSetting extends AppCompatActivity {
         showParticipants.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HackathonSetting.this, ShowParticipants.class);
+                Intent intent = new Intent(HackathonSettingActivity.this, ShowParticipants.class);
                 startActivity(intent);
             }
         });
@@ -65,7 +64,7 @@ public class HackathonSetting extends AppCompatActivity {
         showTeams.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HackathonSetting.this, ShowTeams.class);
+                Intent intent = new Intent(HackathonSettingActivity.this, ShowTeams.class);
                 startActivity(intent);
             }
         });
@@ -73,7 +72,7 @@ public class HackathonSetting extends AppCompatActivity {
         announcement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HackathonSetting.this, ManageAnnouncement.class);
+                Intent intent = new Intent(HackathonSettingActivity.this, ManageAnnouncementActivity.class);
                 intent.putExtra("hackathonID", hackathonID);
                 startActivity(intent);
             }

@@ -39,7 +39,7 @@ public class AnnouncementAdapter extends FirestoreRecyclerAdapter<Announcement, 
         holder.timestampTV.setText(new SimpleDateFormat("dd/MM/yyyy").format(announcement.getTimestamp().toDate()));
 
         holder.itemView.setOnClickListener((v) -> {
-            Intent intent = new Intent(context, CreateAnnouncement.class);
+            Intent intent = new Intent(context, CreateAnnouncementActivity.class);
             String annoucementID = this.getSnapshots().getSnapshot(position).getId();
             intent.putExtra("announcementID", annoucementID);
             context.startActivity(intent);

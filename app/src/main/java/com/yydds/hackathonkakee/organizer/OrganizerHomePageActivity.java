@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.yydds.hackathonkakee.R;
@@ -46,7 +45,7 @@ public class OrganizerHomePageActivity extends AppCompatActivity {
         myHackathonBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(OrganizerHomePageActivity.this, OrganizerMyHackathon.class);
+                Intent intent = new Intent(OrganizerHomePageActivity.this, OrganizerMyHackathonPageActivity.class);
                 intent.putExtra("organizerID", organizerID);
                 startActivity(intent);
             }

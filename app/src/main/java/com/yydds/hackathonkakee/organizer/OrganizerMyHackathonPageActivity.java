@@ -15,7 +15,7 @@ import com.google.firebase.firestore.Query;
 import com.yydds.hackathonkakee.R;
 import com.yydds.hackathonkakee.classes.Hackathon;
 
-public class OrganizerMyHackathon extends AppCompatActivity {
+public class OrganizerMyHackathonPageActivity extends AppCompatActivity {
     TextView pageTitleTv;
     String organizerID;
     RecyclerView recyclerView;

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/greyBG"
-    tools:context=".organizer.ManageAnnouncement">
+    tools:context=".organizer.ManageAnnouncementActivity">
     <include
         android:id="@+id/include"
         layout="@layout/organizer_pages_toolbar" />

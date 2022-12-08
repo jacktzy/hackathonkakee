@@ -256,7 +256,7 @@ public class CreateNewHackathonActivity extends AppCompatActivity {
 
                 Toast.makeText(CreateNewHackathonActivity.this, "Delete hackathon successfully.", Toast.LENGTH_SHORT).show();
                 finish();
-                Intent intent = new Intent(getApplicationContext(), OrganizerMyHackathon.class);
+                Intent intent = new Intent(getApplicationContext(), OrganizerMyHackathonPageActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("organizerID", organizerID);
                 startActivity(intent);

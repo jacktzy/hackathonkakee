@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="navigationBackButton" parent="android:Theme.Holo">
+        <item name="android:homeAsUpIndicator">@drawable/ic_baseline_undo_24</item>
+    </style>
+    <style name="navigationBackButtonWhite">
+        <item name="colorControlNormal">@color/white</item>
+    </style>
+</resources>

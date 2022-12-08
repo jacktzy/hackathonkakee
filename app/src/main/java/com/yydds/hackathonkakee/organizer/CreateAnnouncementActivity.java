@@ -21,9 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.yydds.hackathonkakee.R;
 import com.yydds.hackathonkakee.classes.Announcement;
 
-import org.checkerframework.checker.units.qual.A;
-
-public class CreateAnnouncement extends AppCompatActivity {
+public class CreateAnnouncementActivity extends AppCompatActivity {
     ImageView backArrowIv;
     TextView pageTitleTv;
     TextInputLayout contentTIL, titleTIL;
@@ -106,13 +104,13 @@ public class CreateAnnouncement extends AppCompatActivity {
         documentReference.set(newAnnouncement).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Toast.makeText(CreateAnnouncement.this, "Save announcement successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateAnnouncementActivity.this, "Save announcement successfully", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(CreateAnnouncement.this, "Failed to save announcement", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateAnnouncementActivity.this, "Failed to save announcement", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -122,13 +120,13 @@ public class CreateAnnouncement extends AppCompatActivity {
         documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Toast.makeText(CreateAnnouncement.this, "Delete announcement successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateAnnouncementActivity.this, "Delete announcement successfully", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(CreateAnnouncement.this, "Failed to delete announcement", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateAnnouncementActivity.this, "Failed to delete announcement", Toast.LENGTH_SHORT).show();
             }
         });
     }
