@@ -15,7 +15,7 @@
         android:theme="@style/Theme.HackathonKakee"
         tools:targetApi="31">
         <activity
-            android:name=".organizer.OrganizerMyHackathon"
+            android:name=".organizer.OrganizerMyHackathonPageActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -77,34 +77,23 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".organizer.ShowTeams"
             android:exported="false"
-            android:parentActivityName=".organizer.HackathonSetting" />
+            android:parentActivityName=".organizer.HackathonSettingActivity" />
         <activity
-            android:name=".organizer.CreateAnnouncement"
+            android:name=".organizer.CreateAnnouncementActivity"
             android:exported="false"
-            android:parentActivityName=".organizer.ManageAnnouncement" />
+            android:parentActivityName=".organizer.ManageAnnouncementActivity" />
         <activity
-            android:name=".organizer.EditAnnouncement"
+            android:name=".organizer.ManageAnnouncementActivity"
             android:exported="false"
-            android:parentActivityName=".organizer.ManageAnnouncement" />
-        <activity
-            android:name=".organizer.ManageAnnouncement"
-            android:exported="false"
-            android:parentActivityName=".organizer.HackathonSetting" />
+            android:parentActivityName=".organizer.HackathonSettingActivity" />
         <activity
             android:name=".organizer.ShowParticipants"
             android:exported="false"
-            android:parentActivityName=".organizer.HackathonSetting" />
+            android:parentActivityName=".organizer.HackathonSettingActivity" />
         <activity
-            android:name=".organizer.HackathonSetting"
+            android:name=".organizer.HackathonSettingActivity"
             android:exported="false"/>
     </application>
 

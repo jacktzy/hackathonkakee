@@ -17,7 +17,7 @@ import com.google.firebase.firestore.Query;
 import com.yydds.hackathonkakee.R;
 import com.yydds.hackathonkakee.classes.Announcement;
 
-public class ManageAnnouncement extends AppCompatActivity {
+public class ManageAnnouncementActivity extends AppCompatActivity {
     Button createAnnouncementBtn;
     RecyclerView recyclerView;
     ImageView backArrowIv;
@@ -45,7 +45,7 @@ public class ManageAnnouncement extends AppCompatActivity {
         createAnnouncementBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ManageAnnouncement.this, CreateAnnouncement.class);
+                Intent intent = new Intent(ManageAnnouncementActivity.this, CreateAnnouncementActivity.class);
                 intent.putExtra("hackathonID", hackathonID);
                 startActivity(intent);
             }

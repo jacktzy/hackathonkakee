@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_participant_home"
+    android:label="Hall of Fame"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.yydds.hackathonkakee.participant.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_hackathonFragment"
+            app:destination="@id/hackathonFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_hallOfFameFragment"
+            app:destination="@id/hallOfFameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hackathonFragment"
+        android:name="com.yydds.hackathonkakee.participant.HackathonFragment"
+        android:label="Hackathon"
+        tools:layout="@layout/fragment_hackathon" >
+        <action
+            android:id="@+id/action_hackathonFragment_to_allHackathonFragment"
+            app:destination="@id/allHackathonFragment" />
+        <action
+            android:id="@+id/action_hackathonFragment_to_participatedHackathonFragment"
+            app:destination="@id/participatedHackathonFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hallOfFameFragment"
+        android:name="com.yydds.hackathonkakee.participant.HallOfFameFragment"
+        android:label="Hall of Fame"
+        tools:layout="@layout/fragment_hall_of_fame" >
+        <action
+            android:id="@+id/action_hallOfFameFragment_to_claimRewardFragment"
+            app:destination="@id/claimRewardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.yydds.hackathonkakee.participant.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.yydds.hackathonkakee.participant.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/allHackathonFragment"
+        android:name="com.yydds.hackathonkakee.participant.AllHackathonFragment"
+        android:label="All Hackathon"
+        tools:layout="@layout/fragment_all_hackathon" />
+    <fragment
+        android:id="@+id/claimRewardFragment"
+        android:name="com.yydds.hackathonkakee.participant.ClaimRewardFragment"
+        android:label="Claim Reward"
+        tools:layout="@layout/fragment_claim_reward" />
+    <fragment
+        android:id="@+id/participatedHackathonFragment"
+        android:name="com.yydds.hackathonkakee.participant.ParticipatedHackathonFragment"
+        android:label="fragment_participated_hackathon"
+        tools:layout="@layout/fragment_participated_hackathon" />
+</navigation>

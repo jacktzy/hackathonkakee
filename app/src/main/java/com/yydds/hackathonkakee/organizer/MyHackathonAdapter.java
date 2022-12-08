@@ -42,7 +42,7 @@ public class MyHackathonAdapter extends FirestoreRecyclerAdapter<Hackathon, MyHa
         holder.shortDesc.setText(hackathon.getShortDesc());
 
         holder.itemView.setOnClickListener((v) -> {
-            Intent intent = new Intent(context, HackathonSetting.class);
+            Intent intent = new Intent(context, HackathonSettingActivity.class);
             intent.putExtra("organizerID", hackathon.getOrganizerID());
 //            intent.putExtra("hackathonID", holder.getItemId());
             String hackathonID = this.getSnapshots().getSnapshot(position).getId();
