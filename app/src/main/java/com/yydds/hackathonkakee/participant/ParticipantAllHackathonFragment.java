@@ -13,17 +13,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.yydds.hackathonkakee.R;
 import com.yydds.hackathonkakee.classes.Hackathon;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ParticipatedHackathonFragment#newInstance} factory method to
+ * Use the {@link ParticipantAllHackathonFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ParticipatedHackathonFragment extends Fragment {
+public class ParticipantAllHackathonFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -38,7 +41,7 @@ public class ParticipatedHackathonFragment extends Fragment {
     private HackathonItemAdapter hackathonItemAdapter;
     private FirebaseFirestore db;
 
-    public ParticipatedHackathonFragment() {
+    public ParticipantAllHackathonFragment() {
         // Required empty public constructor
     }
 
@@ -48,11 +51,11 @@ public class ParticipatedHackathonFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ParticipatedHackathonFragment.
+     * @return A new instance of fragment ParticipantAllHackathonFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ParticipatedHackathonFragment newInstance(String param1, String param2) {
-        ParticipatedHackathonFragment fragment = new ParticipatedHackathonFragment();
+    public static ParticipantAllHackathonFragment newInstance(String param1, String param2) {
+        ParticipantAllHackathonFragment fragment = new ParticipantAllHackathonFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -76,7 +79,7 @@ public class ParticipatedHackathonFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_participated_hackathon, container, false);
+        return inflater.inflate(R.layout.fragment_participant_all_hackathon, container, false);
     }
 
     @Override
@@ -85,12 +88,12 @@ public class ParticipatedHackathonFragment extends Fragment {
 
         RecyclerView hackathonListRV = view.findViewById(R.id.hackathonListRV);
 
-        Query query = db.collection("Hackathons").whereArrayContains("participantsID", participantID);
+        Query query = db.collection("Hackathons").orderBy("startDateTS", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Hackathon> options = new FirestoreRecyclerOptions.Builder<Hackathon>().setQuery(query, Hackathon.class).build();
         hackathonListRV.setLayoutManager(new LinearLayoutManager(getContext()));
-        hackathonItemAdapter = new HackathonItemAdapter(options, getContext(), participantID, true);
+        hackathonItemAdapter = new HackathonItemAdapter(options, getContext(), participantID, false);
         hackathonListRV.setAdapter(hackathonItemAdapter);
-
+        System.out.println(participantID);
     }
 
     @Override
@@ -110,4 +113,5 @@ public class ParticipatedHackathonFragment extends Fragment {
         super.onResume();
         hackathonItemAdapter.notifyDataSetChanged();
     }
+
 }

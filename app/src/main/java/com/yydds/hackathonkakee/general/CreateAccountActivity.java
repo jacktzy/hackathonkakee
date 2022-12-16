@@ -31,6 +31,7 @@ import com.yydds.hackathonkakee.R;
 import com.yydds.hackathonkakee.classes.Organizer;
 import com.yydds.hackathonkakee.classes.Participant;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -169,7 +170,12 @@ public class CreateAccountActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (role.equals("Participant")) {
                     DocumentReference documentReference = firebaseFirestore.collection("Participants").document(user.getUid());
-                    Participant participant = new Participant(name, email);
+                    Participant participant = null;
+                    try {
+                        participant = new Participant(name, email);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     documentReference.set(participant).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {

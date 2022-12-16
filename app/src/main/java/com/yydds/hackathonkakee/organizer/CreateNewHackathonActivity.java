@@ -388,13 +388,14 @@ public class CreateNewHackathonActivity extends AppCompatActivity {
                         @Override
                         public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
                             double progress = (100.0 * snapshot.getBytesTransferred()) / snapshot.getTotalByteCount();
-                            progressDialog.setMessage("Hackathon icon uploaded... " + (int) progress + "%");
+                            progressDialog.setMessage("Uploading hackathon icon... " + (int) progress + "%");
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Toast.makeText(CreateNewHackathonActivity.this, "Upload hackathon icon failed.", Toast.LENGTH_SHORT).show();
                             changeInProgress(false);
+                            progressDialog.dismiss();
                         }
                     });
         } else {

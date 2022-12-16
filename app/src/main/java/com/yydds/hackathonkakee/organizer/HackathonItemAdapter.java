@@ -19,11 +19,11 @@ import com.yydds.hackathonkakee.classes.Hackathon;
 
 import java.text.SimpleDateFormat;
 
-public class MyHackathonAdapter extends FirestoreRecyclerAdapter<Hackathon, MyHackathonAdapter.HackathonViewHolder> {
+public class HackathonItemAdapter extends FirestoreRecyclerAdapter<Hackathon, HackathonItemAdapter.HackathonViewHolder> {
 
     Context context;
 
-    public MyHackathonAdapter(@NonNull FirestoreRecyclerOptions<Hackathon> options, Context context) {
+    public HackathonItemAdapter(@NonNull FirestoreRecyclerOptions<Hackathon> options, Context context) {
         super(options);
         this.context = context;
     }
@@ -55,7 +55,7 @@ public class MyHackathonAdapter extends FirestoreRecyclerAdapter<Hackathon, MyHa
     @NonNull
     @Override
     public HackathonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.hackathon_list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_design_hackathon_item, parent, false);
         return new HackathonViewHolder(view);
     }
 

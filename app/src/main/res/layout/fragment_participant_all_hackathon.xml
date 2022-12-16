@@ -3,13 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".participant.AllHackathonFragment">
+    tools:context=".participant.ParticipantAllHackathonFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/hackathonListRV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="All Hackathon"
-        android:textSize="50dp"/>
+        android:layout_height="match_parent"/>
 
 </FrameLayout>
