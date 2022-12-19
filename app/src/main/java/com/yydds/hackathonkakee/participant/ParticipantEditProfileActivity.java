@@ -12,18 +12,18 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -32,6 +32,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 import com.yydds.hackathonkakee.R;
 import com.yydds.hackathonkakee.classes.Participant;
 
@@ -45,19 +46,23 @@ public class ParticipantEditProfileActivity extends AppCompatActivity {
 
     StorageReference storageReference;
     DocumentReference documentReference;
+    Participant currentParticipant;
 
-    EditText nameET, emailET, birthDateET, genderET, phoneET, insNameET, majorET, levelEduET, GPAET, interestFieldET, interestJobPosET;
-    String participantID, resumeUrl = "", picUri = "", name, gender, phoneNumber, insName, major, levelEdu, interestField, interestJobPos;;
-    Button uploadResumeBtn, saveBtn, birthDateBtn;
-    ImageButton deleteResumeBtn, deletePicBtn;
-    ImageView participantPicIV;
+    TextView titleTV, emailTV;
+    EditText nameET, phoneET, insNameET, majorET, levelEduET, CGPAET, interestFieldET, interestJobPosET;
+    String participantID, resumeUrl = "", picUri = "", name, gender = "", phoneNumber, insName, major, levelEdu, interestField, interestJobPos;;
+    MaterialButton uploadResumeBtn, saveBtn, birthDateBtn;
+    ImageView participantPicIV, deleteResumeBtn, deletePicBtn, backArrowTV;
     Intent uploadedImageIntent;
     boolean picIsLoaded;
     DatePickerDialog datePickerDialog;
-    Timestamp birthDate;
-    double GPA;
+    Timestamp birthDate = new Timestamp(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1900"));;
+    double CGPA;
     RadioGroup genderRG;
     RadioButton maleRB, femaleRB;
+
+    public ParticipantEditProfileActivity() throws ParseException {
+    }
 
 
     @Override
@@ -76,23 +81,28 @@ public class ParticipantEditProfileActivity extends AppCompatActivity {
     }
 
     private void initComponents() {
-//        nameET = findViewById(R.id.);
-//        emailET = findViewById(R.id.);
-//        birthDateET = findViewById(R.id.);
-//        genderET = findViewById(R.id.);
-//        phoneET = findViewById(R.id.);
-//        insNameET = findViewById(R.id.);
-//        majorET = .findViewById(R.id.);
-//        levelEduET = findViewById(R.id.);
-//        GPAET = findViewById(R.id.);
-//        interestFieldET = findViewById(R.id.);
-//        interestJobPosET = findViewById(R.id.);
-//        uploadResumeBtn = findViewById(R.id.name)
-//        participantPicIV = findViewById(R.id.name);
-//        saveBtn = findViewById(R.id.);
-//        genderRG = findViewById(R.id.);
-//        maleRB = findViewById(R.id.)
-//        femaleRB = findViewById(R.id.)
+        nameET = findViewById(R.id.nameET);
+        emailTV = findViewById(R.id.emailTV);
+        phoneET = findViewById(R.id.phoneNumberET);
+        insNameET = findViewById(R.id.institutionNameET);
+        majorET = findViewById(R.id.fieldMajorET);
+        levelEduET = findViewById(R.id.levelOfEducationET);
+        CGPAET = findViewById(R.id.CGPAET);
+        interestFieldET = findViewById(R.id.interestFieldET);
+        interestJobPosET = findViewById(R.id.jobPositionET);
+        uploadResumeBtn = findViewById(R.id.uploadResumeBtn);
+        deleteResumeBtn = findViewById(R.id.deleteResumeBtn);
+        deletePicBtn = findViewById(R.id.deletePicBtn);
+        participantPicIV = findViewById(R.id.profilePicIV);
+        birthDateBtn = findViewById(R.id.birthDateBtn);
+        genderRG = findViewById(R.id.genderRG);
+        saveBtn = findViewById(R.id.saveBtn);
+        maleRB = findViewById(R.id.maleRB);
+        femaleRB = findViewById(R.id.femaleRB);
+        titleTV = findViewById(R.id.pageTitleTv);
+        backArrowTV = findViewById(R.id.backArrowIv);
+
+        titleTV.setText("Edit Profile");
 
         participantPicIV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +121,8 @@ public class ParticipantEditProfileActivity extends AppCompatActivity {
                     public void onSuccess(Void unused) {
                         Toast.makeText(ParticipantEditProfileActivity.this, "Resume deleted.", Toast.LENGTH_SHORT).show();
                         resumeUrl = "";
+                        documentReference.update("resumeUrl", "");
+                        checkResumeUrl();
                     }
                 });
             }
@@ -124,6 +136,7 @@ public class ParticipantEditProfileActivity extends AppCompatActivity {
                     public void onSuccess(Void unused) {
                         Toast.makeText(ParticipantEditProfileActivity.this, "Profile picture deleted.", Toast.LENGTH_SHORT).show();
                         picUri = "";
+                        documentReference.update("profilePicUrl", "");
                         checkPicUrl();
                     }
                 });
@@ -141,51 +154,61 @@ public class ParticipantEditProfileActivity extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
+        backArrowTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void assignValue() {
-        DocumentReference df = FirebaseFirestore.getInstance().collection("participants").document(participantID);
+        DocumentReference df = FirebaseFirestore.getInstance().collection("Participants").document(participantID);
         df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Participant participant = documentSnapshot.toObject(Participant.class);
+                if (!participant.getProfilePicUrl().isEmpty()) Picasso.get().load(participant.getProfilePicUrl()).into(participantPicIV);
+
+                currentParticipant = participant;
                 nameET.setText(participant.getName());
-                emailET.setText(participant.getEmail());
-                birthDateET.setText(participant.getBirthDate().toString());
-                genderET.setText(participant.getGender());
+                emailTV.setText(participant.getEmail());
+                birthDateBtn.setText(makeDateString(participant.getBirthDate().toDate().getDate(), participant.getBirthDate().toDate().getMonth() + 1, participant.getBirthDate().toDate().getYear() + 1900));
                 phoneET.setText(participant.getPhoneNumber());
                 insNameET.setText(participant.getInstitutionName());
                 majorET.setText(participant.getFieldMajor());
                 levelEduET.setText(participant.getLevelOfEducation());
-                GPAET.setText(Double.toString(participant.getGPA()));
+                CGPAET.setText(Double.toString(participant.getCGPA()));
                 interestFieldET.setText(participant.getInterestField());
                 interestJobPosET.setText(participant.getInterestJobPos());
                 resumeUrl = participant.getResumeUrl();
                 picUri = participant.getProfilePicUrl();
 
-                birthDateBtn.setText(new SimpleDateFormat("dd/MM/yyyy").format(participant.getBirthDate().toDate()));
+//                birthDateBtn.setText(new SimpleDateFormat("dd/MM/yyyy").format(participant.getBirthDate().toDate()));
+                birthDate = participant.getBirthDate();
 
                 String genderFromDB = participant.getGender();
                 if (maleRB.getText().toString().equals(genderFromDB)) maleRB.setChecked(true);
-                else femaleRB.setChecked(true);
+                else if (femaleRB.getText().toString().equals(genderFromDB)) femaleRB.setChecked(true);
+
+                picIsLoaded = false;
+
+                checkResumeUrl();
+                checkPicUrl();
             }
         });
-        picIsLoaded = false;
-
-        checkResumeUrl();
-        checkPicUrl();
     }
 
     private void saveParticipantProfile() {
         int selectedID = genderRG.getCheckedRadioButtonId();
 
         name = nameET.getText().toString();
-        gender = ((RadioButton) findViewById(selectedID)).getText().toString();
+        gender = (maleRB.isChecked() | femaleRB.isChecked()) ?  ((RadioButton) findViewById(selectedID)).getText().toString() : "";
         phoneNumber = phoneET.getText().toString();
         insName = insNameET.getText().toString();
         major = majorET.getText().toString();
         levelEdu = levelEduET.getText().toString();
-        GPA = Double.parseDouble(GPAET.getText().toString());
+        CGPA = Double.parseDouble(CGPAET.getText().toString());
         interestField = interestFieldET.getText().toString();
         interestJobPos = interestJobPosET.getText().toString();
         if (!validateInput(name)) return;
@@ -203,7 +226,10 @@ public class ParticipantEditProfileActivity extends AppCompatActivity {
     }
 
     private void uploadPicToFirebase() {
-        if (!picIsLoaded) return;
+        if (!picIsLoaded) {
+            saveParticipantProfileToFirebase();
+            return;
+        }
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Profile picture is uploading......");
         progressDialog.show();
@@ -235,11 +261,12 @@ public class ParticipantEditProfileActivity extends AppCompatActivity {
     }
 
     private void saveParticipantProfileToFirebase() {
-        Participant updatedParticipant = new Participant(name, picUri, resumeUrl, gender, phoneNumber, insName, major, levelEdu, interestField, interestJobPos, GPA, birthDate);
-        documentReference.set(updatedParticipant).addOnSuccessListener(new OnSuccessListener<Void>() {
+        currentParticipant.updateProfile(name, picUri, resumeUrl, gender, phoneNumber, insName, major, levelEdu, interestField, interestJobPos, CGPA, birthDate);
+        documentReference.set(currentParticipant).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Toast.makeText(ParticipantEditProfileActivity.this, "Update profile successfully.", Toast.LENGTH_SHORT).show();     
+                Toast.makeText(ParticipantEditProfileActivity.this, "Update profile successfully.", Toast.LENGTH_SHORT).show();
+                finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -264,7 +291,7 @@ public class ParticipantEditProfileActivity extends AppCompatActivity {
                 }
             });
         } else {
-            uploadResumeBtn.setText("View resume");
+            uploadResumeBtn.setText("View");
             deleteResumeBtn.setVisibility(View.VISIBLE);
             uploadResumeBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -281,6 +308,7 @@ public class ParticipantEditProfileActivity extends AppCompatActivity {
     private void checkPicUrl() {
         if (picUri.isEmpty()) {
             deletePicBtn.setVisibility(View.INVISIBLE);
+            participantPicIV.setImageResource(R.drawable.default_image);
         } else {
             deletePicBtn.setVisibility(View.VISIBLE);
         }
@@ -303,6 +331,7 @@ public class ParticipantEditProfileActivity extends AppCompatActivity {
                     Uri uri = uriTask.getResult();
                     resumeUrl = uri.toString();
                     checkResumeUrl();
+                    documentReference.update("resumeUrl", resumeUrl);
                     Toast.makeText(ParticipantEditProfileActivity.this, "Resume uploaded.", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                 }

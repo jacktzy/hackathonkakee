@@ -9,7 +9,8 @@ import java.util.ArrayList;
 public class Participant {
     private String name, email, profilePicUrl, resumeUrl, gender, phoneNumber, institutionName, fieldMajor, levelOfEducation, interestField, interestJobPos;
     private ArrayList<String> participatedHackathonId;
-    private double GPA;
+    private double CGPA;
+    private int token;
     private Timestamp birthDate;
 
 
@@ -21,13 +22,14 @@ public class Participant {
         this.email = email;
         this.profilePicUrl = this.resumeUrl = this.gender = this.phoneNumber = this.institutionName = this.fieldMajor = this.levelOfEducation = this.interestField = this.interestJobPos = "";
         this.participatedHackathonId = new ArrayList<>();
-        this.GPA = 0.0;
+        this.CGPA = 0.0;
+        this.token = 0;
     }
 
     //Constructor used when updating participant profile
 
 
-    public Participant(String name, String profilePicUrl, String resumeUrl, String gender, String phoneNumber, String institutionName, String fieldMajor, String levelOfEducation, String interestField, String interestJobPos, double GPA, Timestamp birthDate) {
+    public void updateProfile(String name, String profilePicUrl, String resumeUrl, String gender, String phoneNumber, String institutionName, String fieldMajor, String levelOfEducation, String interestField, String interestJobPos, double CGPA, Timestamp birthDate) {
         this.name = name;
         this.profilePicUrl = profilePicUrl;
         this.resumeUrl = resumeUrl;
@@ -38,7 +40,7 @@ public class Participant {
         this.levelOfEducation = levelOfEducation;
         this.interestField = interestField;
         this.interestJobPos = interestJobPos;
-        this.GPA = GPA;
+        this.CGPA = CGPA;
         this.birthDate = birthDate;
     }
 
@@ -125,12 +127,12 @@ public class Participant {
         this.participatedHackathonId = participatedHackathonId;
     }
 
-    public double getGPA() {
-        return GPA;
+    public double getCGPA() {
+        return CGPA;
     }
 
-    public void setGPA(double GPA) {
-        this.GPA = GPA;
+    public void setCGPA(double CGPA) {
+        this.CGPA = CGPA;
     }
 
     public String getInterestField() {
@@ -155,5 +157,13 @@ public class Participant {
 
     public void setBirthDate(Timestamp birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public int getToken() {
+        return token;
+    }
+
+    public void setToken(int token) {
+        this.token = token;
     }
 }

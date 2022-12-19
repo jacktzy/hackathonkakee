@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_hackathon_dashboard"
+    android:label="Team"
+    app:startDestination="@id/announcementFragment">
+
+    <fragment
+        android:id="@+id/announcementFragment"
+        android:name="com.yydds.hackathonkakee.participant.hackathonDashboard.AnnouncementFragment"
+        android:label="Announcement"
+        tools:layout="@layout/fragment_announcement">
+        <action
+            android:id="@+id/action_announcementFragment_to_teamFragment2"
+            app:destination="@id/teamFragment" />
+        <action
+            android:id="@+id/action_announcementFragment_to_rankingFragment2"
+            app:destination="@id/rankingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/teamFragment"
+        android:name="com.yydds.hackathonkakee.participant.hackathonDashboard.TeamFragment"
+        android:label="fragment_team"
+        tools:layout="@layout/fragment_team" />
+    <fragment
+        android:id="@+id/rankingFragment"
+        android:name="com.yydds.hackathonkakee.participant.hackathonDashboard.RankingFragment"
+        android:label="Ranking"
+        tools:layout="@layout/fragment_ranking" />
+</navigation>

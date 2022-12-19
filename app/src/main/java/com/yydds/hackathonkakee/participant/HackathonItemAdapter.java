@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 import com.yydds.hackathonkakee.R;
 import com.yydds.hackathonkakee.classes.Hackathon;
 import com.yydds.hackathonkakee.organizer.HackathonSettingActivity;
+import com.yydds.hackathonkakee.participant.hackathonDashboard.HackathonDashboardActivity;
 
 import java.text.SimpleDateFormat;
 
@@ -48,6 +49,12 @@ public class HackathonItemAdapter extends FirestoreRecyclerAdapter<Hackathon, Ha
         if (isParticipatedHackathons) {
             holder.itemView.setOnClickListener((v) -> {
                 //TODO open participated Hackathon Activity
+                Intent intent = new Intent(context, HackathonDashboardActivity.class);
+                intent.putExtra("participantID", participantID);
+                String hackathonID = this.getSnapshots().getSnapshot(position).getId();
+                intent.putExtra("hackathonID", hackathonID);
+                intent.putExtra("hackathonName", hackathon.getName());
+                context.startActivity(intent);
             });
         } else {
             holder.itemView.setOnClickListener((v) -> {

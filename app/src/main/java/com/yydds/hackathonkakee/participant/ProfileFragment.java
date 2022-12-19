@@ -12,16 +12,22 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 import com.yydds.hackathonkakee.R;
 import com.yydds.hackathonkakee.classes.Participant;
+
+import java.text.SimpleDateFormat;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,9 +50,11 @@ public class ProfileFragment extends Fragment {
     }
 
     //testing purpose
-    Button editProfileBtn, viewResumeBtn;
+    MaterialButton viewResumeBtn;
+    FloatingActionButton editProfileBtn;
 
-    TextView nameTV, emailTV, birthDateTV, genderTV, phoneTV, insNameTV, majorTV, levelEduTV, GPATV, interestFieldTV, interestJobPosTV, noResumeAlertTV;
+    TextView nameTV, emailTV, birthDateTV, genderTV, phoneTV, insNameTV, majorTV, levelEduTV, CGPATV, interestFieldTV, interestJobPosTV, noResumeAlertTV;
+    ImageView profilePicIV;
 
     String participantID, resumeUrl;
 
@@ -99,29 +107,30 @@ public class ProfileFragment extends Fragment {
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.editProfileFragment);
+                Intent intent = new Intent(getContext(), ParticipantEditProfileActivity.class);
+                intent.putExtra("participantID", participantID);
+                startActivity(intent);
             }
         });
     }
-//    TextView nameTV, emailTV, birthDateTV, genderTV, phoneTV, insNameTV, majorTV, levelEduTV, GPATV, interestFieldTV, InterestJobPosTV;
-//    EditText nameET, emailET, birthDateET, genderET, phoneET, insNameET, majorET, levelEduET, GPAET, interestFieldET, InterestJobPosET;
 
     private void initializeComponents(View view) {
-        viewResumeBtn = view.findViewById(R.id.name);
-        editProfileBtn = view.findViewById(R.id.name);
+        viewResumeBtn = view.findViewById(R.id.viewResumeBtn);
+        editProfileBtn = view.findViewById(R.id.editProfileBtn);
 
         nameTV = view.findViewById(R.id.nameTV);
         emailTV = view.findViewById(R.id.emailTV);
         birthDateTV = view.findViewById(R.id.birthDateTV);
         genderTV = view.findViewById(R.id.genderTV);
-        phoneTV = view.findViewById(R.id.nameTV);
-        insNameTV = view.findViewById(R.id.name);
-        majorTV = view.findViewById(R.id.name);
-        levelEduTV = view.findViewById(R.id.nameTV);
-        GPATV = view.findViewById(R.id.name);
-        interestFieldTV = view.findViewById(R.id.nameTV);
-        interestJobPosTV = view.findViewById(R.id.nameTV);
-        noResumeAlertTV = view.findViewById(R.id.name);
+        phoneTV = view.findViewById(R.id.phoneNumberTV);
+        insNameTV = view.findViewById(R.id.institutionNameTV);
+        majorTV = view.findViewById(R.id.fieldMajorTV);
+        levelEduTV = view.findViewById(R.id.levelOfEducationTV);
+        CGPATV = view.findViewById(R.id.CGPATV);
+        interestFieldTV = view.findViewById(R.id.interestFieldTV);
+        interestJobPosTV = view.findViewById(R.id.jobPositionTV);
+        noResumeAlertTV = view.findViewById(R.id.noResumeAlertTV);
+        profilePicIV = view.findViewById(R.id.profilePicIV);
 
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,42 +143,51 @@ public class ProfileFragment extends Fragment {
     }
 
     private void assignValue() {
-        DocumentReference df = FirebaseFirestore.getInstance().collection("participants").document(participantID);
+        DocumentReference df = FirebaseFirestore.getInstance().collection("Participants").document(participantID);
         df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Participant participant = documentSnapshot.toObject(Participant.class);
+                if (!participant.getProfilePicUrl().isEmpty()) Picasso.get().load(participant.getProfilePicUrl()).into(profilePicIV);
+
                 nameTV.setText(participant.getName());
                 emailTV.setText(participant.getEmail());
-                birthDateTV.setText(participant.getBirthDate().toString());
+                birthDateTV.setText(new SimpleDateFormat("dd/MM/yyyy").format(participant.getBirthDate().toDate()));
                 genderTV.setText(participant.getGender());
                 phoneTV.setText(participant.getPhoneNumber());
                 insNameTV.setText(participant.getInstitutionName());
                 majorTV.setText(participant.getFieldMajor());
                 levelEduTV.setText(participant.getLevelOfEducation());
-                GPATV.setText(Double.toString(participant.getGPA()));
+                CGPATV.setText(Double.toString(participant.getCGPA()));
                 interestFieldTV.setText(participant.getInterestField());
                 interestJobPosTV.setText(participant.getInterestJobPos());
                 resumeUrl = participant.getResumeUrl();
+
+                System.out.println(resumeUrl);
+                if (resumeUrl.isEmpty()) {
+                    noResumeAlertTV.setVisibility(View.VISIBLE);
+                    viewResumeBtn.setVisibility(View.INVISIBLE);
+                } else {
+                    noResumeAlertTV.setVisibility(View.INVISIBLE);
+                    viewResumeBtn.setVisibility(View.VISIBLE);
+                    viewResumeBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setType("application/pdf");
+                            intent.setData(Uri.parse(resumeUrl));
+                            getActivity().startActivity(intent);
+                        }
+                    });
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), "Failed to load profile information", Toast.LENGTH_SHORT).show();;
+                return;
             }
         });
-
-        if (resumeUrl.isEmpty()) {
-            noResumeAlertTV.setVisibility(View.VISIBLE);
-            viewResumeBtn.setVisibility(View.INVISIBLE);
-        } else {
-            noResumeAlertTV.setVisibility(View.INVISIBLE);
-            viewResumeBtn.setVisibility(View.VISIBLE);
-            viewResumeBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setType("application/pdf");
-                    intent.setData(Uri.parse(resumeUrl));
-                    startActivity(intent);
-                }
-            });
-        }
 
     }
 }

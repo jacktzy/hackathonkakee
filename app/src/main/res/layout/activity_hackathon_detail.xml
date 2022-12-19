@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/include"
-        layout="@layout/organizer_pages_toolbar" />
+        layout="@layout/normal_page_toolbar" />
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
