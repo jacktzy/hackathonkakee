@@ -1,4 +1,4 @@
-package com.yydds.hackathonkakee.organizer;
+package com.yydds.hackathonkakee.participant;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,16 +16,21 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.squareup.picasso.Picasso;
 import com.yydds.hackathonkakee.R;
 import com.yydds.hackathonkakee.classes.Hackathon;
+import com.yydds.hackathonkakee.organizer.HackathonSettingActivity;
+import com.yydds.hackathonkakee.participant.hackathonDashboard.HackathonDashboardActivity;
 
 import java.text.SimpleDateFormat;
 
-public class MyHackathonAdapter extends FirestoreRecyclerAdapter<Hackathon, MyHackathonAdapter.HackathonViewHolder> {
-
+public class HackathonItemAdapter extends FirestoreRecyclerAdapter<Hackathon, HackathonItemAdapter.HackathonViewHolder> {
     Context context;
+    String participantID;
+    boolean isParticipatedHackathons;
 
-    public MyHackathonAdapter(@NonNull FirestoreRecyclerOptions<Hackathon> options, Context context) {
+    public HackathonItemAdapter(@NonNull FirestoreRecyclerOptions<Hackathon> options, Context context, String participantID, boolean isParticipatedHackathons) {
         super(options);
         this.context = context;
+        this.participantID = participantID;
+        this.isParticipatedHackathons = isParticipatedHackathons;
     }
 
     @Override
@@ -38,24 +43,35 @@ public class MyHackathonAdapter extends FirestoreRecyclerAdapter<Hackathon, MyHa
         holder.hackathonTitle.setText(hackathon.getName());
         holder.date.setText(period);
         holder.mode.setText(hackathon.getMode());
-        holder.venue.setText(hackathon.getVenue());
+        holder.venue.setText(hackathon.getMode().equals("Online") ? "-" : hackathon.getVenue());
         holder.shortDesc.setText(hackathon.getShortDesc());
 
-        holder.itemView.setOnClickListener((v) -> {
-            Intent intent = new Intent(context, HackathonSettingActivity.class);
-            intent.putExtra("organizerID", hackathon.getOrganizerID());
-//            intent.putExtra("hackathonID", holder.getItemId());
-            String hackathonID = this.getSnapshots().getSnapshot(position).getId();
-            intent.putExtra("hackathonID", hackathonID);
-            intent.putExtra("hackathonName", hackathon.getName());
-            context.startActivity(intent);
-        });
+        if (isParticipatedHackathons) {
+            holder.itemView.setOnClickListener((v) -> {
+                //TODO open participated Hackathon Activity
+                Intent intent = new Intent(context, HackathonDashboardActivity.class);
+                intent.putExtra("participantID", participantID);
+                String hackathonID = this.getSnapshots().getSnapshot(position).getId();
+                intent.putExtra("hackathonID", hackathonID);
+                intent.putExtra("hackathonName", hackathon.getName());
+                context.startActivity(intent);
+            });
+        } else {
+            holder.itemView.setOnClickListener((v) -> {
+                Intent intent = new Intent(context, HackathonDetailActivity.class);
+                intent.putExtra("participantID", participantID);
+                String hackathonID = this.getSnapshots().getSnapshot(position).getId();
+                intent.putExtra("hackathonID", hackathonID);
+                intent.putExtra("hackathonName", hackathon.getName());
+                context.startActivity(intent);
+            });
+        }
     }
 
     @NonNull
     @Override
     public HackathonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.hackathon_list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_design_hackathon_item, parent, false);
         return new HackathonViewHolder(view);
     }
 

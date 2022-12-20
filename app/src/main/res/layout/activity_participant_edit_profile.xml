@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".participant.ProfileFragment">
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/normal_page_toolbar" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -16,12 +22,22 @@
             android:padding="25dp">
 
             <ImageView
+                android:id="@+id/profilePicIV"
                 android:layout_width="125dp"
                 android:layout_height="125dp"
-                android:src="@drawable/default_image"
                 android:layout_centerHorizontal="true"
                 android:layout_marginVertical="15dp"
-                android:id="@+id/profilePicIV"/>
+                android:src="@drawable/default_image" />
+
+            <ImageView
+                android:id="@+id/deletePicBtn"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:visibility="invisible"
+                android:src="@drawable/ic_baseline_delete_24"
+                android:layout_toEndOf="@+id/profilePicIV"
+                android:layout_marginTop="55dp"/>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/personalDetails"
@@ -53,8 +69,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:text="Personal Details"
-                            android:textColor="@color/white"
-                            android:textStyle="bold" />
+                            android:textColor="@color/white" />
 
                     </RelativeLayout>
 
@@ -74,7 +89,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="25dp"
                         android:text="Email"
                         android:textColor="@color/primary"
                         app:layout_constraintStart_toStartOf="parent"
@@ -85,7 +100,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="25dp"
                         android:text="Date of Birth"
                         android:textColor="@color/primary"
                         app:layout_constraintStart_toStartOf="parent"
@@ -96,7 +111,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="25dp"
                         android:text="Gender"
                         android:textColor="@color/primary"
                         app:layout_constraintStart_toStartOf="parent"
@@ -107,20 +122,22 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="25dp"
                         android:text="Phone Number"
                         android:textColor="@color/primary"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/gender" />
 
-                    <TextView
-                        android:id="@+id/nameTV"
-                        android:layout_width="wrap_content"
+                    <EditText
+                        android:id="@+id/nameET"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="150dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
                         android:text="Name"
                         android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
@@ -129,44 +146,65 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="150dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Email"
+                        android:inputType="none"
+                        android:text=" "
                         android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/email"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/nameTV" />
+                        app:layout_constraintTop_toTopOf="@+id/email" />
 
-                    <TextView
-                        android:id="@+id/birthDateTV"
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/birthDateBtn"
+                        android:layout_width="130dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="150dp"
+                        android:backgroundTint="@color/white"
+                        android:elevation="10dp"
+                        android:text="01 JAN 1900"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"
+                        app:cornerRadius="10dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/birthDate"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/birthDate" />
+
+                    <RadioGroup
+                        android:id="@+id/genderRG"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="150dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Date of Birth"
-                        android:textColor="@color/black"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="@+id/gender"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/emailTV" />
+                        app:layout_constraintTop_toTopOf="@+id/gender">
 
-                    <TextView
-                        android:id="@+id/genderTV"
-                        android:layout_width="wrap_content"
+                        <RadioButton
+                            android:id="@+id/maleRB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Male" />
+
+                        <RadioButton
+                            android:id="@+id/femaleRB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Female" />
+
+                    </RadioGroup>
+
+                    <EditText
+                        android:id="@+id/phoneNumberET"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="150dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Gender"
-                        android:textColor="@color/black"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/birthDateTV" />
-
-                    <TextView
-                        android:id="@+id/phoneNumberTV"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="150dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
                         android:text="Phone Number"
                         android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/genderTV" />
+                        app:layout_constraintTop_toBottomOf="@+id/genderRG" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -202,8 +240,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:text="Education Details"
-                            android:textColor="@color/white"
-                            android:textStyle="bold" />
+                            android:textColor="@color/white" />
 
                     </RelativeLayout>
 
@@ -223,7 +260,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="20dp"
                         android:text="Field Major"
                         android:textColor="@color/primary"
                         app:layout_constraintStart_toStartOf="parent"
@@ -234,7 +271,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="20dp"
                         android:text="Level of Education"
                         android:textColor="@color/primary"
                         app:layout_constraintStart_toStartOf="parent"
@@ -245,55 +282,61 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="20dp"
                         android:text="CGPA"
                         android:textColor="@color/primary"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/levelOfEducation" />
 
-                    <TextView
-                        android:id="@+id/institutionNameTV"
-                        android:layout_width="wrap_content"
+                    <EditText
+                        android:id="@+id/institutionNameET"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="150dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Institution Name"
+                        android:layout_marginEnd="20dp"
+                        android:text=" "
                         android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="@+id/relativeLayout1"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/relativeLayout1" />
 
-                    <TextView
-                        android:id="@+id/fieldMajorTV"
-                        android:layout_width="wrap_content"
+                    <EditText
+                        android:id="@+id/fieldMajorET"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="150dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Field Major"
+                        android:layout_marginEnd="20dp"
+                        android:text=" "
                         android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/institutionNameTV" />
+                        app:layout_constraintTop_toBottomOf="@+id/institutionNameET" />
 
-                    <TextView
-                        android:id="@+id/levelOfEducationTV"
-                        android:layout_width="wrap_content"
+                    <EditText
+                        android:id="@+id/levelOfEducationET"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="150dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Level of Education"
+                        android:layout_marginEnd="20dp"
+                        android:text=" "
                         android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/fieldMajorTV" />
+                        app:layout_constraintTop_toBottomOf="@+id/fieldMajorET" />
 
-                    <TextView
-                        android:id="@+id/CGPATV"
-                        android:layout_width="wrap_content"
+                    <EditText
+                        android:id="@+id/CGPAET"
+                        android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="150dp"
-                        android:layout_marginTop="10dp"
-                        android:text="CGPA"
+                        android:text=" "
                         android:textColor="@color/black"
+                        android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/levelOfEducationTV" />
+                        app:layout_constraintTop_toBottomOf="@+id/levelOfEducationET" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -331,8 +374,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:text="Job Preferences"
-                            android:textColor="@color/white"
-                            android:textStyle="bold" />
+                            android:textColor="@color/white" />
 
                     </RelativeLayout>
 
@@ -352,7 +394,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="20dp"
                         android:text="Job Position"
                         android:textColor="@color/primary"
                         app:layout_constraintStart_toStartOf="parent"
@@ -363,57 +405,62 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="30dp"
                         android:text="Resume"
                         android:textColor="@color/primary"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/jobPosition" />
 
-                    <TextView
-                        android:id="@+id/interestFieldTV"
-                        android:layout_width="wrap_content"
+                    <EditText
+                        android:id="@+id/interestFieldET"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="150dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Interest Field"
+                        android:layout_marginEnd="20dp"
+                        android:text=" "
                         android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="@+id/relativeLayout2"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
 
-                    <TextView
-                        android:id="@+id/jobPositionTV"
-                        android:layout_width="wrap_content"
+                    <EditText
+                        android:id="@+id/jobPositionET"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="150dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Job Position"
+                        android:layout_marginEnd="20dp"
+                        android:text=" "
                         android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/interestFieldTV" />
+                        app:layout_constraintTop_toBottomOf="@+id/interestFieldET" />
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/viewResumeBtn"
+                        android:id="@+id/uploadResumeBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="150dp"
                         android:layout_marginTop="10dp"
-                        android:text="View resume"
+                        android:text="Upload"
                         android:textAllCaps="false"
-                        android:visibility="invisible"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/jobPositionTV"/>
-
-                    <TextView
-                        android:id="@+id/noResumeAlertTV"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="No uploaded resume"
-                        android:textColor="#FF0000"
-                        android:layout_marginStart="150dp"
-                        android:layout_marginTop="10dp"
                         android:visibility="visible"
+                        app:cornerRadius="15dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/jobPositionTV" />
+                        app:layout_constraintTop_toBottomOf="@+id/jobPositionET"/>
+
+
+                    <ImageView
+                        android:id="@+id/deleteResumeBtn"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:visibility="invisible"
+                        android:src="@drawable/ic_baseline_delete_24"
+                        android:layout_marginStart="10dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/uploadResumeBtn"
+                        app:layout_constraintStart_toEndOf="@+id/uploadResumeBtn"
+                        app:layout_constraintTop_toTopOf="@+id/uploadResumeBtn" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -421,23 +468,19 @@
 
             </com.google.android.material.card.MaterialCardView>
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/saveBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:textAllCaps="false"
+                app:cornerRadius="15dp"
+                android:layout_below="@+id/jobPreferences"
+                android:layout_centerHorizontal="true"/>
 
         </RelativeLayout>
 
+
     </ScrollView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editProfileBtn"
-        android:src="@drawable/ic_baseline_edit_24"
-        android:elevation="10dp"
-        app:backgroundTint="@color/primary"
-        android:backgroundTint="@color/white"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="15dp"/>
-
-</RelativeLayout>
-
+</LinearLayout>

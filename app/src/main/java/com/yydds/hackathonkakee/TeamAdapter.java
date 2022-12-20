@@ -35,11 +35,11 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.no.setText("No: " + list.get(position).getNo());
+        holder.no.setText("No: " + list.get(position).getRanking());
         holder.teamName.setText("Team Name: " + list.get(position).getTeamName());
         String temp = "";
-        for(int i = 0; i<list.get(position).getTeamMember().length; i++) {
-            temp += (i+1) + ". " + list.get(position).getTeamMember()[i] + "\n";
+        for(int i = 0; i<list.get(position).getParticipantsID().length; i++) {
+            temp += (i+1) + ". " + list.get(position).getParticipantsID()[i] + "\n";
         }
         holder.teamMember.setText(temp);
 

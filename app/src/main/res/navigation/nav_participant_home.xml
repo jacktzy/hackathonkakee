@@ -27,11 +27,11 @@
         android:label="Hackathon"
         tools:layout="@layout/fragment_hackathon" >
         <action
-            android:id="@+id/action_hackathonFragment_to_allHackathonFragment"
-            app:destination="@id/allHackathonFragment" />
-        <action
             android:id="@+id/action_hackathonFragment_to_participatedHackathonFragment"
             app:destination="@id/participatedHackathonFragment" />
+        <action
+            android:id="@+id/action_hackathonFragment_to_participantAllHackathonFragment"
+            app:destination="@id/participantAllHackathonFragment" />
     </fragment>
     <fragment
         android:id="@+id/hallOfFameFragment"
@@ -57,11 +57,6 @@
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
     <fragment
-        android:id="@+id/allHackathonFragment"
-        android:name="com.yydds.hackathonkakee.participant.AllHackathonFragment"
-        android:label="All Hackathon"
-        tools:layout="@layout/fragment_all_hackathon" />
-    <fragment
         android:id="@+id/claimRewardFragment"
         android:name="com.yydds.hackathonkakee.participant.ClaimRewardFragment"
         android:label="Claim Reward"
@@ -69,6 +64,11 @@
     <fragment
         android:id="@+id/participatedHackathonFragment"
         android:name="com.yydds.hackathonkakee.participant.ParticipatedHackathonFragment"
-        android:label="fragment_participated_hackathon"
+        android:label="My Participated Hackathon"
         tools:layout="@layout/fragment_participated_hackathon" />
+    <fragment
+        android:id="@+id/participantAllHackathonFragment"
+        android:name="com.yydds.hackathonkakee.participant.ParticipantAllHackathonFragment"
+        android:label="All Hackathon"
+        tools:layout="@layout/fragment_participant_all_hackathon" />
 </navigation>

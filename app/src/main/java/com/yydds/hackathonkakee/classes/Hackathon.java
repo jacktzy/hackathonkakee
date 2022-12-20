@@ -135,4 +135,6 @@ public class Hackathon {
     public void setEndDateTS(Timestamp endDateTS) {
         this.endDateTS = endDateTS;
     }
+
+
 }

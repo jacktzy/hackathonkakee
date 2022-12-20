@@ -1,5 +1,6 @@
 package com.yydds.hackathonkakee.organizer;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,8 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.yydds.hackathonkakee.R;
 import com.yydds.hackathonkakee.classes.Hackathon;
 
@@ -19,13 +23,13 @@ public class OrganizerMyHackathonPageActivity extends AppCompatActivity {
     TextView pageTitleTv;
     String organizerID;
     RecyclerView recyclerView;
-    MyHackathonAdapter hackathonAdapter;
+    HackathonItemAdapter hackathonAdapter;
     ImageView backArrowIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_organizer_my_hackathon);
+        setContentView(R.layout.organizer_my_hackathon_page_activity);
         organizerID = getIntent().getStringExtra("organizerID");
 
         initializeComponents();
@@ -50,7 +54,7 @@ public class OrganizerMyHackathonPageActivity extends AppCompatActivity {
         Query query = FirebaseFirestore.getInstance().collection("Hackathons").whereEqualTo("organizerID", organizerID);
         FirestoreRecyclerOptions<Hackathon> options = new FirestoreRecyclerOptions.Builder<Hackathon>().setQuery(query, Hackathon.class).build();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        hackathonAdapter = new MyHackathonAdapter(options, this);
+        hackathonAdapter = new HackathonItemAdapter(options, this);
         recyclerView.setAdapter(hackathonAdapter);
     }
 

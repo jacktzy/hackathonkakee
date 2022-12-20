@@ -15,6 +15,29 @@
         android:theme="@style/Theme.HackathonKakee"
         tools:targetApi="31">
         <activity
+            android:name=".participant.hackathonDashboard.HackathonDashboardActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".participant.ParticipantEditProfileActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".participant.HackathonDetailActivity"
+            android:exported="false"
+            android:label="@string/title_activity_hackathon_detail"
+            android:theme="@style/Theme.HackathonKakee.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".organizer.OrganizerMyHackathonPageActivity"
             android:exported="false">
             <meta-data
@@ -94,7 +117,7 @@
             android:parentActivityName=".organizer.HackathonSettingActivity" />
         <activity
             android:name=".organizer.HackathonSettingActivity"
-            android:exported="false"/>
+            android:exported="false" />
     </application>
 
 </manifest>

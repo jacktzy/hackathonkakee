@@ -1,5 +1,7 @@
 package com.yydds.hackathonkakee.participant;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,9 +12,22 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 import com.yydds.hackathonkakee.R;
+import com.yydds.hackathonkakee.classes.Participant;
+
+import java.text.SimpleDateFormat;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,7 +50,13 @@ public class ProfileFragment extends Fragment {
     }
 
     //testing purpose
-    Button editProfileBtn;
+    MaterialButton viewResumeBtn;
+    FloatingActionButton editProfileBtn;
+
+    TextView nameTV, emailTV, birthDateTV, genderTV, phoneTV, insNameTV, majorTV, levelEduTV, CGPATV, interestFieldTV, interestJobPosTV, noResumeAlertTV;
+    ImageView profilePicIV;
+
+    String participantID, resumeUrl;
 
     /**
      * Use this factory method to create a new instance of
@@ -62,6 +83,8 @@ public class ProfileFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        //get intent extra
+        participantID = getActivity().getIntent().getStringExtra("participantID");
     }
 
     @Override
@@ -74,12 +97,97 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        editProfileBtn = view.findViewById(R.id.editProfileBtn);
+        initializeComponents(view);
+        assignValue();
+
+
+
+
+//        editProfileBtn = view.findViewById(R.id.editProfileBtn);
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.editProfileFragment);
+                Intent intent = new Intent(getContext(), ParticipantEditProfileActivity.class);
+                intent.putExtra("participantID", participantID);
+                startActivity(intent);
             }
         });
+    }
+
+    private void initializeComponents(View view) {
+        viewResumeBtn = view.findViewById(R.id.viewResumeBtn);
+        editProfileBtn = view.findViewById(R.id.editProfileBtn);
+
+        nameTV = view.findViewById(R.id.nameTV);
+        emailTV = view.findViewById(R.id.emailTV);
+        birthDateTV = view.findViewById(R.id.birthDateTV);
+        genderTV = view.findViewById(R.id.genderTV);
+        phoneTV = view.findViewById(R.id.phoneNumberTV);
+        insNameTV = view.findViewById(R.id.institutionNameTV);
+        majorTV = view.findViewById(R.id.fieldMajorTV);
+        levelEduTV = view.findViewById(R.id.levelOfEducationTV);
+        CGPATV = view.findViewById(R.id.CGPATV);
+        interestFieldTV = view.findViewById(R.id.interestFieldTV);
+        interestJobPosTV = view.findViewById(R.id.jobPositionTV);
+        noResumeAlertTV = view.findViewById(R.id.noResumeAlertTV);
+        profilePicIV = view.findViewById(R.id.profilePicIV);
+
+        editProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ParticipantEditProfileActivity.class);
+                intent.putExtra("participantID", participantID);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void assignValue() {
+        DocumentReference df = FirebaseFirestore.getInstance().collection("Participants").document(participantID);
+        df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Participant participant = documentSnapshot.toObject(Participant.class);
+                if (!participant.getProfilePicUrl().isEmpty()) Picasso.get().load(participant.getProfilePicUrl()).into(profilePicIV);
+
+                nameTV.setText(participant.getName());
+                emailTV.setText(participant.getEmail());
+                birthDateTV.setText(new SimpleDateFormat("dd/MM/yyyy").format(participant.getBirthDate().toDate()));
+                genderTV.setText(participant.getGender());
+                phoneTV.setText(participant.getPhoneNumber());
+                insNameTV.setText(participant.getInstitutionName());
+                majorTV.setText(participant.getFieldMajor());
+                levelEduTV.setText(participant.getLevelOfEducation());
+                CGPATV.setText(Double.toString(participant.getCGPA()));
+                interestFieldTV.setText(participant.getInterestField());
+                interestJobPosTV.setText(participant.getInterestJobPos());
+                resumeUrl = participant.getResumeUrl();
+
+                System.out.println(resumeUrl);
+                if (resumeUrl.isEmpty()) {
+                    noResumeAlertTV.setVisibility(View.VISIBLE);
+                    viewResumeBtn.setVisibility(View.INVISIBLE);
+                } else {
+                    noResumeAlertTV.setVisibility(View.INVISIBLE);
+                    viewResumeBtn.setVisibility(View.VISIBLE);
+                    viewResumeBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setType("application/pdf");
+                            intent.setData(Uri.parse(resumeUrl));
+                            getActivity().startActivity(intent);
+                        }
+                    });
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), "Failed to load profile information", Toast.LENGTH_SHORT).show();;
+                return;
+            }
+        });
+
     }
 }

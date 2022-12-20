@@ -8,7 +8,7 @@
     tools:context=".organizer.ManageAnnouncementActivity">
     <include
         android:id="@+id/include"
-        layout="@layout/organizer_pages_toolbar" />
+        layout="@layout/normal_page_toolbar" />
 
     <Button
         android:id="@+id/createAnnouncementBtn"
