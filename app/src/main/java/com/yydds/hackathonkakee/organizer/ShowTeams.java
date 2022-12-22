@@ -42,11 +42,6 @@ public class ShowTeams extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerview);
         list = new ArrayList<>();
 
-        list.add(new Team(1, "Wong", new String[]{"Wong" , "Jacky"}));
-        list.add(new Team(2, "Tan", new String[]{"Wong" , "Jacky"}));
-        list.add(new Team(3, "Jacky", new String[]{"Wong" , "Jacky"}));
-        list.add(new Team(4, "Yang", new String[]{"Wong" , "Jacky"}));
-
         adapter = new TeamAdapter(this, list, new TeamAdapter.ItemClickListener() {
             @Override
             public void onItemClick(Team details) {

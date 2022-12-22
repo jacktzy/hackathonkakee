@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/blueBG"
     tools:context=".participant.hackathonDashboard.AnnouncementFragment">
 
     <TextView
@@ -20,7 +21,6 @@
         android:id="@+id/announcementListRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="10dp"/>
+        />
 
 </LinearLayout>

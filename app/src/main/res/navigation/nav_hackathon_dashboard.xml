@@ -21,11 +21,20 @@
     <fragment
         android:id="@+id/teamFragment"
         android:name="com.yydds.hackathonkakee.participant.hackathonDashboard.TeamFragment"
-        android:label="fragment_team"
-        tools:layout="@layout/fragment_team" />
+        android:label="Team"
+        tools:layout="@layout/fragment_team">
+        <action
+            android:id="@+id/action_teamFragment_to_myTeamFragment"
+            app:destination="@id/myTeamFragment" />
+    </fragment>
     <fragment
         android:id="@+id/rankingFragment"
         android:name="com.yydds.hackathonkakee.participant.hackathonDashboard.RankingFragment"
         android:label="Ranking"
         tools:layout="@layout/fragment_ranking" />
+    <fragment
+        android:id="@+id/myTeamFragment"
+        android:name="com.yydds.hackathonkakee.participant.hackathonDashboard.MyTeamFragment"
+        android:label="My Team"
+        tools:layout="@layout/fragment_my_team" />
 </navigation>

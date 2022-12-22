@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Participant {
     private String name, email, profilePicUrl, resumeUrl, gender, phoneNumber, institutionName, fieldMajor, levelOfEducation, interestField, interestJobPos;
-    private ArrayList<String> participatedHackathonId;
+    private ArrayList<String> participatedHackathonId, joinedTeamID;
     private double CGPA;
     private int token;
     private Timestamp birthDate;
@@ -22,6 +22,7 @@ public class Participant {
         this.email = email;
         this.profilePicUrl = this.resumeUrl = this.gender = this.phoneNumber = this.institutionName = this.fieldMajor = this.levelOfEducation = this.interestField = this.interestJobPos = "";
         this.participatedHackathonId = new ArrayList<>();
+        this.joinedTeamID = new ArrayList<>();
         this.CGPA = 0.0;
         this.token = 0;
     }
@@ -165,5 +166,13 @@ public class Participant {
 
     public void setToken(int token) {
         this.token = token;
+    }
+
+    public ArrayList<String> getJoinedTeamID() {
+        return joinedTeamID;
+    }
+
+    public void setJoinedTeamID(ArrayList<String> joinedTeamID) {
+        this.joinedTeamID = joinedTeamID;
     }
 }

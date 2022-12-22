@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blueBG">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/normal_page_toolbar" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/primary"
+        app:cardCornerRadius="15dp"
+        android:layout_below="@+id/include"
+        android:layout_margin="16dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Let's create new team!"
+                android:textColor="@color/primary"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:id="@+id/createTeamTV"
+                android:layout_marginBottom="5dp"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/teamNameTIL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:hint="Team Name"
+                app:errorIconDrawable="@drawable/ic_baseline_error_24"
+                app:startIconDrawable="@drawable/ic_baseline_groups_24"
+                android:layout_below="@+id/createTeamTV"
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusBottomEnd="10dp"
+                android:layout_marginVertical="5dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:id="@+id/teamNameTIET" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/teamDescTIL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:hint="Team Description"
+                app:errorIconDrawable="@drawable/ic_baseline_error_24"
+                app:startIconDrawable="@drawable/ic_baseline_info_24"
+                android:layout_below="@+id/teamNameTIL"
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusBottomEnd="10dp"
+                android:layout_marginVertical="5dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:minLines="3"
+                    android:id="@+id/teamDescTIET" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/contactMethodTIL"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:hint="Method"
+                android:layout_below="@id/teamDescTIL"
+                android:layout_marginVertical="5dp"
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusBottomEnd="10dp">
+
+                <AutoCompleteTextView
+                    android:textSize="15dp"
+                    android:id="@+id/methodACTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/contactTIL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:hint="Leader Contact"
+                app:errorIconDrawable="@drawable/ic_baseline_error_24"
+                android:layout_below="@+id/teamDescTIL"
+                android:layout_toRightOf="@+id/contactMethodTIL"
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusBottomEnd="10dp"
+                android:layout_marginVertical="5dp"
+                android:layout_marginStart="5dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:id="@+id/contactTIET" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="Team Visibility"
+                android:textSize="14dp"
+                android:gravity="center"
+                android:layout_below="@+id/contactMethodTIL"
+                android:id="@+id/teamVisibilityTV"
+                android:layout_marginVertical="5dp"
+                android:layout_marginEnd="10dp"/>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/teamVisibilityRG"
+                android:orientation="horizontal"
+                android:layout_below="@+id/contactMethodTIL"
+                android:layout_toRightOf="@id/teamVisibilityTV"
+                android:layout_marginVertical="5dp">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/publicRB"
+                    android:text="Public"
+                    android:layout_marginHorizontal="5dp"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/privateRB"
+                    android:text="Private"
+                    android:layout_marginHorizontal="5dp"/>
+
+            </RadioGroup>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:id="@id/saveBtn"
+                app:cornerRadius="15dp"
+                android:textAllCaps="false"
+                android:layout_below="@id/teamVisibilityTV"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"/>
+
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</RelativeLayout>

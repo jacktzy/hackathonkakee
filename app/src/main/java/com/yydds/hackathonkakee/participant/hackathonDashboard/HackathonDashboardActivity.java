@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.yydds.hackathonkakee.R;
+import com.yydds.hackathonkakee.classes.Hackathon;
 
 public class HackathonDashboardActivity extends AppCompatActivity {
     Toolbar toolbar;

@@ -23,6 +23,7 @@
         android:id="@+id/hackathonDashboardBottomNavbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:itemRippleColor="@color/blueBG"
         app:menu="@menu/menu_hackathon_dashboard_navbar" />
 
 </LinearLayout>

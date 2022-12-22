@@ -364,7 +364,7 @@ public class CreateNewHackathonActivity extends AppCompatActivity {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Hackathon icon is uploading......");
             progressDialog.show();
-            newHackathonID = Utility.generateID();
+            newHackathonID = Utility.generateHackathonID();
 
             StorageReference reference;
             if (hackathonID != null && !hackathonID.isEmpty()) {

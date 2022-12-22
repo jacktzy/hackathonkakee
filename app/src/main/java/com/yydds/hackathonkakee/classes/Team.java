@@ -1,14 +1,25 @@
 package com.yydds.hackathonkakee.classes;
 
+import java.util.ArrayList;
+
 public class Team {
     private int ranking;
     private String teamName, hackathonID, leaderID, teamDescription, teamVisibility, leaderContact;
-    private String[] participantsID;
+    private ArrayList<String> membersName;
 
-    public Team(int no, String teamName, String[] teamMember) {
-        this.ranking = no;
+    //constructor for create new team
+    public Team(String teamName, String hackathonID, String leaderID, String teamDescription, String teamVisibility, String leaderContact, ArrayList<String> membersName) {
         this.teamName = teamName;
-        this.participantsID = teamMember;
+        this.hackathonID = hackathonID;
+        this.leaderID = leaderID;
+        this.teamDescription = teamDescription;
+        this.teamVisibility = teamVisibility;
+        this.leaderContact = leaderContact;
+        this.membersName = membersName;
+        this.ranking = 0;
+    }
+
+    public Team() {
     }
 
     public int getRanking() {
@@ -19,20 +30,12 @@ public class Team {
         return teamName;
     }
 
-    public String[] getParticipantsID() {
-        return participantsID;
-    }
-
     public void setRanking(int ranking) {
         this.ranking = ranking;
     }
 
     public void setTeamName(String teamName) {
         this.teamName = teamName;
-    }
-
-    public void setParticipantsID(String[] participantsID) {
-        this.participantsID = participantsID;
     }
 
     public String getHackathonID() {
@@ -73,5 +76,13 @@ public class Team {
 
     public void setLeaderContact(String leaderContact) {
         this.leaderContact = leaderContact;
+    }
+
+    public ArrayList<String> getMembersName() {
+        return membersName;
+    }
+
+    public void setMembersName(ArrayList<String> membersName) {
+        this.membersName = membersName;
     }
 }

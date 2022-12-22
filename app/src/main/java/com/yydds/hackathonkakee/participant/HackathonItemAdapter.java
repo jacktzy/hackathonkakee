@@ -48,7 +48,6 @@ public class HackathonItemAdapter extends FirestoreRecyclerAdapter<Hackathon, Ha
 
         if (isParticipatedHackathons) {
             holder.itemView.setOnClickListener((v) -> {
-                //TODO open participated Hackathon Activity
                 Intent intent = new Intent(context, HackathonDashboardActivity.class);
                 intent.putExtra("participantID", participantID);
                 String hackathonID = this.getSnapshots().getSnapshot(position).getId();
