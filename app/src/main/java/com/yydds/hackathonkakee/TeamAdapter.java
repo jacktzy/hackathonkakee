@@ -38,9 +38,6 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder>{
         holder.no.setText("No: " + list.get(position).getRanking());
         holder.teamName.setText("Team Name: " + list.get(position).getTeamName());
         String temp = "";
-        for(int i = 0; i<list.get(position).getParticipantsID().length; i++) {
-            temp += (i+1) + ". " + list.get(position).getParticipantsID()[i] + "\n";
-        }
         holder.teamMember.setText(temp);
 
         holder.delete.setOnClickListener(new View.OnClickListener() {

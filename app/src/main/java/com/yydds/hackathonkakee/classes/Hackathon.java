@@ -9,10 +9,9 @@ import java.util.LinkedList;
 public class Hackathon {
     private String name, shortDesc, longDesc, mode, iconUri, venue, organizerID;
     private int prizePool, maxTeamMembers;
-    private ArrayList<String> participantsID, teamsID;
+    private ArrayList<String> participantsID, teamsID, participantsWithTeam;
     private Timestamp startDateTS, endDateTS;
 
-    //TODO finalize constructor (now only testing stage)
     public Hackathon(String name, String shortDesc, String longDesc, String mode, String venue, String organizerID, String iconUri, Timestamp startDateTS, Timestamp endDateTS, int prizePool, int maxTeamMembers) {
         this.name = name;
         this.shortDesc = shortDesc;
@@ -23,6 +22,7 @@ public class Hackathon {
         this.maxTeamMembers = maxTeamMembers;
         this.participantsID = new ArrayList<>();
         this.teamsID = new ArrayList<>();
+        this.participantsWithTeam = new ArrayList<>();
         this.iconUri = iconUri;
         this.organizerID = organizerID;
         this.startDateTS = startDateTS;
@@ -136,5 +136,11 @@ public class Hackathon {
         this.endDateTS = endDateTS;
     }
 
+    public ArrayList<String> getParticipantsWithTeam() {
+        return participantsWithTeam;
+    }
 
+    public void setParticipantsWithTeam(ArrayList<String> participantsWithTeam) {
+        this.participantsWithTeam = participantsWithTeam;
+    }
 }

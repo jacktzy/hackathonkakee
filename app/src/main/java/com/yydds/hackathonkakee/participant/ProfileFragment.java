@@ -163,7 +163,6 @@ public class ProfileFragment extends Fragment {
                 interestJobPosTV.setText(participant.getInterestJobPos());
                 resumeUrl = participant.getResumeUrl();
 
-                System.out.println(resumeUrl);
                 if (resumeUrl.isEmpty()) {
                     noResumeAlertTV.setVisibility(View.VISIBLE);
                     viewResumeBtn.setVisibility(View.INVISIBLE);
@@ -189,5 +188,11 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        assignValue();
     }
 }

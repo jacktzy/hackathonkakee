@@ -28,6 +28,7 @@
         android:id="@+id/participantHomeBottomNavbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:menu="@menu/menu_participant_home_navbar" />
+        app:menu="@menu/menu_participant_home_navbar"
+        app:itemRippleColor="@color/blueBG"/>
 
 </LinearLayout>

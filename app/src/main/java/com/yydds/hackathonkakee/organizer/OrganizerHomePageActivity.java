@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.yydds.hackathonkakee.R;
 import com.yydds.hackathonkakee.general.LoginActivity;
@@ -15,7 +16,7 @@ import com.yydds.hackathonkakee.general.LoginActivity;
 public class OrganizerHomePageActivity extends AppCompatActivity {
 
     ImageView logoutIV;
-    Button createHackathonBtn, myHackathonBtn;
+    MaterialButton createHackathonBtn, myHackathonBtn;
     String organizerID;
 
     @Override

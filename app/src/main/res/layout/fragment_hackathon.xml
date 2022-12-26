@@ -9,7 +9,8 @@
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/blueBG">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/allHackathonCV"
@@ -19,7 +20,7 @@
             android:layout_marginTop="40dp"
             app:cardCornerRadius="10dp"
             app:strokeColor="@color/primary"
-            app:strokeWidth="2dp"
+            app:strokeWidth="1dp"
             app:cardElevation="15dp">
 
             <RelativeLayout
@@ -58,7 +59,7 @@
             android:layout_marginTop="40dp"
             app:cardCornerRadius="10dp"
             app:strokeColor="@color/primary"
-            app:strokeWidth="2dp"
+            app:strokeWidth="1dp"
             app:cardElevation="10dp"
             android:layout_below="@id/allHackathonCV">
 

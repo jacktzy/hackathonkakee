@@ -14,7 +14,7 @@
         android:id="@+id/createAnnouncementBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
+        android:layout_marginHorizontal="70dp"
         android:layout_marginVertical="5dp"
         android:backgroundTint="#004BC0"
         android:text="Create Announcement"
@@ -23,7 +23,6 @@
         android:layout_below="@+id/include"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginHorizontal="32dp"
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

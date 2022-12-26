@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".participant.ProfileFragment">
+    tools:context=".participant.ProfileFragment"
+    android:background="@color/blueBG">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -12,13 +13,12 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="25dp">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:layout_width="125dp"
                 android:layout_height="125dp"
-                android:src="@drawable/default_image"
+                android:src="@drawable/ic_baseline_person_24"
                 android:layout_centerHorizontal="true"
                 android:layout_marginVertical="15dp"
                 android:id="@+id/profilePicIV"/>
@@ -29,9 +29,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/profilePicIV"
                 android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="25dp"
                 app:cardCornerRadius="15dp"
                 app:strokeColor="@color/primary"
-                app:strokeWidth="1dp">
+                app:strokeWidth="2dp"
+                app:cardElevation="10dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -177,10 +179,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/personalDetails"
                 android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="25dp"
+                app:cardElevation="10dp"
                 android:id="@+id/educationDetails"
                 app:cardCornerRadius="15dp"
                 app:strokeColor="@color/primary"
-                app:strokeWidth="1dp">
+                app:strokeWidth="2dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -306,10 +310,13 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/educationDetails"
                 android:id="@+id/jobPreferences"
-                android:layout_marginVertical="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="40dp"
+                android:layout_marginHorizontal="25dp"
+                app:cardElevation="10dp"
                 app:cardCornerRadius="15dp"
                 app:strokeColor="@color/primary"
-                app:strokeWidth="1dp">
+                app:strokeWidth="2dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -398,8 +405,13 @@
                         android:layout_marginStart="150dp"
                         android:layout_marginTop="10dp"
                         android:text="View resume"
+                        app:cornerRadius="15dp"
+                        app:strokeWidth="1dp"
+                        app:strokeColor="@color/primary"
+                        android:textColor="@color/primary"
                         android:textAllCaps="false"
                         android:visibility="invisible"
+                        android:backgroundTint="@color/white"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/jobPositionTV"/>
 
@@ -431,7 +443,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/editProfileBtn"
         android:src="@drawable/ic_baseline_edit_24"
-        android:elevation="10dp"
+        app:elevation="10dp"
         app:backgroundTint="@color/primary"
         android:backgroundTint="@color/white"
         android:layout_alignParentEnd="true"

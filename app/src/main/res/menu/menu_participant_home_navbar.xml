@@ -12,7 +12,7 @@
 
     <item
         android:id="@+id/hallOfFameFragment"
-        android:title="Ranking"
+        android:title="Hall of Fame"
         android:icon="@drawable/ic_baseline_bar_chart_24"/>
 
     <item

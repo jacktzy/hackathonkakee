@@ -63,6 +63,8 @@ public class ParticipantHomePageActivity extends AppCompatActivity {
 
     private void setupBottomNavMenu(NavController navController) {
         BottomNavigationView bottomNavigationView = findViewById(R.id.participantHomeBottomNavbar);
-        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+        NavigationUI.setupWithNavController(bottomNavigationView, navController, false);
     }
+
+
 }

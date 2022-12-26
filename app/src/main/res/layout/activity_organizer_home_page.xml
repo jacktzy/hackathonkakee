@@ -23,7 +23,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include"
         app:strokeColor="@color/primary"
-        app:strokeWidth="2dp"
+        app:strokeWidth="1dp"
         app:cardElevation="15dp">
 
         <RelativeLayout
@@ -37,15 +37,16 @@
                 android:src="@drawable/create_hackathon"
                 android:layout_centerHorizontal="true"/>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:layout_width="250dp"
-                android:layout_height="40dp"
-                android:background="@drawable/button_rounded_corner"
-                android:text="Create hackathon"
+                android:layout_height="wrap_content"
+                android:text="Create Hackathon"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="10dp"
-                android:id="@+id/createHackathonBtn"/>
+                android:id="@+id/createHackathonBtn"
+                android:textAllCaps="false"
+                app:cornerRadius="15dp"/>
 
 
         </RelativeLayout>
@@ -63,7 +64,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/materialCardView"
         app:strokeColor="@color/primary"
-        app:strokeWidth="2dp"
+        app:strokeWidth="1dp"
         app:cardElevation="10dp">
 
         <RelativeLayout
@@ -77,15 +78,16 @@
                 android:src="@drawable/my_hackathon"
                 android:layout_centerHorizontal="true"/>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:layout_width="250dp"
-                android:layout_height="40dp"
-                android:background="@drawable/button_rounded_corner"
+                android:layout_height="wrap_content"
                 android:text="My Hackathon"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="10dp"
-                android:id="@+id/myHackathonBtn"/>
+                android:id="@+id/myHackathonBtn"
+                android:textAllCaps="false"
+                app:cornerRadius="15dp"/>
 
         </RelativeLayout>
 
