@@ -96,17 +96,17 @@ public class TeamFragment extends Fragment {
         findTeamBtn = view.findViewById(R.id.findTeamBtn);
         createTeamBtn = view.findViewById(R.id.createTeamBtn);
 
-        getActivity().findViewById(R.id.backArrowIv).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO
-                try {
-                    Navigation.findNavController(getActivity(), R.id.hackathonDashboardFragmentContainer).navigateUp();
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
-            }
-        });
+//        getActivity().findViewById(R.id.backArrowIv).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //TODO
+//                try {
+//                    Navigation.findNavController(getActivity(), R.id.hackathonDashboardFragmentContainer).navigateUp();
+//                } catch (Exception e) {
+//                    System.out.println(e);
+//                }
+//            }
+//        });
         myTeamBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,7 +116,7 @@ public class TeamFragment extends Fragment {
         findTeamBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO navigate to find team
+                Navigation.findNavController(view).navigate(R.id.findTeamFragment);
             }
         });
         createTeamBtn.setOnClickListener(new View.OnClickListener() {

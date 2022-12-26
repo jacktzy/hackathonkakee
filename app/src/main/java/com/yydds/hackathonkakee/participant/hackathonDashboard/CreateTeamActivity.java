@@ -28,11 +28,12 @@ import com.yydds.hackathonkakee.classes.Participant;
 import com.yydds.hackathonkakee.classes.Team;
 import com.yydds.hackathonkakee.general.Utility;
 
+import java.sql.Array;
 import java.util.ArrayList;
 
 public class CreateTeamActivity extends AppCompatActivity {
 
-    final String[] TEAM_VISIBILITY = {"Whatsapp", "Facebook", "Discord", "Instagram", "Email", "Phone"};
+    final String[] CONTACT_METHOD = {"Whatsapp", "Facebook", "Discord", "Instagram", "Email", "Phone"};
     String participantID, hackathonID, hackathonName, teamID = "", participantName;
     String teamName, teamDesc, leaderContact, leaderContactMethod = "", teamVisibility = "", teamDocumentPath;
 
@@ -88,7 +89,7 @@ public class CreateTeamActivity extends AppCompatActivity {
         methodACTV = findViewById(R.id.methodACTV);
         createTeamTV = findViewById(R.id.createTeamTV);
 
-        adapterItems = new ArrayAdapter<String>(this, R.layout.login_role_list_view, TEAM_VISIBILITY);
+        adapterItems = new ArrayAdapter<String>(this, R.layout.login_role_list_view, CONTACT_METHOD);
         methodACTV.setAdapter(adapterItems);
         methodACTV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -119,6 +120,7 @@ public class CreateTeamActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     currentTeam = documentSnapshot.toObject(Team.class);
+                    assignValueFromDB();
                 }
             });
             saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -185,7 +187,9 @@ public class CreateTeamActivity extends AppCompatActivity {
             teamDocumentPath = Utility.generateTeamID();
             ArrayList<String> newMembersName = new ArrayList<>();
             newMembersName.add(participantName);
-            teamToBeSaved = new Team(teamName, hackathonID, participantID, teamDesc, teamVisibility, leaderContactMethod + " " + leaderContact, newMembersName);
+            ArrayList<String> newMembersID = new ArrayList<>();
+            newMembersID.add(participantID);
+            teamToBeSaved = new Team(teamName, hackathonID, teamDesc, teamVisibility, leaderContactMethod + " " + leaderContact, newMembersName, newMembersID);
         } else if (operation.equals("update")){
             teamDocumentPath = teamID;
             currentTeam.setTeamName(teamName);
@@ -226,4 +230,18 @@ public class CreateTeamActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void assignValueFromDB() {
+        teamNameTIET.setText(currentTeam.getTeamName());
+        teamDescTIET.setText(currentTeam.getTeamDescription());
+        String contactString = currentTeam.getLeaderContact();
+        String contactMethod = contactString.substring(0, contactString.indexOf(" "));
+        String contact = contactString.substring(contactString.indexOf(" ") + 1);
+        leaderContactMethod = contactMethod;
+        methodACTV.setText(contactMethod, false);
+        contactTIET.setText(contact);
+        if (currentTeam.getTeamVisibility().equals(publicRB.getText())) publicRB.setChecked(true);
+        else if (currentTeam.getTeamVisibility().equals(privateRB.getText())) privateRB.setChecked(true);
+    }
+
 }

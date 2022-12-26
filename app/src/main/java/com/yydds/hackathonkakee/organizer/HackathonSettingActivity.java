@@ -8,13 +8,23 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.button.MaterialButton;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 import com.yydds.hackathonkakee.R;
+import com.yydds.hackathonkakee.classes.Hackathon;
+
+import java.text.SimpleDateFormat;
 
 public class HackathonSettingActivity extends AppCompatActivity {
-    private TextView editDetails, showParticipants, showTeams, announcement, manageNews;
-    ImageView backArrowIv;
+    private MaterialButton editDetailsBtn, showParticipantsBtn, showTeamsBtn, announcementBtn, newsBtn, deleteBtn;
+    ImageView backArrowIv, hackathonIcon;
     TextView pageTitleTv;
     String organizerID, hackathonID, hackathonName;
+    TextView hackathonTitle, date, mode, venue, shortDesc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,19 +41,26 @@ public class HackathonSettingActivity extends AppCompatActivity {
         pageTitleTv = findViewById(R.id.pageTitleTv);
         pageTitleTv.setText(hackathonName);
         backArrowIv = findViewById(R.id.backArrowIv);
+        editDetailsBtn = findViewById(R.id.editDetailsBtn);
+        showParticipantsBtn = findViewById(R.id.showParticipantsBtn);
+        showTeamsBtn = findViewById(R.id.showTeamsBtn);
+        announcementBtn = findViewById(R.id.announcementBtn);
+        newsBtn = findViewById(R.id.newsBtn);
+        deleteBtn = findViewById(R.id.deleteBtn);
+        hackathonTitle = findViewById(R.id.hackathonTitle);
+        date = findViewById(R.id.date);
+        mode = findViewById(R.id.mode);
+        venue = findViewById(R.id.venue);
+        shortDesc = findViewById(R.id.shortDesc);
+        hackathonIcon = findViewById(R.id.hackathonIcon);
+
         backArrowIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-
-        editDetails = (TextView) findViewById(R.id.button5);
-        showParticipants = (TextView) findViewById(R.id.button);
-        showTeams = (TextView) findViewById(R.id.button2);
-        announcement = (TextView) findViewById(R.id.button3);
-
-        editDetails.setOnClickListener(new View.OnClickListener() {
+        editDetailsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HackathonSettingActivity.this, CreateNewHackathonActivity.class);
@@ -52,24 +69,21 @@ public class HackathonSettingActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        showParticipants.setOnClickListener(new View.OnClickListener() {
+        showParticipantsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HackathonSettingActivity.this, ShowParticipants.class);
                 startActivity(intent);
             }
         });
-
-        showTeams.setOnClickListener(new View.OnClickListener() {
+        showTeamsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HackathonSettingActivity.this, ShowTeams.class);
                 startActivity(intent);
             }
         });
-
-        announcement.setOnClickListener(new View.OnClickListener() {
+        announcementBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HackathonSettingActivity.this, ManageAnnouncementActivity.class);
@@ -77,6 +91,38 @@ public class HackathonSettingActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        newsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO manage news
+            }
+        });
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO delete hackathons
+            }
+        });
+
+
+        DocumentReference documentReference = FirebaseFirestore.getInstance().collection("Hackathons").document(hackathonID);
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Hackathon hackathon = documentSnapshot.toObject(Hackathon.class);
+                String startDate = new SimpleDateFormat("dd/MM/yyyy").format(hackathon.getStartDateTS().toDate());
+                String endDate = new SimpleDateFormat("dd/MM/yyyy").format(hackathon.getEndDateTS().toDate());
+                String period = startDate + " - " + endDate;
+
+                Picasso.get().load(hackathon.getIconUri()).into(hackathonIcon);
+                hackathonTitle.setText(hackathon.getName());
+                date.setText(period);
+                mode.setText(hackathon.getMode());
+                venue.setText(hackathon.getVenue());
+                shortDesc.setText(hackathon.getShortDesc());
+            }
+        });
+
     }
 
 //    @Override

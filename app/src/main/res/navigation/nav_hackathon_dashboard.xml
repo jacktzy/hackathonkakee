@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_teamFragment_to_myTeamFragment"
             app:destination="@id/myTeamFragment" />
+        <action
+            android:id="@+id/action_teamFragment_to_findTeamFragment"
+            app:destination="@id/findTeamFragment" />
     </fragment>
     <fragment
         android:id="@+id/rankingFragment"
@@ -37,4 +40,8 @@
         android:name="com.yydds.hackathonkakee.participant.hackathonDashboard.MyTeamFragment"
         android:label="My Team"
         tools:layout="@layout/fragment_my_team" />
+    <fragment
+        android:id="@+id/findTeamFragment"
+        android:name="com.yydds.hackathonkakee.participant.hackathonDashboard.FindTeamFragment"
+        android:label="Find Team" />
 </navigation>

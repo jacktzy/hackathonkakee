@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,6 +37,8 @@ public class HackathonItemAdapter extends FirestoreRecyclerAdapter<Hackathon, Ha
 
     @Override
     protected void onBindViewHolder(@NonNull HackathonViewHolder holder, int position, @NonNull Hackathon hackathon) {
+        Animation animation = AnimationUtils.loadAnimation(holder.itemView.getContext(), android.R.anim.slide_in_left);
+
         String startDate = new SimpleDateFormat("dd/MM/yyyy").format(hackathon.getStartDateTS().toDate());
         String endDate = new SimpleDateFormat("dd/MM/yyyy").format(hackathon.getEndDateTS().toDate());
         String period = startDate + " - " + endDate;
@@ -65,6 +69,8 @@ public class HackathonItemAdapter extends FirestoreRecyclerAdapter<Hackathon, Ha
                 context.startActivity(intent);
             });
         }
+
+        holder.itemView.startAnimation(animation);
     }
 
     @NonNull

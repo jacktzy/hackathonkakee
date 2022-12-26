@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blueBG">
+
+    <TextView
+        android:id="@+id/findTeamTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Find Team"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="20dp"
+        android:textColor="@color/primary"
+        android:textStyle="bold"
+        android:textSize="26sp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/teamCodeTIL"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:hint="Team Code"
+        android:layout_below="@id/findTeamTV"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:errorIconDrawable="@drawable/ic_baseline_error_24"
+        app:startIconDrawable="@drawable/ic_baseline_search_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/teamCodeTIET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/joinTeamBtn"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/teamCodeTIL"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/primary"
+        android:padding="12dp"
+        android:text="Join team using code"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:visibility="visible"
+        app:cornerRadius="36dp" />
+
+    <!--    <ProgressBar-->
+    <!--        android:id="@+id/createTeamLoadPB"-->
+    <!--        android:layout_width="24dp"-->
+    <!--        android:layout_height="24dp"-->
+    <!--        android:layout_below="@id/teamcodeinput"-->
+    <!--        android:layout_centerHorizontal="true"-->
+    <!--        android:layout_marginTop="30dp"-->
+    <!--        android:indeterminateTint="@color/primary"-->
+    <!--        android:visibility="invisible" />-->
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/teamListCV"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/joinTeamBtn"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginHorizontal="10dp"
+        app:cardBackgroundColor="@color/primary"
+        app:cardCornerRadius="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/teamName"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Team"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/leaderName"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Leader"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:layout_toLeftOf="@+id/teamName"/>
+
+            <TextView
+                android:id="@+id/leaderContact"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Contact Info"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/teamListRV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/teamListCV"
+        android:scrollbars="vertical"
+        android:background="@color/blueBG"/>
+
+</RelativeLayout>

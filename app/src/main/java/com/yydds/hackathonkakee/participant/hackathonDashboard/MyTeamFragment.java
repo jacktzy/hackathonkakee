@@ -1,11 +1,15 @@
 package com.yydds.hackathonkakee.participant.hackathonDashboard;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +19,7 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -22,6 +27,7 @@ import com.yydds.hackathonkakee.R;
 import com.yydds.hackathonkakee.classes.Hackathon;
 import com.yydds.hackathonkakee.classes.Participant;
 import com.yydds.hackathonkakee.classes.Team;
+import com.yydds.hackathonkakee.general.Utility;
 
 import org.checkerframework.checker.units.qual.A;
 
@@ -49,6 +55,8 @@ public class MyTeamFragment extends Fragment {
     TextView teamNameTV, teamDescTV, visibilityTV, rankingTV, leaderNameTV, leaderContactTV, maxNumTeamMembersTV, currNumTeamMembersTV, membersTV;
     ConstraintLayout teamDetailCL, teamNotFoundCL;
     MaterialButton createTeamBtn, findTeamBtn;
+    FloatingActionButton editTeamBtn, quitTeamBtn;
+    RecyclerView membersRV;
 
     public MyTeamFragment() {
         // Required empty public constructor
@@ -113,11 +121,19 @@ public class MyTeamFragment extends Fragment {
         teamNotFoundCL = view.findViewById(R.id.teamNotFoundCL);
         createTeamBtn = view.findViewById(R.id.createTeamBtn);
         findTeamBtn = view.findViewById(R.id.findTeamBtn);
+        editTeamBtn = view.findViewById(R.id.editTeamBtn);
+        quitTeamBtn = view.findViewById(R.id.quitTeamBtn);
+        membersRV = view.findViewById(R.id.membersRV);
 
         createTeamBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO create team Btn
+                Intent intent = new Intent(getContext(), CreateTeamActivity.class);
+                intent.putExtra("participantID", participantID);
+                intent.putExtra("hackathonID", hackathonID);
+                intent.putExtra("hackathonName", hackathonName);
+                startActivity(intent);
+                Navigation.findNavController(view).navigate(R.id.teamFragment);
             }
         });
         findTeamBtn.setOnClickListener(new View.OnClickListener() {
@@ -126,8 +142,25 @@ public class MyTeamFragment extends Fragment {
                 //TODO find team Btn
             }
         });
+        editTeamBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), CreateTeamActivity.class);
+                intent.putExtra("participantID", participantID);
+                intent.putExtra("hackathonID", hackathonID);
+                intent.putExtra("hackathonName", hackathonName);
+                intent.putExtra("teamID", teamID);
+                startActivity(intent);
+            }
+        });
+        quitTeamBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Utility.deleteAMemberFromTeam(participantID, teamID, hackathonID);
+                Navigation.findNavController(getActivity(), R.id.hackathonDashboardFragmentContainer).navigateUp();
+            }
+        });
 
-        System.out.println(participantID);
         DocumentReference participantDocumentReference = FirebaseFirestore.getInstance().collection("Participants").document(participantID);
         participantDocumentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -167,6 +200,8 @@ public class MyTeamFragment extends Fragment {
                 if (!hasTeam()) {
                     teamDetailCL.setVisibility(View.GONE);
                     teamNotFoundCL.setVisibility(View.VISIBLE);
+                    editTeamBtn.setVisibility(View.GONE);
+                    quitTeamBtn.setVisibility(View.GONE);
                     return;
                 }
                 teamDetailCL.setVisibility(View.VISIBLE);
@@ -191,12 +226,37 @@ public class MyTeamFragment extends Fragment {
                 leaderContactTV.setText(team.getLeaderContact());
                 maxNumTeamMembersTV.setText(Integer.toString(teamMembersMaxNum));
                 currNumTeamMembersTV.setText(Integer.toString(team.getMembersName().size()));
-                String membersString = "";
-                for (String member : team.getMembersName()) {
-                    membersString += member + "\n";
+                if (participantID.equals(team.getMembersID().get(0))) {
+                    editTeamBtn.setVisibility(View.VISIBLE);
+                    membersTV.setVisibility(View.INVISIBLE);
+                    membersRV.setVisibility(View.VISIBLE);
+                    MyTeamMemberItem adapter = new MyTeamMemberItem(getContext(), team.getMembersName(), team.getMembersID(), hackathonID, teamID, participantID);
+                    membersRV.setHasFixedSize(true);
+                    membersRV.setLayoutManager(new LinearLayoutManager(getContext()));
+                    membersRV.setAdapter(adapter);
+                } else {
+                    editTeamBtn.setVisibility(View.GONE);
+                    membersTV.setVisibility(View.VISIBLE);
+                    membersRV.setVisibility(View.INVISIBLE);
+                    String membersString = "";
+                    for (String member : team.getMembersName()) {
+                        membersString += member + "\n";
+                    }
+                    membersTV.setText(membersString);
                 }
-                membersTV.setText(membersString);
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (teamID != null && !teamID.isEmpty()){
+            assignValueToField();
+        }
+    }
+
+    public void refreshValue() {
+        assignValueToField();
     }
 }
