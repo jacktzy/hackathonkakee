@@ -1,6 +1,7 @@
 package com.yydds.hackathonkakee;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,70 +11,77 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.yydds.hackathonkakee.classes.Team;
+import com.yydds.hackathonkakee.organizer.TeamDetailActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder>{
-    private Context context;
-    private ArrayList<Team> list;
-    private ItemClickListener mItemListener;
+public class TeamAdapter extends FirestoreRecyclerAdapter<Team, TeamAdapter.TeamViewHolder> {
+    Context context;
+    String hackathonID;
 
-
-    public TeamAdapter(Context context, ArrayList<Team> list, ItemClickListener itemClickListener) {
+    /**
+     * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
+     * FirestoreRecyclerOptions} for configuration options.
+     *
+     * @param options
+     */
+    public TeamAdapter(@NonNull FirestoreRecyclerOptions<Team> options, Context context, String hackathonID) {
+        super(options);
         this.context = context;
-        this.list = list;
-        this.mItemListener = itemClickListener;
+        this.hackathonID = hackathonID;
+    }
+
+    @Override
+    protected void onBindViewHolder(@NonNull TeamViewHolder holder, int position, @NonNull Team team) {
+        String teamID = this.getSnapshots().getSnapshot(position).getId();
+        HashMap<String, Object> teamMap = new HashMap<>();
+        teamMap.put("hackathonID", team.getHackathonID());
+        teamMap.put("leaderContact", team.getLeaderContact());
+        teamMap.put("membersID", team.getMembersID());
+        teamMap.put("membersName", team.getMembersName());
+        teamMap.put("ranking", team.getRanking());
+        teamMap.put("teamDescription", team.getTeamDescription());
+        teamMap.put("teamName", team.getTeamName());
+        teamMap.put("teamVisibility", team.getTeamVisibility());
+
+
+        holder.noTV.setText(Integer.toString(position + 1));
+        holder.teamIDTV.setText(teamID);
+        holder.teamNameTV.setText(team.getTeamName());
+        holder.teamRankingTV.setText(team.getRanking() > 0 ? "#" + Integer.toString(team.getRanking()) : "-");
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, TeamDetailActivity.class);
+                intent.putExtra("teamID", teamID);
+                intent.putExtra("teamDetails", teamMap);
+                intent.putExtra("hackathonID", hackathonID);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.recycler_design_organizer_show_teams,parent,false);
-        return new ViewHolder(view);
+    public TeamViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_design_organizer_show_teams, parent, false);
+        return new TeamViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.no.setText("No: " + list.get(position).getRanking());
-        holder.teamName.setText("Team Name: " + list.get(position).getTeamName());
-        String temp = "";
-        holder.teamMember.setText(temp);
+    class TeamViewHolder extends RecyclerView.ViewHolder {
+        TextView noTV, teamIDTV, teamNameTV, teamRankingTV;
 
-        holder.delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                list.remove(holder.getAdapterPosition());
-                notifyItemRemoved(holder.getAdapterPosition());
-            }
-        });
-
-        holder.editranking.setOnClickListener(view -> {
-            mItemListener.onItemClick(list.get(position));
-        });
-    }
-
-    @Override
-    public int getItemCount() {
-        return list.size();
-    }
-
-    public interface ItemClickListener {
-        void onItemClick(Team details);
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView no, teamName, teamMember;
-        ImageView editranking, delete;
-        public ViewHolder(@NonNull View itemView) {
+        public TeamViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            no = itemView.findViewById(R.id.no);
-            teamName = itemView.findViewById(R.id.teamName);
-            teamMember = itemView.findViewById(R.id.teamMember);
-            editranking = itemView.findViewById(R.id.editRanking);
-            delete = itemView.findViewById(R.id.delete);
+            noTV = itemView.findViewById(R.id.noTV);
+            teamIDTV = itemView.findViewById(R.id.teamIDTV);
+            teamNameTV = itemView.findViewById(R.id.teamNameTV);
+            teamRankingTV = itemView.findViewById(R.id.teamRankingTV);
         }
     }
-
 }

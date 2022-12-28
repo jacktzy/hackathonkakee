@@ -30,62 +30,154 @@
                 android:layout_marginVertical="10dp"
                 android:id="@+id/hackathonIconIv"/>
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/hackathonNameTIL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:padding="12dp"
-                android:layout_below="@+id/hackathonIconIv"
-                android:background="@drawable/login_et_frame"
-                android:layout_marginVertical="10dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:hint="Hackathon Name"
-                android:id="@+id/hackathonNameEt"/>
+                app:errorIconDrawable="@drawable/ic_baseline_error_24"
+                app:startIconDrawable="@drawable/ic_baseline_abc_24"
+                android:layout_below="@+id/hackathonIconIv"
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusBottomEnd="10dp"
+                android:layout_marginVertical="5dp">
 
-            <EditText
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:id="@+id/hackathonNameTIET" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/venueTIL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:padding="12dp"
-                android:layout_below="@+id/hackathonNameEt"
-                android:background="@drawable/login_et_frame"
-                android:layout_marginVertical="10dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:hint="Venue"
-                android:id="@+id/hackathonVenueEt"/>
+                app:errorIconDrawable="@drawable/ic_baseline_error_24"
+                app:startIconDrawable="@drawable/ic_baseline_location_on_24"
+                android:layout_below="@+id/hackathonNameTIL"
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusBottomEnd="10dp"
+                android:layout_marginVertical="5dp">
 
-            <EditText
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:id="@+id/venueTIET" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/prizePoolTIL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:padding="12dp"
-                android:layout_below="@+id/hackathonVenueEt"
-                android:background="@drawable/login_et_frame"
-                android:layout_marginVertical="10dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:hint="Prize Pool"
-                android:id="@+id/prizePoolEt"/>
+                app:errorIconDrawable="@drawable/ic_baseline_error_24"
+                app:startIconDrawable="@drawable/ic_baseline_attach_money_24"
+                android:layout_below="@+id/venueTIL"
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusBottomEnd="10dp"
+                android:layout_marginVertical="5dp">
 
-            <EditText
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:id="@+id/prizePoolTIET" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/maxTeamMembersTIL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:padding="12dp"
-                android:layout_below="@+id/prizePoolEt"
-                android:background="@drawable/login_et_frame"
-                android:layout_marginVertical="10dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:hint="Maximum Team Members"
-                android:id="@+id/maxTeamMembersEt"/>
+                app:errorIconDrawable="@drawable/ic_baseline_error_24"
+                app:startIconDrawable="@drawable/ic_baseline_groups_24"
+                android:layout_below="@+id/prizePoolTIL"
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusBottomEnd="10dp"
+                android:layout_marginVertical="5dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:id="@+id/maxTeamMembersTIET" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+<!--            <EditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textSize="16sp"-->
+<!--                android:padding="12dp"-->
+<!--                android:layout_below="@+id/hackathonIconIv"-->
+<!--                android:background="@drawable/login_et_frame"-->
+<!--                android:layout_marginVertical="10dp"-->
+<!--                android:hint="Hackathon Name"-->
+<!--                android:id="@+id/hackathonNameEt"/>-->
+
+<!--            <EditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textSize="16sp"-->
+<!--                android:padding="12dp"-->
+<!--                android:layout_below="@+id/hackathonNameEt"-->
+<!--                android:background="@drawable/login_et_frame"-->
+<!--                android:layout_marginVertical="10dp"-->
+<!--                android:hint="Venue"-->
+<!--                android:id="@+id/hackathonVenueEt"/>-->
+
+<!--            <EditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textSize="16sp"-->
+<!--                android:padding="12dp"-->
+<!--                android:layout_below="@+id/hackathonVenueEt"-->
+<!--                android:background="@drawable/login_et_frame"-->
+<!--                android:layout_marginVertical="10dp"-->
+<!--                android:hint="Prize Pool"-->
+<!--                android:id="@+id/prizePoolEt"/>-->
+
+<!--            <EditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textSize="16sp"-->
+<!--                android:padding="12dp"-->
+<!--                android:layout_below="@+id/prizePoolEt"-->
+<!--                android:background="@drawable/login_et_frame"-->
+<!--                android:layout_marginVertical="10dp"-->
+<!--                android:hint="Maximum Team Members"-->
+<!--                android:id="@+id/maxTeamMembersEt"/>-->
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Select mode"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_below="@id/maxTeamMembersEt"
+                android:layout_below="@id/maxTeamMembersTIL"
                 app:boxCornerRadiusBottomEnd="10dp"
                 app:boxCornerRadiusBottomStart="10dp"
                 app:boxCornerRadiusTopEnd="10dp"
                 app:boxCornerRadiusTopStart="10dp"
                 android:outlineSpotShadowColor="@color/primary"
-                android:id="@+id/mode_DD"
+                android:id="@+id/modeTIL"
                 app:placeholderTextColor="@color/primary"
                 android:layout_marginVertical="10dp">
 
@@ -102,7 +194,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/dateGroup"
-                android:layout_below="@id/mode_DD"
+                android:layout_below="@id/modeTIL"
                 android:layout_marginVertical="10dp">
 
                 <com.google.android.material.button.MaterialButton
@@ -156,38 +248,86 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/shortDescTIL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:padding="12sp"
-                android:layout_below="@+id/dateGroup"
-                android:background="@drawable/login_et_frame"
-                android:layout_marginVertical="10dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:hint="Short Description"
-                android:id="@+id/shortDescEt"
-                android:minLines="5"
-                android:gravity="top"/>
+                app:errorIconDrawable="@drawable/ic_baseline_error_24"
+                app:startIconDrawable="@drawable/ic_baseline_info_24"
+                android:layout_below="@+id/dateGroup"
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusBottomEnd="10dp"
+                android:layout_marginVertical="5dp">
 
-            <EditText
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:minLines="5"
+                    android:id="@+id/shortDescTIET" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/longDescTIL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:padding="12sp"
-                android:layout_below="@+id/shortDescEt"
-                android:background="@drawable/login_et_frame"
-                android:layout_marginVertical="10dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:hint="Long Description"
-                android:id="@+id/longDescEt"
-                android:minLines="15"
-                android:gravity="top"/>
+                app:errorIconDrawable="@drawable/ic_baseline_error_24"
+                app:startIconDrawable="@drawable/ic_baseline_description_24"
+                android:layout_below="@+id/shortDescTIL"
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusBottomEnd="10dp"
+                android:layout_marginVertical="5dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:minLines="15"
+                    android:id="@+id/longDescTIET" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+<!--            <EditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textSize="16sp"-->
+<!--                android:padding="12sp"-->
+<!--                android:layout_below="@+id/dateGroup"-->
+<!--                android:background="@drawable/login_et_frame"-->
+<!--                android:layout_marginVertical="10dp"-->
+<!--                android:hint="Short Description"-->
+<!--                android:id="@+id/shortDescEt"-->
+<!--                android:minLines="5"-->
+<!--                android:gravity="top"/>-->
+
+<!--            <EditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textSize="16sp"-->
+<!--                android:padding="12sp"-->
+<!--                android:layout_below="@+id/shortDescEt"-->
+<!--                android:background="@drawable/login_et_frame"-->
+<!--                android:layout_marginVertical="10dp"-->
+<!--                android:hint="Long Description"-->
+<!--                android:id="@+id/longDescEt"-->
+<!--                android:minLines="15"-->
+<!--                android:gravity="top"/>-->
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Create Hackathon"
                 android:id="@+id/createHackathonBtn"
-                android:layout_below="@id/longDescEt"
+                android:layout_below="@id/longDescTIL"
                 app:cornerRadius="20dp"
                 android:visibility="visible"/>
 
@@ -195,7 +335,7 @@
                 android:id="@+id/createHackathonLoadPB"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_below="@id/longDescEt"
+                android:layout_below="@id/longDescTIL"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
                 android:indeterminateTint="@color/primary"

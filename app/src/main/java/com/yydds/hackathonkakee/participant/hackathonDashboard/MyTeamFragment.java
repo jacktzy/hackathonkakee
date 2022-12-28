@@ -29,8 +29,6 @@ import com.yydds.hackathonkakee.classes.Participant;
 import com.yydds.hackathonkakee.classes.Team;
 import com.yydds.hackathonkakee.general.Utility;
 
-import org.checkerframework.checker.units.qual.A;
-
 import java.util.ArrayList;
 
 /**
@@ -52,7 +50,7 @@ public class MyTeamFragment extends Fragment {
     String hackathonID, participantID, hackathonName, teamID, participantName;
     int teamMembersMaxNum;
     ArrayList<String> participantJoinedTeamID, hackathonTeamsID;
-    TextView teamNameTV, teamDescTV, visibilityTV, rankingTV, leaderNameTV, leaderContactTV, maxNumTeamMembersTV, currNumTeamMembersTV, membersTV;
+    TextView teamNameTV, teamDescTV, visibilityTV, rankingTV, leaderNameTV, leaderContactTV, maxNumTeamMembersTV, currNumTeamMembersTV, membersTV, teamIDTV;
     ConstraintLayout teamDetailCL, teamNotFoundCL;
     MaterialButton createTeamBtn, findTeamBtn;
     FloatingActionButton editTeamBtn, quitTeamBtn;
@@ -124,6 +122,7 @@ public class MyTeamFragment extends Fragment {
         editTeamBtn = view.findViewById(R.id.editTeamBtn);
         quitTeamBtn = view.findViewById(R.id.quitTeamBtn);
         membersRV = view.findViewById(R.id.membersRV);
+        teamIDTV = view.findViewById(R.id.teamIDTV);
 
         createTeamBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,6 +225,7 @@ public class MyTeamFragment extends Fragment {
                 leaderContactTV.setText(team.getLeaderContact());
                 maxNumTeamMembersTV.setText(Integer.toString(teamMembersMaxNum));
                 currNumTeamMembersTV.setText(Integer.toString(team.getMembersName().size()));
+                teamIDTV.setText(documentSnapshot.getId());
                 if (participantID.equals(team.getMembersID().get(0))) {
                     editTeamBtn.setVisibility(View.VISIBLE);
                     membersTV.setVisibility(View.INVISIBLE);

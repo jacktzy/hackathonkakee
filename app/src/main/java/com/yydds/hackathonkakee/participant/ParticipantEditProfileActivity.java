@@ -93,7 +93,7 @@ public class ParticipantEditProfileActivity extends AppCompatActivity {
         uploadResumeBtn = findViewById(R.id.uploadResumeBtn);
         deleteResumeBtn = findViewById(R.id.deleteResumeBtn);
         deletePicBtn = findViewById(R.id.deletePicBtn);
-        participantPicIV = findViewById(R.id.profilePicIV);
+        participantPicIV = findViewById(R.id.profilePictureIV);
         birthDateBtn = findViewById(R.id.birthDateBtn);
         genderRG = findViewById(R.id.genderRG);
         saveBtn = findViewById(R.id.saveBtn);

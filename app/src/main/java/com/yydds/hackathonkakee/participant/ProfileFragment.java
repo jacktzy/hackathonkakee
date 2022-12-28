@@ -7,7 +7,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -130,7 +129,7 @@ public class ProfileFragment extends Fragment {
         interestFieldTV = view.findViewById(R.id.interestFieldTV);
         interestJobPosTV = view.findViewById(R.id.jobPositionTV);
         noResumeAlertTV = view.findViewById(R.id.noResumeAlertTV);
-        profilePicIV = view.findViewById(R.id.profilePicIV);
+        profilePicIV = view.findViewById(R.id.profilePictureIV);
 
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override

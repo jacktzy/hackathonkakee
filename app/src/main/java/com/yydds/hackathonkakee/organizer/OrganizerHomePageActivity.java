@@ -9,14 +9,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.yydds.hackathonkakee.R;
 import com.yydds.hackathonkakee.general.LoginActivity;
 
 public class OrganizerHomePageActivity extends AppCompatActivity {
 
-    ImageView logoutIV;
     MaterialButton createHackathonBtn, myHackathonBtn;
+    FloatingActionButton logoutBtn;
     String organizerID;
 
     @Override
@@ -32,7 +33,7 @@ public class OrganizerHomePageActivity extends AppCompatActivity {
     private void initializeComponent() {
         createHackathonBtn = findViewById(R.id.createHackathonBtn);
         myHackathonBtn = findViewById(R.id.myHackathonBtn);
-        logoutIV = findViewById(R.id.logoutIV);
+        logoutBtn = findViewById(R.id.logoutBtn);
 
         createHackathonBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +52,7 @@ public class OrganizerHomePageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        logoutIV.setOnClickListener(new View.OnClickListener() {
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
