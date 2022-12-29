@@ -22,7 +22,7 @@
             android:padding="25dp">
 
             <ImageView
-                android:id="@+id/profilePicIV"
+                android:id="@+id/profilePictureIV"
                 android:layout_width="125dp"
                 android:layout_height="125dp"
                 android:layout_centerHorizontal="true"
@@ -36,14 +36,14 @@
                 android:layout_marginStart="10dp"
                 android:visibility="invisible"
                 android:src="@drawable/ic_baseline_delete_24"
-                android:layout_toEndOf="@+id/profilePicIV"
+                android:layout_toEndOf="@+id/profilePictureIV"
                 android:layout_marginTop="55dp"/>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/personalDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/profilePicIV"
+                android:layout_below="@+id/profilePictureIV"
                 android:layout_marginVertical="10dp"
                 app:cardCornerRadius="15dp"
                 app:strokeColor="@color/primary"

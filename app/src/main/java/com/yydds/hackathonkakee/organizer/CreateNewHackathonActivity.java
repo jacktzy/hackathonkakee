@@ -16,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -26,9 +25,12 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -39,6 +41,7 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 import com.yydds.hackathonkakee.R;
 import com.yydds.hackathonkakee.classes.Hackathon;
+import com.yydds.hackathonkakee.classes.Team;
 import com.yydds.hackathonkakee.general.Utility;
 
 import java.io.FileNotFoundException;
@@ -47,6 +50,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class CreateNewHackathonActivity extends AppCompatActivity {
@@ -66,7 +70,8 @@ public class CreateNewHackathonActivity extends AppCompatActivity {
     String hackathonID = "";
 
     TextView pageTitleTv;
-    EditText hackathonNameEt, hackathonVenueEt, prizePoolEt, maxTeamMembersEt, shortDescEt, longDescEt;
+    TextInputLayout hackathonNameTIL, hackathonVenueTIL, prizePoolTIL, maxTeamMembersTIL, shortDescTIL, longDescTIL, modeTIL;
+    TextInputEditText hackathonNameTIET, hackathonVenueTIET, prizePoolTIET, maxTeamMembersTIET, shortDescTIET, longDescTIET;
     MaterialButton createHackathonBtn, deleteHackathonBtn, startDateBtn, endDateBtn;
     ImageView backArrowIv, hackathonIconIv;
     ProgressBar createHackathonLoadPB, deleteHackathonLoadPB;
@@ -124,12 +129,19 @@ public class CreateNewHackathonActivity extends AppCompatActivity {
 
     private void initializeComponents() {
         modeActv = findViewById(R.id.modeActv);
-        hackathonNameEt = findViewById(R.id.hackathonNameEt);
-        hackathonVenueEt = findViewById(R.id.hackathonVenueEt);
-        prizePoolEt = findViewById(R.id.prizePoolEt);
-        maxTeamMembersEt = findViewById(R.id.maxTeamMembersEt);
-        shortDescEt = findViewById(R.id.shortDescEt);
-        longDescEt = findViewById(R.id.longDescEt);
+        hackathonNameTIET = findViewById(R.id.hackathonNameTIET);
+        hackathonVenueTIET = findViewById(R.id.venueTIET);
+        prizePoolTIET = findViewById(R.id.prizePoolTIET);
+        maxTeamMembersTIET = findViewById(R.id.maxTeamMembersTIET);
+        shortDescTIET = findViewById(R.id.shortDescTIET);
+        longDescTIET = findViewById(R.id.longDescTIET);
+        hackathonNameTIL = findViewById(R.id.hackathonNameTIL);
+        hackathonVenueTIL = findViewById(R.id.venueTIL);
+        prizePoolTIL = findViewById(R.id.prizePoolTIL);
+        maxTeamMembersTIL = findViewById(R.id.maxTeamMembersTIL);
+        shortDescTIL = findViewById(R.id.shortDescTIL);
+        longDescTIL = findViewById(R.id.longDescTIL);
+        modeTIL = findViewById(R.id.modeTIL);
         backArrowIv = findViewById(R.id.backArrowIv);
         pageTitleTv = findViewById(R.id.pageTitleTv);
         createHackathonBtn = findViewById(R.id.createHackathonBtn);
@@ -175,12 +187,12 @@ public class CreateNewHackathonActivity extends AppCompatActivity {
         iconIsLoaded = true;
         gotImageFromDB = true;
 
-        hackathonNameEt.setText(hackathon.getName());
-        hackathonVenueEt.setText(hackathon.getVenue());
-        shortDescEt.setText(hackathon.getShortDesc());
-        longDescEt.setText(hackathon.getLongDesc());
-        prizePoolEt.setText(String.valueOf(hackathon.getPrizePool()));
-        maxTeamMembersEt.setText(String.valueOf(hackathon.getMaxTeamMembers()));
+        hackathonNameTIET.setText(hackathon.getName());
+        hackathonVenueTIET.setText(hackathon.getVenue());
+        shortDescTIET.setText(hackathon.getShortDesc());
+        longDescTIET.setText(hackathon.getLongDesc());
+        prizePoolTIET.setText(String.valueOf(hackathon.getPrizePool()));
+        maxTeamMembersTIET.setText(String.valueOf(hackathon.getMaxTeamMembers()));
         modeActv.setText(hackathon.getMode(), false);
         mode = hackathon.getMode();
         startDateTS = hackathon.getStartDateTS();
@@ -191,10 +203,10 @@ public class CreateNewHackathonActivity extends AppCompatActivity {
     }
 
     private void saveHackathon() {
-        hackathonName = hackathonNameEt.getText().toString();
-        hackathonVenue = hackathonVenueEt.getText().toString();
-        shortDesc = shortDescEt.getText().toString();
-        longDesc = longDescEt.getText().toString();
+        hackathonName = hackathonNameTIET.getText().toString();
+        hackathonVenue = hackathonVenueTIET.getText().toString();
+        shortDesc = shortDescTIET.getText().toString();
+        longDesc = longDescTIET.getText().toString();
         prizePool = 0;
         maxTeamMembers = 0;
 
@@ -237,20 +249,53 @@ public class CreateNewHackathonActivity extends AppCompatActivity {
     }
 
     private void deleteHackathonFromFirebase() {
+        HashMap<String, String> participantTeamPair = new HashMap<>();
+
         changeInProgress(true);
         DocumentReference documentReference = FirebaseFirestore.getInstance().collection("Hackathons").document(hackathonID);
         documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 //delete deleted hackathonID announcements
-                Query query = FirebaseFirestore.getInstance().collection("Announcements").whereEqualTo("hackathonID", hackathonID);
-                query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                Query announcementQuery = FirebaseFirestore.getInstance().collection("Announcements").whereEqualTo("hackathonID", hackathonID);
+                announcementQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                         for (DocumentSnapshot ds : list) {
                             ds.getReference().delete();
                         }
+                    }
+                });
+
+                Query teamQuery = FirebaseFirestore.getInstance().collection("Teams").whereEqualTo("hackathonID", hackathonID);
+                teamQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                        for (DocumentSnapshot ds : list) {
+                            String teamID = ds.getId();
+                            Team team = ds.toObject(Team.class);
+                            for (String memberID : team.getMembersID()) {
+                                participantTeamPair.put(memberID, teamID);
+                            }
+                            ds.getReference().delete();
+                        }
+                        Query participantQuery = FirebaseFirestore.getInstance().collection("Participants").whereArrayContains("participatedHackathonId", hackathonID);
+                        participantQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                                for (DocumentSnapshot ds : list) {
+                                    ds.getReference().update("participatedHackathonId", FieldValue.arrayRemove(hackathonID));
+                                }
+                                System.out.println(participantTeamPair.size());
+                                for (String participantID : participantTeamPair.keySet()) {
+                                    FirebaseFirestore.getInstance().collection("Participants").document(participantID)
+                                            .update("joinedTeamID", FieldValue.arrayRemove(participantTeamPair.get(participantID)));
+                                }
+                            }
+                        });
                     }
                 });
 
@@ -273,55 +318,67 @@ public class CreateNewHackathonActivity extends AppCompatActivity {
     private boolean validateInput(String hackathonName, String hackathonLocation, String shortDesc, String longDesc) {
         boolean isValid = true;
         if (hackathonName.isEmpty()) {
-            hackathonNameEt.setError("Please provide hackathon name.");
-            hackathonNameEt.requestFocus();
+            hackathonNameTIL.setErrorEnabled(true);
+            hackathonNameTIL.setError("Please provide hackathon name.");
             isValid = false;
+        } else {
+            hackathonNameTIL.setErrorEnabled(false);
         }
         if (hackathonLocation.isEmpty()) {
-            hackathonVenueEt.setError("Please provide hackathon location.");
-            hackathonVenueEt.requestFocus();
+            hackathonVenueTIL.setErrorEnabled(true);
+            hackathonVenueTIL.setError("Please provide hackathon location.");
             isValid = false;
+        } else {
+            hackathonVenueTIL.setErrorEnabled(false);
         }
-        if (prizePoolEt.getText().toString().isEmpty()) {
-            prizePoolEt.setError("Please provide prize pool.");
-            prizePoolEt.requestFocus();
+        if (prizePoolTIET.getText().toString().isEmpty()) {
+            prizePoolTIL.setErrorEnabled(true);
+            prizePoolTIL.setError("Please provide prize pool.");
             isValid = false;
         } else {
             try {
-                prizePool = Integer.parseInt(prizePoolEt.getText().toString());
+                prizePool = Integer.parseInt(prizePoolTIET.getText().toString());
+                prizePoolTIL.setErrorEnabled(false);
             } catch (Exception e) {
-                prizePoolEt.setError("Please enter amount of prize pool.");
-                prizePoolEt.requestFocus();
+                prizePoolTIL.setErrorEnabled(true);
+                prizePoolTIL.setError("Please enter amount of prize pool.");
                 isValid = false;
             }
         }
-        if (maxTeamMembersEt.getText().toString().isEmpty()) {
-            maxTeamMembersEt.setError("Please provide max team members.");
-            maxTeamMembersEt.requestFocus();
+        if (maxTeamMembersTIET.getText().toString().isEmpty()) {
+            maxTeamMembersTIL.setErrorEnabled(true);
+            maxTeamMembersTIL.setError("Please provide max team members.");
             isValid = false;
         } else {
             try {
-                maxTeamMembers = Integer.parseInt(prizePoolEt.getText().toString());
+                maxTeamMembers = Integer.parseInt(prizePoolTIET.getText().toString());
+                maxTeamMembersTIL.setErrorEnabled(false);
             } catch (Exception e) {
-                maxTeamMembersEt.setError("Please provide max team members in number.");
-                maxTeamMembersEt.requestFocus();
+                maxTeamMembersTIL.setErrorEnabled(true);
+                maxTeamMembersTIL.setError("Please provide max team members in number.");
                 isValid = false;
             }
         }
         if (shortDesc.isEmpty()) {
-            shortDescEt.setError("Please provide short description.");
-            shortDescEt.requestFocus();
+            shortDescTIL.setErrorEnabled(true);
+            shortDescTIL.setError("Please provide short description.");
             isValid = false;
+        } else {
+            shortDescTIL.setErrorEnabled(false);
         }
         if (longDesc.isEmpty()) {
-            longDescEt.setError("Please provide long description");
-            longDescEt.requestFocus();
+            longDescTIL.setErrorEnabled(true);
+            longDescTIL.setError("Please provide long description");
             isValid = false;
+        } else {
+            longDescTIL.setErrorEnabled(false);
         }
         if (mode.isEmpty()) {
-            modeActv.setError("Please choose mode.");
-            modeActv.requestFocus();
+            modeTIL.setErrorEnabled(true);
+            modeTIL.setError("Please choose mode.");
             isValid = false;
+        } else {
+            modeTIL.setErrorEnabled(false);
         }
         return isValid;
     }

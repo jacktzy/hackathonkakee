@@ -1,32 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".participant.hackathonDashboard.MyTeamFragment"
-    android:background="@color/blueBG">
+    tools:context=".organizer.TeamDetailActivity">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="My Team"
-        android:layout_marginTop="10dp"
-        android:layout_marginHorizontal="20dp"
-        android:textColor="@color/primary"
-        android:textStyle="bold"
-        android:textSize="26sp"/>
+    <include
+        android:id="@+id/include"
+        layout="@layout/normal_page_toolbar" />
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_below="@id/title"
+        android:id="@+id/teamDetailMCV"
+        android:layout_below="@id/include"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:strokeWidth="2dp"
         app:strokeColor="@color/primary"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="90dp"
         app:cardCornerRadius="15dp"
         app:cardElevation="10dp">
 
@@ -161,7 +154,7 @@
 
             <TextView
                 android:id="@+id/rankingTV"
-                android:layout_width="wrap_content"
+                android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="120dp"
                 android:layout_marginVertical="5dp"
@@ -169,7 +162,42 @@
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/visibilityTv" />
+                app:layout_constraintTop_toBottomOf="@+id/visibilityTv"
+                android:visibility="visible"/>
+
+            <ImageButton
+                android:id="@+id/editRankingBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_edit_24"
+                android:layout_marginStart="30dp"
+                app:layout_constraintStart_toEndOf="@+id/rankingTV"
+                app:layout_constraintTop_toBottomOf="@+id/visibilityTv"
+                android:visibility="visible"/>
+
+            <EditText
+                android:id="@+id/rankingET"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="120dp"
+                android:layout_marginVertical="5dp"
+                android:text="1"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/visibilityTv"
+                android:visibility="invisible"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/saveRankingBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="save"
+                android:textSize="12sp"
+                android:layout_marginStart="30dp"
+                app:layout_constraintStart_toEndOf="@+id/rankingTV"
+                app:layout_constraintTop_toBottomOf="@+id/visibilityTv"
+                android:visibility="invisible"/>
 
             <TextView
                 android:id="@+id/contact"
@@ -198,12 +226,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/leaderNameTV" />
 
             <TextView
-                android:id="@+id/maxteammembers"
+                android:id="@+id/currentnumofteammember"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
-                android:text="Max Num of Team Members"
+                android:text="Current Num of Team Members"
                 android:textColor="@color/primary"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -211,41 +239,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/contact" />
 
             <TextView
-                android:id="@+id/maxTeamMembersTV"
+                android:id="@+id/currentNumTeamMembersTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginVertical="5dp"
                 android:layout_marginStart="200dp"
-                android:text="5 members/team"
+                android:text="5 members"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/leaderContactTV" />
-
-            <TextView
-                android:id="@+id/currentnumofteammember"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginVertical="5dp"
-                android:text="Current Num of Team Members"
-                android:textColor="@color/primary"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/maxteammembers" />
-
-            <TextView
-                android:id="@+id/currentNumTeamMembersTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="200dp"
-                android:layout_marginVertical="5dp"
-                android:text="5 members"
-                android:textSize="12sp"
-                android:textColor="@color/black"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/maxTeamMembersTV" />
 
             <TextView
                 android:id="@+id/members"
@@ -275,134 +278,26 @@
                     android:text="Members Name"
                     android:textColor="@color/black"
                     android:textSize="12sp"
-                    android:visibility="invisible"/>
+                    android:visibility="visible"/>
 
             </ScrollView>
-
-<!--            <ScrollView-->
-<!--                android:id="@+id/membersLL"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/currentNumTeamMembersTV"-->
-<!--                android:orientation="vertical">-->
-
-
-<!--            </ScrollView>-->
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/membersRV"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="260dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginStart="80dp"
-                android:scrollbars="vertical"
-                app:layoutManager="LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:visibility="visible"/>
-
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginVertical="20dp"
-            android:id="@+id/teamNotFoundCL"
-            android:visibility="gone">
-
-            <TextView
-                android:id="@+id/notFoundTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Team Not Found"
-                android:textAlignment="center"
-                android:textColor="@color/primary"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/notFoundDesc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginVertical="10dp"
-                android:text="You haven't join a team in this hackthon.\n\nPlease join a team by creating a new team or joining an existing team.\n\nIf you are not joining any team after registration period, you will be considered as solo participant."
-                android:textAlignment="center"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/notFoundTitle" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/createTeamBtn"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:text="Create New Team"
-                android:textAllCaps="false"
-                android:textSize="12sp"
-                app:cornerRadius="15dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/notFoundDesc" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/findTeamBtn"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:text="Find Team"
-                android:textAllCaps="false"
-                android:textSize="12sp"
-                app:cornerRadius="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/createTeamBtn" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/deleteTeamBtn"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_edit_24"
-        android:id="@+id/editTeamBtn"
-        app:elevation="10dp"
-        app:backgroundTint="@color/primary"
-        android:backgroundTint="@color/white"
+        android:text="DELETE"
+        android:textColor="@color/white"
+        android:backgroundTint="#FF0000"
+        app:cornerRadius="15dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="20dp"
-        android:layout_toStartOf="@+id/quitTeamBtn"
-        android:visibility="invisible"
-        />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:visibility="visible"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/quit"
-        android:id="@+id/quitTeamBtn"
-        app:elevation="10dp"
-        app:backgroundTint="@color/primary"
-        android:backgroundTint="@color/white"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="20dp"
-        android:visibility="visible"
-        />
 
 </RelativeLayout>

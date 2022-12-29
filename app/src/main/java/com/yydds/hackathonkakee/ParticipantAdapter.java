@@ -57,10 +57,10 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            no = itemView.findViewById(R.id.no);
-            name = itemView.findViewById(R.id.name);
-            team = itemView.findViewById(R.id.team);
-            delete = itemView.findViewById(R.id.delete);
+//            no = itemView.findViewById(R.id.no);
+//            name = itemView.findViewById(R.id.name);
+//            team = itemView.findViewById(R.id.team);
+//            delete = itemView.findViewById(R.id.delete);
         }
     }
 }

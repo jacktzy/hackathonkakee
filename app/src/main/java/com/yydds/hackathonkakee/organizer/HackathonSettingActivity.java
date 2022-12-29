@@ -18,6 +18,7 @@ import com.yydds.hackathonkakee.R;
 import com.yydds.hackathonkakee.classes.Hackathon;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 public class HackathonSettingActivity extends AppCompatActivity {
     private MaterialButton editDetailsBtn, showParticipantsBtn, showTeamsBtn, announcementBtn, newsBtn, deleteBtn;
@@ -54,6 +55,24 @@ public class HackathonSettingActivity extends AppCompatActivity {
         shortDesc = findViewById(R.id.shortDesc);
         hackathonIcon = findViewById(R.id.hackathonIcon);
 
+        DocumentReference documentReference = FirebaseFirestore.getInstance().collection("Hackathons").document(hackathonID);
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Hackathon hackathon = documentSnapshot.toObject(Hackathon.class);
+                String startDate = new SimpleDateFormat("dd/MM/yyyy").format(hackathon.getStartDateTS().toDate());
+                String endDate = new SimpleDateFormat("dd/MM/yyyy").format(hackathon.getEndDateTS().toDate());
+                String period = startDate + " - " + endDate;
+
+                Picasso.get().load(hackathon.getIconUri()).into(hackathonIcon);
+                hackathonTitle.setText(hackathon.getName());
+                date.setText(period);
+                mode.setText(hackathon.getMode());
+                venue.setText(hackathon.getVenue());
+                shortDesc.setText(hackathon.getShortDesc());
+            }
+        });
+
         backArrowIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,6 +92,7 @@ public class HackathonSettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HackathonSettingActivity.this, ShowParticipants.class);
+                intent.putExtra("hackathonID", hackathonID);
                 startActivity(intent);
             }
         });
@@ -80,6 +100,7 @@ public class HackathonSettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HackathonSettingActivity.this, ShowTeams.class);
+                intent.putExtra("hackathonID", hackathonID);
                 startActivity(intent);
             }
         });
@@ -101,25 +122,6 @@ public class HackathonSettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //TODO delete hackathons
-            }
-        });
-
-
-        DocumentReference documentReference = FirebaseFirestore.getInstance().collection("Hackathons").document(hackathonID);
-        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Hackathon hackathon = documentSnapshot.toObject(Hackathon.class);
-                String startDate = new SimpleDateFormat("dd/MM/yyyy").format(hackathon.getStartDateTS().toDate());
-                String endDate = new SimpleDateFormat("dd/MM/yyyy").format(hackathon.getEndDateTS().toDate());
-                String period = startDate + " - " + endDate;
-
-                Picasso.get().load(hackathon.getIconUri()).into(hackathonIcon);
-                hackathonTitle.setText(hackathon.getName());
-                date.setText(period);
-                mode.setText(hackathon.getMode());
-                venue.setText(hackathon.getVenue());
-                shortDesc.setText(hackathon.getShortDesc());
             }
         });
 

@@ -19,13 +19,13 @@
             android:layout_centerHorizontal="true"
             android:textSize="16dp"/>
 
-        <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:id="@+id/logoutIV"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_baseline_exit_to_app_24"
-            android:layout_centerVertical="true"/>
+<!--        <ImageView-->
+<!--            android:layout_width="32dp"-->
+<!--            android:layout_height="32dp"-->
+<!--            android:id="@+id/logoutIV"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:src="@drawable/ic_baseline_exit_to_app_24"-->
+<!--            android:layout_centerVertical="true"/>-->
 
     </RelativeLayout>
 
