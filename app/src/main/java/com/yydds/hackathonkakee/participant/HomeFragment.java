@@ -38,8 +38,6 @@ public class HomeFragment extends Fragment {
         // Required empty public constructor
     }
 
-    Button logoutBtn;
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -78,16 +76,5 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        logoutBtn = view.findViewById(R.id.logoutBtn);
-
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
-                getActivity().finish();
-            }
-        });
     }
 }

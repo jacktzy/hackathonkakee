@@ -310,8 +310,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/educationDetails"
                 android:id="@+id/jobPreferences"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="40dp"
+                android:layout_marginVertical="10dp"
                 android:layout_marginHorizontal="25dp"
                 app:cardElevation="10dp"
                 app:cardCornerRadius="15dp"
@@ -432,6 +431,17 @@
 
 
             </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/logoutBtn"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Log Out"
+                android:textAllCaps="false"
+                app:cornerRadius="15dp"
+                android:layout_below="@id/jobPreferences"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="40dp"/>
 
 
         </RelativeLayout>
