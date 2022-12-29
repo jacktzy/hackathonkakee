@@ -50,7 +50,6 @@ public class ParticipantsAdapter extends FirestoreRecyclerAdapter<Participant, P
         hasTeam = false;
         participantTeamID = "";
         participantID = this.getSnapshots().getSnapshot(position).getId();
-        System.out.println(participant.getProfilePicUrl());
         if (!participant.getProfilePicUrl().isEmpty())
             Picasso.get().load(participant.getProfilePicUrl()).into(holder.profilePicIV);
         holder.noTV.setText("No: " + (position + 1));
@@ -71,14 +70,14 @@ public class ParticipantsAdapter extends FirestoreRecyclerAdapter<Participant, P
                         if (hasTeam) {
                             String finalParticipantTeamID = participantTeamID;
                             holder.deleteIV.setOnClickListener((v) -> {
-                                System.out.println("has team one");
+//                                System.out.println("has team one");
                                 FirebaseFirestore.getInstance().collection("Participants").document(participantID).update("participatedHackathonId", FieldValue.arrayRemove(hackathonID));
                                 FirebaseFirestore.getInstance().collection("Hackathons").document(hackathonID).update("participantsID", FieldValue.arrayRemove(participantID));
                                 Utility.deleteAMemberFromTeam(participantID, finalParticipantTeamID, hackathonID);
                             });
                         } else {
                             holder.deleteIV.setOnClickListener((v) -> {
-                                System.out.println("dont have team one");
+//                                System.out.println("dont have team one");
                                 FirebaseFirestore.getInstance().collection("Participants").document(participantID).update("participatedHackathonId", FieldValue.arrayRemove(hackathonID));
                                 FirebaseFirestore.getInstance().collection("Hackathons").document(hackathonID).update("participantsID", FieldValue.arrayRemove(participantID));
                             });

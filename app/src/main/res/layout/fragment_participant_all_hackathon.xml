@@ -1,15 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/blueBG"
     tools:context=".participant.ParticipantAllHackathonFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:id="@+id/LL"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/keywordTIL"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="55dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Enter keyword to search"
+            app:errorIconDrawable="@drawable/ic_baseline_error_24"
+            app:startIconDrawable="@drawable/ic_baseline_abc_24"
+            app:boxCornerRadiusTopStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusBottomEnd="15dp"
+            android:layout_marginVertical="5dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:textSize="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:id="@+id/keywordTIET" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/searchIBtn"
+            android:backgroundTint="@color/primary"
+            android:layout_width="45dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/ic_baseline_search_24"/>
+
+        <ImageButton
+            android:id="@+id/sortIBtn"
+            android:backgroundTint="@color/primary"
+            android:layout_width="45dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/ic_baseline_sort_24"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/primary" />
+
+        <ImageButton
+            android:id="@+id/refreshIBtn"
+            android:backgroundTint="@color/primary"
+            android:layout_width="45dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/ic_baseline_refresh_24"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/primary" />
+
+    </LinearLayout>
+
+
+
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/LL"
         android:id="@+id/hackathonListRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-</FrameLayout>
+</RelativeLayout>

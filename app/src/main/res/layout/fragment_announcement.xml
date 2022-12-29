@@ -15,13 +15,13 @@
         android:layout_marginHorizontal="20dp"
         android:textColor="@color/primary"
         android:textStyle="bold"
-        android:textSize="26sp"/>
+        android:textSize="26sp"
+        android:id="@+id/announcementTV"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/announcementListRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         />
 
 </LinearLayout>

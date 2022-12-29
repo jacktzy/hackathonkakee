@@ -19,17 +19,29 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.yydds.hackathonkakee.R;
 import com.yydds.hackathonkakee.classes.Hackathon;
+import com.yydds.hackathonkakee.classes.Team;
+import com.yydds.hackathonkakee.general.Utility;
+
+import java.util.List;
 
 public class HackathonDashboardActivity extends AppCompatActivity {
     Toolbar toolbar;
     String hackathonID, participantID, hackathonName;
     TextView pageTitleTV;
-    ImageView backArrowIB;
+    ImageView backArrowIB, menuIV;
 
     AnnouncementFragment announcementFragment;
 
@@ -61,8 +73,9 @@ public class HackathonDashboardActivity extends AppCompatActivity {
     private void initComponents() {
         pageTitleTV = findViewById(R.id.pageTitleTv);
         pageTitleTV.setText(hackathonName);
-
         backArrowIB = findViewById(R.id.backArrowIv);
+        menuIV = findViewById(R.id.menuIV);
+
         backArrowIB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,6 +89,25 @@ public class HackathonDashboardActivity extends AppCompatActivity {
 //
 //                }
 //                finish();
+            }
+        });
+
+        menuIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popupMenu = new PopupMenu(HackathonDashboardActivity.this, menuIV);
+                popupMenu.getMenu().add("Withdraw");
+                popupMenu.show();
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        if (menuItem.getTitle() == "Withdraw") {
+                            withdrawHackathon();
+                            return true;
+                        }
+                        return false;
+                    }
+                });
             }
         });
     }
@@ -98,5 +130,29 @@ public class HackathonDashboardActivity extends AppCompatActivity {
     private void setupBottomNavMenu(NavController navController) {
         BottomNavigationView bottomNavigationView = findViewById(R.id.hackathonDashboardBottomNavbar);
         NavigationUI.setupWithNavController(bottomNavigationView, navController, false);
+    }
+
+    private void withdrawHackathon() {
+        Query query = FirebaseFirestore.getInstance().collection("Teams").whereArrayContains("membersID", participantID);
+        query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                boolean hasTeam ;
+                String teamID = "";
+                if (queryDocumentSnapshots.size() == 0) hasTeam = false;
+                else hasTeam = true;
+
+                List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                for (DocumentSnapshot documentSnapshot : list) {
+                    teamID = documentSnapshot.getId();
+                }
+                FirebaseFirestore.getInstance().collection("Participants").document(participantID).update("participatedHackathonId", FieldValue.arrayRemove(hackathonID));
+                FirebaseFirestore.getInstance().collection("Hackathons").document(hackathonID).update("participantsID", FieldValue.arrayRemove(participantID));
+                if (hasTeam) {
+                    Utility.deleteAMemberFromTeam(participantID, teamID, hackathonID); FirebaseFirestore.getInstance().collection("Hackathons").document(hackathonID).update("participantsID", FieldValue.arrayRemove(participantID));
+                }
+                finish();
+            }
+        });
     }
 }
