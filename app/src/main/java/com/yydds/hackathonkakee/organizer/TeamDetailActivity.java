@@ -10,16 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.yydds.hackathonkakee.R;
-import com.yydds.hackathonkakee.general.Utility;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,12 +44,12 @@ public class TeamDetailActivity extends AppCompatActivity {
         pageTitleTv = findViewById(R.id.pageTitleTv);
         pageTitleTv.setText((String) teamMap.get("teamName"));
         backArrowIv = findViewById(R.id.backArrowIv);
-        teamNameTV = findViewById(R.id.teamNameTV);
+        teamNameTV = findViewById(R.id.rankingTV);
         teamDescTV = findViewById(R.id.teamDescTV);
         visibilityTV = findViewById(R.id.visibilityTv);
         rankingTV = findViewById(R.id.rankingTV);
         leaderNameTV = findViewById(R.id.leaderNameTV);
-        leaderContactTV = findViewById(R.id.leaderContactTV);
+        leaderContactTV = findViewById(R.id.teamNameTV);
         currNumTeamMembersTV = findViewById(R.id.currentNumTeamMembersTV);
         membersTV = findViewById(R.id.membersTV);
         editRankingBtn = findViewById(R.id.editRankingBtn);

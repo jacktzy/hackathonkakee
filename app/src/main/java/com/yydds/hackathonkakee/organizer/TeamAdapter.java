@@ -78,7 +78,7 @@ public class TeamAdapter extends FirestoreRecyclerAdapter<Team, TeamAdapter.Team
             super(itemView);
             noTV = itemView.findViewById(R.id.noTV);
             teamIDTV = itemView.findViewById(R.id.teamIDTV);
-            teamNameTV = itemView.findViewById(R.id.teamNameTV);
+            teamNameTV = itemView.findViewById(R.id.rankingTV);
             teamRankingTV = itemView.findViewById(R.id.teamRankingTV);
         }
     }
