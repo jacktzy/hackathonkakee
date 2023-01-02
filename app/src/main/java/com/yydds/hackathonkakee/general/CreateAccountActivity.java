@@ -185,7 +185,12 @@ public class CreateAccountActivity extends AppCompatActivity {
                     });
                 } else if (role.equals("Organizer")) {
                     DocumentReference documentReference = firebaseFirestore.collection("Organizers").document(user.getUid());
-                    Organizer organizer = new Organizer(name, email);
+                    Organizer organizer = null;
+                    try {
+                        organizer = new Organizer(name, email);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     documentReference.set(organizer).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {

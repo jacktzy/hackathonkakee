@@ -387,7 +387,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
 
                     <TextView
-                        android:id="@+id/jobPositionTV"
+                        android:id="@+id/jobPositionET"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="150dp"
@@ -412,7 +412,7 @@
                         android:visibility="invisible"
                         android:backgroundTint="@color/white"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/jobPositionTV"/>
+                        app:layout_constraintTop_toBottomOf="@+id/jobPositionET"/>
 
                     <TextView
                         android:id="@+id/noResumeAlertTV"
@@ -424,7 +424,7 @@
                         android:layout_marginTop="10dp"
                         android:visibility="visible"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/jobPositionTV" />
+                        app:layout_constraintTop_toBottomOf="@+id/jobPositionET" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

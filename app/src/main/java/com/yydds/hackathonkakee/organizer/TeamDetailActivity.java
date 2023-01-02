@@ -44,12 +44,12 @@ public class TeamDetailActivity extends AppCompatActivity {
         pageTitleTv = findViewById(R.id.pageTitleTv);
         pageTitleTv.setText((String) teamMap.get("teamName"));
         backArrowIv = findViewById(R.id.backArrowIv);
-        teamNameTV = findViewById(R.id.rankingTV);
+        teamNameTV = findViewById(R.id.teamNameTV);
         teamDescTV = findViewById(R.id.teamDescTV);
         visibilityTV = findViewById(R.id.visibilityTv);
         rankingTV = findViewById(R.id.rankingTV);
         leaderNameTV = findViewById(R.id.leaderNameTV);
-        leaderContactTV = findViewById(R.id.teamNameTV);
+        leaderContactTV = findViewById(R.id.leaderContactTV);
         currNumTeamMembersTV = findViewById(R.id.currentNumTeamMembersTV);
         membersTV = findViewById(R.id.membersTV);
         editRankingBtn = findViewById(R.id.editRankingBtn);
@@ -58,6 +58,7 @@ public class TeamDetailActivity extends AppCompatActivity {
         deleteTeamBtn = findViewById(R.id.deleteTeamBtn);
         teamIDTV = findViewById(R.id.teamIDTV);
 
+        System.out.println(teamMap.get("teamName"));
         teamIDTV.setText(teamID);
         teamNameTV.setText((String) teamMap.get("teamName"));
         teamDescTV.setText((String) teamMap.get("teamDescription"));

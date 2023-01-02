@@ -130,7 +130,7 @@ public class ProfileFragment extends Fragment {
         levelEduTV = view.findViewById(R.id.levelOfEducationTV);
         CGPATV = view.findViewById(R.id.CGPATV);
         interestFieldTV = view.findViewById(R.id.interestFieldTV);
-        interestJobPosTV = view.findViewById(R.id.jobPositionTV);
+        interestJobPosTV = view.findViewById(R.id.jobPositionET);
         noResumeAlertTV = view.findViewById(R.id.noResumeAlertTV);
         profilePicIV = view.findViewById(R.id.profilePictureIV);
 

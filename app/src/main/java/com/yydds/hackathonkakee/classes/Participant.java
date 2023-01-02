@@ -27,9 +27,7 @@ public class Participant {
         this.token = 0;
     }
 
-    //Constructor used when updating participant profile
-
-
+    //method used when updating participant profile
     public void updateProfile(String name, String profilePicUrl, String resumeUrl, String gender, String phoneNumber, String institutionName, String fieldMajor, String levelOfEducation, String interestField, String interestJobPos, double CGPA, Timestamp birthDate) {
         this.name = name;
         this.profilePicUrl = profilePicUrl;
