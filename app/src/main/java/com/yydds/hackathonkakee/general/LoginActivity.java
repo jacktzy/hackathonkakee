@@ -24,6 +24,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.yydds.hackathonkakee.R;
+import com.yydds.hackathonkakee.classes.Participant;
 import com.yydds.hackathonkakee.organizer.OrganizerHomePageActivity;
 import com.yydds.hackathonkakee.participant.ParticipantHomePageActivity;
 
@@ -99,10 +100,11 @@ public class LoginActivity extends AppCompatActivity {
                 documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        System.out.println(documentReference.getId());
                         if (documentSnapshot.exists()) {
+                            Participant participant = documentSnapshot.toObject(Participant.class);
                             Intent intent = new Intent(getApplicationContext(), ParticipantHomePageActivity.class);
                             intent.putExtra("participantID", firebaseAuth.getCurrentUser().getUid());
+                            intent.putExtra("participantName", participant.getName());
                             startActivity(intent);
                         } else {
                             Intent intent = new Intent(getApplicationContext(), OrganizerHomePageActivity.class);

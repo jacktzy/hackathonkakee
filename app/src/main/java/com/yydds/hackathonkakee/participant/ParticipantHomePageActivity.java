@@ -24,7 +24,7 @@ import com.yydds.hackathonkakee.general.LoginActivity;
 public class ParticipantHomePageActivity extends AppCompatActivity {
 
     Toolbar toolbar;
-    String participantID;
+    String participantID, participantName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,7 @@ public class ParticipantHomePageActivity extends AppCompatActivity {
 
         //get extra from login activity
         participantID = getIntent().getStringExtra("participantID");
+        participantName = getIntent().getStringExtra("participantName");
 
         toolbar = findViewById(R.id.participantHomeToolbar);
         setSupportActionBar(toolbar);

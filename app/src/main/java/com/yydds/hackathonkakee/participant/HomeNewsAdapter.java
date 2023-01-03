@@ -1,4 +1,4 @@
-package com.yydds.hackathonkakee.organizer;
+package com.yydds.hackathonkakee.participant;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,9 +19,8 @@ import com.yydds.hackathonkakee.classes.News;
 
 import java.text.SimpleDateFormat;
 
-public class NewsAdapter extends FirestoreRecyclerAdapter<News, NewsAdapter.NewsViewHolder> {
+public class HomeNewsAdapter extends FirestoreRecyclerAdapter<News, HomeNewsAdapter.HomeNewsViewHolder> {
     Context context;
-    String hackathonID;
 
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
@@ -29,46 +28,44 @@ public class NewsAdapter extends FirestoreRecyclerAdapter<News, NewsAdapter.News
      *
      * @param options
      */
-    public NewsAdapter(@NonNull FirestoreRecyclerOptions<News> options, Context context, String hackathonID) {
+    public HomeNewsAdapter(@NonNull FirestoreRecyclerOptions<News> options, Context context) {
         super(options);
         this.context = context;
-        this.hackathonID = hackathonID;
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull NewsViewHolder holder, int position, @NonNull News news) {
+    protected void onBindViewHolder(@NonNull HomeNewsViewHolder holder, int position, @NonNull News news) {
         holder.titleTV.setText(news.getTitle());
-        holder.contentTV.setText(news.getContent());
-        holder.timestampTV.setText(new SimpleDateFormat("dd/MM/yyyy").format(news.getTimestamp().toDate()));
+        String publishDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(news.getTimestamp().toDate());
+        holder.timestampTV.setText(publishDate);
         Picasso.get().load(news.getPictureUri()).into(holder.pictureIV);
         String newsID = this.getSnapshots().getSnapshot(position).getId();
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, CreateNewsActivity.class);
+                Intent intent = new Intent(context, NewsDetailActivity.class);
                 intent.putExtra("newsID", newsID);
-                intent.putExtra("hackathonID", hackathonID);
                 context.startActivity(intent);
             }
         });
+
     }
 
     @NonNull
     @Override
-    public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_design_organizer_manage_news_item, parent, false);
-        return new NewsViewHolder(view);
+    public HomeNewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_design_participant_home_news_item, parent, false);
+        return new HomeNewsViewHolder(view);
     }
 
-    class NewsViewHolder extends RecyclerView.ViewHolder {
-        TextView titleTV, contentTV, timestampTV;
+    class HomeNewsViewHolder extends RecyclerView.ViewHolder {
+        TextView titleTV, timestampTV;
         ImageView pictureIV;
 
-        public NewsViewHolder(@NonNull View itemView) {
+        public HomeNewsViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTV = itemView.findViewById(R.id.titleTV);
-            contentTV = itemView.findViewById(R.id.contentTV);
             timestampTV = itemView.findViewById(R.id.timestampTV);
             pictureIV = itemView.findViewById(R.id.pictureIV);
         }
