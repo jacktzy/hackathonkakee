@@ -1,15 +1,456 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".participant.ClaimRewardFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".participant.ClaimRewardFragment"
+    android:background="@color/blueBG">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/yourPointMCV"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="10dp"
+        app:strokeColor="@color/primary"
+        app:strokeWidth="1dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginVertical="10dp"
+        android:layout_marginHorizontal="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/pointIV"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/point" />
+
+            <TextView
+                android:id="@+id/yourPoint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your point: "
+                android:layout_toEndOf="@id/pointIV"
+                android:layout_centerVertical="true"
+                android:layout_marginHorizontal="5dp"/>
+
+            <TextView
+                android:id="@id/pointTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1000"
+                android:layout_toEndOf="@id/yourPoint"
+                android:layout_centerVertical="true"
+                android:layout_marginHorizontal="5dp" />
+
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Claim rewards"
-        android:textSize="50dp"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/yourPointMCV">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/prize1MCV"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/primary"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp"
+                app:cardCornerRadius="15dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/prize1IV"
+                        android:layout_width="125dp"
+                        android:layout_height="125dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/hkkeychain"
+                        android:layout_centerVertical="true" />
+
+                    <TextView
+                        android:id="@+id/prize1Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hackathon Kakee Keychain"
+                        android:layout_toEndOf="@id/prize1IV"
+                        android:textStyle="bold"
+                        android:textSize="13dp"
+                        android:textColor="@color/primary" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/prize1Title"
+                        android:layout_toEndOf="@id/prize1IV"
+                        android:textSize="12dp"
+                        android:textColor="@color/black"
+                        android:text="Key chain that can accompany you hacking everywhere." />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/claim1Btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Claim"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        app:cornerRadius="15dp"
+                        android:textAllCaps="false" />
+
+                    <TextView
+                        android:id="@+id/prize1Price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="500"
+                        android:layout_toStartOf="@id/claim1Btn"
+                        android:layout_alignParentBottom="true"
+                        android:textColor="@color/primary"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginEnd="20dp"/>
+
+                    <ImageView
+                        android:id="@+id/point1IV"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/point"
+                        android:layout_toStartOf="@+id/prize1Price"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginVertical="8dp"/>
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/prize2MCV"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/primary"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp"
+                app:cardCornerRadius="15dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/prize2IV"
+                        android:layout_width="125dp"
+                        android:layout_height="125dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/hknotebook"
+                        android:layout_centerVertical="true" />
+
+                    <TextView
+                        android:id="@+id/prize2Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Notebook with Big O."
+                        android:layout_toEndOf="@id/prize2IV"
+                        android:textStyle="bold"
+                        android:textSize="13dp"
+                        android:textColor="@color/primary" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/prize2Title"
+                        android:layout_toEndOf="@id/prize2IV"
+                        android:textSize="12dp"
+                        android:textColor="@color/black"
+                        android:text="Hackathon Kakee notebook with Big-O complexity chart. " />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/claim2Btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Claim"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        app:cornerRadius="15dp"
+                        android:textAllCaps="false" />
+
+                    <TextView
+                        android:id="@+id/prize2Price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="800"
+                        android:layout_toStartOf="@id/claim2Btn"
+                        android:layout_alignParentBottom="true"
+                        android:textColor="@color/primary"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginEnd="20dp"/>
+
+                    <ImageView
+                        android:id="@+id/point2IV"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/point"
+                        android:layout_toStartOf="@+id/prize2Price"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginVertical="8dp"/>
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/prize3MCV"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/primary"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp"
+                app:cardCornerRadius="15dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/prize3IV"
+                        android:layout_width="125dp"
+                        android:layout_height="125dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/hkthermos"
+                        android:layout_centerVertical="true" />
+
+                    <TextView
+                        android:id="@+id/prize3Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Thermos"
+                        android:layout_toEndOf="@id/prize3IV"
+                        android:textStyle="bold"
+                        android:textSize="13dp"
+                        android:textColor="@color/primary" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/prize3Title"
+                        android:layout_toEndOf="@id/prize3IV"
+                        android:textSize="12dp"
+                        android:textColor="@color/black"
+                        android:text="Thirsty when hacking? Get a cup of coffee from thermos!" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/claim3Btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Claim"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        app:cornerRadius="15dp"
+                        android:textAllCaps="false" />
+
+                    <TextView
+                        android:id="@+id/prize3Price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1400"
+                        android:layout_toStartOf="@id/claim3Btn"
+                        android:layout_alignParentBottom="true"
+                        android:textColor="@color/primary"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginEnd="20dp"/>
+
+                    <ImageView
+                        android:id="@+id/point3IV"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/point"
+                        android:layout_toStartOf="@+id/prize3Price"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginVertical="8dp"/>
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/prize4MCV"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/primary"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp"
+                app:cardCornerRadius="15dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/prize4IV"
+                        android:layout_width="125dp"
+                        android:layout_height="125dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/hktee" />
+
+                    <TextView
+                        android:id="@+id/prize4Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hackathon Kakee Tee"
+                        android:layout_toEndOf="@id/prize4IV"
+                        android:textStyle="bold"
+                        android:textSize="13dp"
+                        android:textColor="@color/primary" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/prize4Title"
+                        android:layout_toEndOf="@id/prize4IV"
+                        android:textSize="12dp"
+                        android:textColor="@color/black"
+                        android:text="High quality T-shirt make you looks like a hacker." />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/claim4Btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Claim"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        app:cornerRadius="15dp"
+                        android:textAllCaps="false" />
+
+                    <TextView
+                        android:id="@+id/prize4Price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2000"
+                        android:layout_toStartOf="@id/claim4Btn"
+                        android:layout_alignParentBottom="true"
+                        android:textColor="@color/primary"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginEnd="20dp"/>
+
+                    <ImageView
+                        android:id="@+id/point4IV"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/point"
+                        android:layout_toStartOf="@+id/prize4Price"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginVertical="8dp"/>
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/prize5MCV"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/primary"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp"
+                app:cardCornerRadius="15dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/prize5IV"
+                        android:layout_width="125dp"
+                        android:layout_height="125dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/hkbag"
+                        android:layout_centerVertical="true" />
+
+                    <TextView
+                        android:id="@+id/prize5Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Laptop Bag"
+                        android:layout_toEndOf="@id/prize5IV"
+                        android:textStyle="bold"
+                        android:textSize="13dp"
+                        android:textColor="@color/primary" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/prize5Title"
+                        android:layout_toEndOf="@id/prize5IV"
+                        android:textSize="12dp"
+                        android:textColor="@color/black"
+                        android:text="Hackers won't hold their laptop anywhere by using hand." />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/claim5Btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Claim"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        app:cornerRadius="15dp"
+                        android:textAllCaps="false" />
+
+                    <TextView
+                        android:id="@+id/prize5Price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3000"
+                        android:layout_toStartOf="@id/claim5Btn"
+                        android:layout_alignParentBottom="true"
+                        android:textColor="@color/primary"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginEnd="20dp"/>
+
+                    <ImageView
+                        android:id="@+id/point5IV"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/point"
+                        android:layout_toStartOf="@+id/prize5Price"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginVertical="8dp"/>
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

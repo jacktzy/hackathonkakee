@@ -12,6 +12,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Utility {
+    public static final int[] POINT_REFERENCE = {500, 300, 200, 100, 100};
+
+
     //generate hackathon ID
     public static String generateHackathonID() {
         StringBuilder randAlp = new StringBuilder();

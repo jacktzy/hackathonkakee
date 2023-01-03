@@ -2,13 +2,25 @@ package com.yydds.hackathonkakee.participant;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.yydds.hackathonkakee.R;
+import com.yydds.hackathonkakee.classes.Participant;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +28,9 @@ import com.yydds.hackathonkakee.R;
  * create an instance of this fragment.
  */
 public class HallOfFameFragment extends Fragment {
+    RecyclerView hallOfFameRV;
+    FloatingActionButton redeemBtn;
+    HOFPersonAdapter hofPersonAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,5 +77,47 @@ public class HallOfFameFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_hall_of_fame, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        hallOfFameRV = view.findViewById(R.id.hallOfFameRV);
+        redeemBtn = view.findViewById(R.id.redeemBtn);
+
+        redeemBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.claimRewardFragment);
+            }
+        });
+
+        setupRecyclerView();
+    }
+
+    private void setupRecyclerView() {
+        Query query = FirebaseFirestore.getInstance().collection("Participants").orderBy("points", Query.Direction.DESCENDING);
+        FirestoreRecyclerOptions<Participant> options = new FirestoreRecyclerOptions.Builder<Participant>().setQuery(query, Participant.class).build();
+        hallOfFameRV.setLayoutManager(new LinearLayoutManager(getContext()));
+        hofPersonAdapter = new HOFPersonAdapter(options, getContext());
+        hallOfFameRV.setAdapter(hofPersonAdapter);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        hofPersonAdapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        hofPersonAdapter.stopListening();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        hofPersonAdapter.notifyDataSetChanged();
     }
 }

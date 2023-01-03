@@ -30,6 +30,7 @@ import com.yydds.hackathonkakee.R;
 import com.yydds.hackathonkakee.classes.Hackathon;
 import com.yydds.hackathonkakee.classes.Participant;
 import com.yydds.hackathonkakee.classes.Team;
+import com.yydds.hackathonkakee.general.Utility;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -179,7 +180,11 @@ public class FindTeamFragment extends Fragment {
                                 Participant participant = documentSnapshot.toObject(Participant.class);
                                 ArrayList<String> currentJoinedTeamID = participant.getJoinedTeamID();
                                 currentJoinedTeamID.add(inputTeamCode);
-                                participantDocumentReference.update("joinedTeamID", currentJoinedTeamID);
+                                int currentPoint = participant.getPoints();
+                                if (team.getRanking() >= 1 && team.getRanking() <= 5) {
+                                    currentPoint += Utility.POINT_REFERENCE[team.getRanking() - 1];
+                                }
+                                participantDocumentReference.update("joinedTeamID", currentJoinedTeamID, "points", currentPoint);
 
                                 ArrayList<String> currentMembersName = team.getMembersName();
                                 currentMembersName.add(participant.getName());

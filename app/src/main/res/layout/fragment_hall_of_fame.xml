@@ -1,14 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".participant.HallOfFameFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".participant.HallOfFameFragment"
+    android:background="@color/blueBG">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/titleBarMCV"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        app:cardElevation="10dp"
+        app:cardCornerRadius="10dp"
+        android:backgroundTint="@color/primary"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/rankingTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ranking"
+                android:textSize="12dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/profilePicTV"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:text=""
+                android:textSize="12dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/nameTV"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="12dp"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/pointTV"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="Point"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="12dp"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/hallOfFameRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hall Of Fame fragment" />
+        android:layout_below="@id/titleBarMCV" />
 
-</FrameLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/redeemBtn"
+        android:src="@drawable/gift"
+        app:elevation="10dp"
+        app:backgroundTint="@color/primary"
+        android:backgroundTint="@color/white"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="15dp"/>
+
+</RelativeLayout>

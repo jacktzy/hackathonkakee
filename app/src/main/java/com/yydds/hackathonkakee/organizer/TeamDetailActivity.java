@@ -10,10 +10,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.yydds.hackathonkakee.R;
+import com.yydds.hackathonkakee.classes.Participant;
+import com.yydds.hackathonkakee.classes.Team;
+import com.yydds.hackathonkakee.general.Utility;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +27,7 @@ import java.util.HashMap;
 public class TeamDetailActivity extends AppCompatActivity {
     HashMap<String, Object> teamMap;
     String teamID, hackathonID;
+    int currentTeamRanking;
     EditText rankingET;
     ImageView backArrowIv;
     ImageButton editRankingBtn;
@@ -63,8 +70,8 @@ public class TeamDetailActivity extends AppCompatActivity {
         teamNameTV.setText((String) teamMap.get("teamName"));
         teamDescTV.setText((String) teamMap.get("teamDescription"));
         visibilityTV.setText((String) teamMap.get("teamVisibility"));
-        int ranking =(int)(teamMap.get("ranking"));
-        rankingTV.setText( ranking > 0 ? "#" + ranking : "-");
+        currentTeamRanking =(int)(teamMap.get("ranking"));
+        rankingTV.setText( currentTeamRanking > 0 ? "#" + currentTeamRanking : "-");
         leaderNameTV.setText(((ArrayList<String>)teamMap.get("membersName")).get(0));
         leaderContactTV.setText((String) teamMap.get("leaderContact"));
         currNumTeamMembersTV.setText(Integer.toString(((ArrayList<String>)(teamMap.get("membersID"))).size()));
@@ -92,7 +99,7 @@ public class TeamDetailActivity extends AppCompatActivity {
                 rankingET.setVisibility(View.VISIBLE);
                 editRankingBtn.setVisibility(View.INVISIBLE);
                 saveRankingBtn.setVisibility(View.VISIBLE);
-                rankingET.setText(Integer.toString(ranking));
+                rankingET.setText(Integer.toString(currentTeamRanking));
             }
         });
         saveRankingBtn.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +109,40 @@ public class TeamDetailActivity extends AppCompatActivity {
                 rankingET.setVisibility(View.INVISIBLE);
                 editRankingBtn.setVisibility(View.VISIBLE);
                 saveRankingBtn.setVisibility(View.INVISIBLE);
-                FirebaseFirestore.getInstance().collection("Teams").document(teamID).update("ranking", Integer.parseInt(rankingET.getText().toString()));
+                DocumentReference teamDF = FirebaseFirestore.getInstance().collection("Teams").document(teamID);
+                int updatedRanking = Integer.parseInt(rankingET.getText().toString());
+                teamDF.update("ranking", updatedRanking)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                teamDF.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        Team team = documentSnapshot.toObject(Team.class);
+                                        ArrayList<String> membersID = team.getMembersID();
+                                        final int tempCurrentTeamRanking = currentTeamRanking;
+                                        for (int i = 0; i < membersID.size(); i++) {
+                                            DocumentReference participantDF = FirebaseFirestore.getInstance().collection("Participants").document(membersID.get(i));
+                                            participantDF.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                    Participant participant = documentSnapshot.toObject(Participant.class);
+                                                    int currentPoint = participant.getPoints();
+                                                    if (tempCurrentTeamRanking >= 1 && tempCurrentTeamRanking <= 5) {
+                                                        currentPoint -= Utility.POINT_REFERENCE[tempCurrentTeamRanking - 1];
+                                                    }
+                                                    if (updatedRanking >= 1 && updatedRanking <= 5) {
+                                                        currentPoint += Utility.POINT_REFERENCE[updatedRanking - 1];
+                                                    }
+                                                    participantDF.update("points", currentPoint);
+                                                }
+                                            });
+                                        }
+                                        currentTeamRanking = updatedRanking;
+                                    }
+                                });
+                            }
+                        });
                 rankingTV.setText("#" + rankingET.getText().toString());
             }
         });
