@@ -20,7 +20,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.yydds.hackathonkakee.R;
 import com.yydds.hackathonkakee.classes.Announcement;
-
+;
 public class CreateAnnouncementActivity extends AppCompatActivity {
     ImageView backArrowIv;
     TextView pageTitleTv;
@@ -65,8 +65,8 @@ public class CreateAnnouncementActivity extends AppCompatActivity {
         contentTIL = findViewById(R.id.contentTIL);
         titleTIET = findViewById(R.id.titleTIET);
         titleTIL = findViewById(R.id.titleTIL);
-        saveAnnouncementBtn = findViewById(R.id.saveAnnouncementBtn);
-        deleteAnnouncementBtn = findViewById(R.id.deleteAnnouncementBtn);
+        saveAnnouncementBtn = findViewById(R.id.saveNewsBtn);
+        deleteAnnouncementBtn = findViewById(R.id.deleteNewsBtn);
 
 
         backArrowIv.setOnClickListener(new View.OnClickListener() {

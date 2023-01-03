@@ -222,20 +222,4 @@
         app:strokeColor="@color/primary"
         app:strokeWidth="1dp" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/deleteBtn"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:text="DELETE"
-        android:paddingVertical="5dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="30dp"
-        app:cornerRadius="15dp"
-        android:textColor="@color/white"
-        android:backgroundTint="#FF0000"/>
-
-
-
 </RelativeLayout>
