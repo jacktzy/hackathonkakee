@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/greyBG"
+    tools:context=".organizer.CreateNewsActivity">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/normal_page_toolbar" />
+    
+    <ScrollView
+        android:layout_below="@+id/include"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="5dp"
+                android:id="@+id/titleTIL"
+                android:hint="News Title"
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/titleTIET"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/titleTIL"
+                android:layout_marginHorizontal="32dp"
+                android:layout_marginVertical="5dp"
+                android:id="@+id/contentTIL"
+                android:hint="News Content"
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/contentTIET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:gravity="top"
+                    android:lines="15"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/pictureIV"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_below="@id/contentTIL"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/addPictureBtn"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#004BC0"
+                android:text="Add picture"
+                android:textAllCaps="false"
+                app:cornerRadius="15dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/pictureIV"
+                android:visibility="invisible"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/deletePictureBtn"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FF0000"
+                android:text="Delete picture"
+                android:textAllCaps="false"
+                app:cornerRadius="15dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/pictureIV"
+                android:visibility="invisible"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/saveNewsBtn"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#004BC0"
+                android:text="Save"
+                android:textAllCaps="false"
+                app:cornerRadius="15dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/addPictureBtn"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/deleteNewsBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FF0000"
+                android:text="Delete"
+                android:textAllCaps="false"
+                app:cornerRadius="15dp"
+                android:layout_marginHorizontal="32dp"
+                android:layout_marginVertical="5dp"
+                android:layout_below="@id/saveNewsBtn"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

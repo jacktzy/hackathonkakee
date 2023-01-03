@@ -3,17 +3,17 @@
     <item
         android:id="@+id/homeFragment"
         android:title="Home"
-        android:icon="@drawable/ic_baseline_home_24"/>
+        android:icon="@drawable/home"/>
 
     <item
         android:id="@+id/hackathonFragment"
         android:title="Hackathon"
-        android:icon="@drawable/ic_baseline_event_24"/>
+        android:icon="@drawable/hackathon"/>
 
     <item
         android:id="@+id/hallOfFameFragment"
         android:title="Hall of Fame"
-        android:icon="@drawable/ic_baseline_bar_chart_24"/>
+        android:icon="@drawable/halloffame"/>
 
     <item
         android:id="@+id/profileFragment"

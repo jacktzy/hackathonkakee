@@ -19,6 +19,7 @@ public class OrganizerHomePageActivity extends AppCompatActivity {
     MaterialButton createHackathonBtn, myHackathonBtn;
     FloatingActionButton logoutBtn;
     String organizerID;
+    ImageView profileIV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class OrganizerHomePageActivity extends AppCompatActivity {
         createHackathonBtn = findViewById(R.id.createHackathonBtn);
         myHackathonBtn = findViewById(R.id.myHackathonBtn);
         logoutBtn = findViewById(R.id.logoutBtn);
+        profileIV = findViewById(R.id.profileIV);
 
         createHackathonBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +60,14 @@ public class OrganizerHomePageActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(OrganizerHomePageActivity.this, LoginActivity.class));
                 finish();
+            }
+        });
+        profileIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(OrganizerHomePageActivity.this, ProfileActivity.class);
+                intent.putExtra("organizerID", organizerID);
+                startActivity(intent);
             }
         });
     }

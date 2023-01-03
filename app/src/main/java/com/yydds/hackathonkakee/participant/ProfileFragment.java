@@ -19,12 +19,14 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 import com.yydds.hackathonkakee.R;
 import com.yydds.hackathonkakee.classes.Participant;
+import com.yydds.hackathonkakee.general.LoginActivity;
 
 import java.text.SimpleDateFormat;
 
@@ -49,7 +51,7 @@ public class ProfileFragment extends Fragment {
     }
 
     //testing purpose
-    MaterialButton viewResumeBtn;
+    MaterialButton viewResumeBtn, logoutBtn;
     FloatingActionButton editProfileBtn;
 
     TextView nameTV, emailTV, birthDateTV, genderTV, phoneTV, insNameTV, majorTV, levelEduTV, CGPATV, interestFieldTV, interestJobPosTV, noResumeAlertTV;
@@ -116,6 +118,7 @@ public class ProfileFragment extends Fragment {
     private void initializeComponents(View view) {
         viewResumeBtn = view.findViewById(R.id.viewResumeBtn);
         editProfileBtn = view.findViewById(R.id.editProfileBtn);
+        logoutBtn = view.findViewById(R.id.logoutBtn);
 
         nameTV = view.findViewById(R.id.nameTV);
         emailTV = view.findViewById(R.id.emailTV);
@@ -127,7 +130,7 @@ public class ProfileFragment extends Fragment {
         levelEduTV = view.findViewById(R.id.levelOfEducationTV);
         CGPATV = view.findViewById(R.id.CGPATV);
         interestFieldTV = view.findViewById(R.id.interestFieldTV);
-        interestJobPosTV = view.findViewById(R.id.jobPositionTV);
+        interestJobPosTV = view.findViewById(R.id.jobPositionET);
         noResumeAlertTV = view.findViewById(R.id.noResumeAlertTV);
         profilePicIV = view.findViewById(R.id.profilePictureIV);
 
@@ -137,6 +140,15 @@ public class ProfileFragment extends Fragment {
                 Intent intent = new Intent(view.getContext(), ParticipantEditProfileActivity.class);
                 intent.putExtra("participantID", participantID);
                 startActivity(intent);
+            }
+        });
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+                getActivity().finish();
             }
         });
     }

@@ -2,13 +2,21 @@ package com.yydds.hackathonkakee.participant.hackathonDashboard;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.yydds.hackathonkakee.R;
+import com.yydds.hackathonkakee.classes.Team;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +33,10 @@ public class RankingFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    RecyclerView teamRV;
+    String hackathonID;
+    RankingTeamAdapter rankingTeamAdapter;
 
     public RankingFragment() {
         // Required empty public constructor
@@ -55,6 +67,7 @@ public class RankingFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        hackathonID = getActivity().getIntent().getStringExtra("hackathonID");
     }
 
     @Override
@@ -62,5 +75,41 @@ public class RankingFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_ranking, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        initComponents(view);
+
+        System.out.println(hackathonID);
+        Query query = FirebaseFirestore.getInstance().collection("Teams").whereEqualTo("hackathonID", hackathonID).whereGreaterThan("ranking", 0).orderBy("ranking", Query.Direction.ASCENDING);
+        FirestoreRecyclerOptions<Team> options = new FirestoreRecyclerOptions.Builder<Team>().setQuery(query, Team.class).build();
+        teamRV.setLayoutManager(new LinearLayoutManager(getContext()));
+        rankingTeamAdapter = new RankingTeamAdapter(options, getContext());
+        teamRV.setAdapter(rankingTeamAdapter);
+    }
+
+    private void initComponents(View view) {
+        teamRV = view.findViewById(R.id.teamRV);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        rankingTeamAdapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        rankingTeamAdapter.stopListening();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        rankingTeamAdapter.notifyDataSetChanged();
     }
 }

@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginHorizontal="20dp"
         app:cardCornerRadius="25dp"
         app:cardElevation="15dp"
@@ -46,7 +47,7 @@
                 android:text="Team ID" />
 
             <TextView
-                android:id="@+id/teamNameTV"
+                android:id="@+id/rankingTV"
                 android:layout_width="0dp"
                 android:layout_weight="7"
                 android:layout_height="wrap_content"

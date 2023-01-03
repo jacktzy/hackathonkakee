@@ -134,7 +134,7 @@ public class ParticipantAllHackathonFragment extends Fragment {
 //                    }
 //                });
                 setupRecyclerView(newQuery);
-                Toast.makeText(getActivity(), "Done searching.", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "Done searching.", Toast.LENGTH_SHORT).show();
             }
         });
         sortIBtn.setOnClickListener(new View.OnClickListener() {
@@ -153,7 +153,7 @@ public class ParticipantAllHackathonFragment extends Fragment {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         if (menuItem.getTitle() == "Sort by name (ascending)") {
-                            Query newQuery = db.collection("Hackathons").orderBy("name", Query.Direction.ASCENDING);
+                            Query newQuery = db.collection("Hackathons").orderBy("name");
                             setupRecyclerView(newQuery);
                             return true;
                         } else if (menuItem.getTitle() == "Sort by name (descending)") {
@@ -204,11 +204,17 @@ public class ParticipantAllHackathonFragment extends Fragment {
     }
 
     private void setupRecyclerView(Query query) {
+        query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                System.out.println(queryDocumentSnapshots.size());
+            }
+        });
         FirestoreRecyclerOptions<Hackathon> options = new FirestoreRecyclerOptions.Builder<Hackathon>().setQuery(query, Hackathon.class).build();
         hackathonListRV.setLayoutManager(new LinearLayoutManager(getContext()));
         hackathonItemAdapter = new HackathonItemAdapter(options, getContext(), participantID, false);
         hackathonListRV.setAdapter(hackathonItemAdapter);
-        onStart();
+        hackathonItemAdapter.startListening();
     }
 
     @Override

@@ -6,16 +6,25 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.yydds.hackathonkakee.R;
+import com.yydds.hackathonkakee.classes.Hackathon;
+import com.yydds.hackathonkakee.classes.News;
 import com.yydds.hackathonkakee.general.LoginActivity;
 
 /**
@@ -24,6 +33,12 @@ import com.yydds.hackathonkakee.general.LoginActivity;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+
+    RecyclerView upcomingHackathonRV, newsRV;
+    String participantID;
+    HomeHackathonAdapter homeHackathonAdapter;
+    HomeNewsAdapter homeNewsAdapter;
+    TextView moreHackathonTV, hiTV;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,8 +52,6 @@ public class HomeFragment extends Fragment {
     public HomeFragment() {
         // Required empty public constructor
     }
-
-    Button logoutBtn;
 
     /**
      * Use this factory method to create a new instance of
@@ -65,6 +78,7 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        participantID = getActivity().getIntent().getStringExtra("participantID");
     }
 
     @Override
@@ -78,16 +92,61 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        logoutBtn = view.findViewById(R.id.logoutBtn);
+        initComponents(view);
+        setupRecyclerView();
+    }
 
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
+    private void initComponents(View view) {
+        upcomingHackathonRV = view.findViewById(R.id.upcomingHackathonRV);
+        newsRV = view.findViewById(R.id.newsRV);
+        hiTV = view.findViewById(R.id.hiTV);
+        moreHackathonTV = view.findViewById(R.id.moreHackathonTV);
+
+        hiTV.setText("Hi " + getActivity().getIntent().getStringExtra("participantName"));
+
+        moreHackathonTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
-                getActivity().finish();
+                Navigation.findNavController(view).navigate(R.id.hackathonFragment);
+                Navigation.findNavController(view).navigate(R.id.participantAllHackathonFragment);
             }
         });
+    }
+
+    private void setupRecyclerView() {
+        Query hackathonQuery = FirebaseFirestore.getInstance().collection("Hackathons");
+//        query = query.whereEqualTo("mode", "jdfkaj");
+        FirestoreRecyclerOptions<Hackathon> hackathonOptions = new FirestoreRecyclerOptions.Builder<Hackathon>().setQuery(hackathonQuery, Hackathon.class).build();
+        upcomingHackathonRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        homeHackathonAdapter = new HomeHackathonAdapter(hackathonOptions, getContext(), participantID);
+        upcomingHackathonRV.setAdapter(homeHackathonAdapter);
+
+        Query newsQuery = FirebaseFirestore.getInstance().collection("News").orderBy("timestamp", Query.Direction.DESCENDING);
+        FirestoreRecyclerOptions<News> newsOptions = new FirestoreRecyclerOptions.Builder<News>().setQuery(newsQuery, News.class).build();
+        newsRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        homeNewsAdapter = new HomeNewsAdapter(newsOptions, getContext());
+        newsRV.setAdapter(homeNewsAdapter);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        homeHackathonAdapter.startListening();
+        homeNewsAdapter.startListening();
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        homeHackathonAdapter.stopListening();
+        homeNewsAdapter.stopListening();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        homeHackathonAdapter.notifyDataSetChanged();
+        homeNewsAdapter.notifyDataSetChanged();
     }
 }

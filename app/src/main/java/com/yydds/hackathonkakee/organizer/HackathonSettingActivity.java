@@ -21,7 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class HackathonSettingActivity extends AppCompatActivity {
-    private MaterialButton editDetailsBtn, showParticipantsBtn, showTeamsBtn, announcementBtn, newsBtn, deleteBtn;
+    private MaterialButton editDetailsBtn, showParticipantsBtn, showTeamsBtn, announcementBtn, newsBtn;
     ImageView backArrowIv, hackathonIcon;
     TextView pageTitleTv;
     String organizerID, hackathonID, hackathonName;
@@ -47,7 +47,6 @@ public class HackathonSettingActivity extends AppCompatActivity {
         showTeamsBtn = findViewById(R.id.showTeamsBtn);
         announcementBtn = findViewById(R.id.announcementBtn);
         newsBtn = findViewById(R.id.newsBtn);
-        deleteBtn = findViewById(R.id.deleteBtn);
         hackathonTitle = findViewById(R.id.hackathonTitle);
         date = findViewById(R.id.date);
         mode = findViewById(R.id.mode);
@@ -115,16 +114,11 @@ public class HackathonSettingActivity extends AppCompatActivity {
         newsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO manage news
+                Intent intent = new Intent(HackathonSettingActivity.this, ManageNewsActivity.class);
+                intent.putExtra("hackathonID", hackathonID);
+                startActivity(intent);
             }
         });
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO delete hackathons
-            }
-        });
-
     }
 
 //    @Override

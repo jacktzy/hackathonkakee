@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,10 +14,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.yydds.hackathonkakee.R;
-import com.yydds.hackathonkakee.TeamAdapter;
 import com.yydds.hackathonkakee.classes.Team;
-
-import java.util.ArrayList;
 
 public class ShowTeams extends AppCompatActivity {
     RecyclerView teamsRV;

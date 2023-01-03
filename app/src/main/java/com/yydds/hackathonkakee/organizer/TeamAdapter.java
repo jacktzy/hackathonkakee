@@ -1,11 +1,10 @@
-package com.yydds.hackathonkakee;
+package com.yydds.hackathonkakee.organizer;
 
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,10 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.yydds.hackathonkakee.R;
 import com.yydds.hackathonkakee.classes.Team;
-import com.yydds.hackathonkakee.organizer.TeamDetailActivity;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TeamAdapter extends FirestoreRecyclerAdapter<Team, TeamAdapter.TeamViewHolder> {
@@ -80,7 +78,7 @@ public class TeamAdapter extends FirestoreRecyclerAdapter<Team, TeamAdapter.Team
             super(itemView);
             noTV = itemView.findViewById(R.id.noTV);
             teamIDTV = itemView.findViewById(R.id.teamIDTV);
-            teamNameTV = itemView.findViewById(R.id.teamNameTV);
+            teamNameTV = itemView.findViewById(R.id.rankingTV);
             teamRankingTV = itemView.findViewById(R.id.teamRankingTV);
         }
     }

@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 public class Participant {
     private String name, email, profilePicUrl, resumeUrl, gender, phoneNumber, institutionName, fieldMajor, levelOfEducation, interestField, interestJobPos;
-    private ArrayList<String> participatedHackathonId, joinedTeamID;
+    private ArrayList<String> participatedHackathonId, joinedTeamID, rewardClaimed;
     private double CGPA;
-    private int token;
+    private int points;
     private Timestamp birthDate;
 
 
@@ -23,13 +23,15 @@ public class Participant {
         this.profilePicUrl = this.resumeUrl = this.gender = this.phoneNumber = this.institutionName = this.fieldMajor = this.levelOfEducation = this.interestField = this.interestJobPos = "";
         this.participatedHackathonId = new ArrayList<>();
         this.joinedTeamID = new ArrayList<>();
+        this.rewardClaimed = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            rewardClaimed.add("0");
+        }
         this.CGPA = 0.0;
-        this.token = 0;
+        this.points = 0;
     }
 
-    //Constructor used when updating participant profile
-
-
+    //method used when updating participant profile
     public void updateProfile(String name, String profilePicUrl, String resumeUrl, String gender, String phoneNumber, String institutionName, String fieldMajor, String levelOfEducation, String interestField, String interestJobPos, double CGPA, Timestamp birthDate) {
         this.name = name;
         this.profilePicUrl = profilePicUrl;
@@ -160,12 +162,12 @@ public class Participant {
         this.birthDate = birthDate;
     }
 
-    public int getToken() {
-        return token;
+    public int getPoints() {
+        return points;
     }
 
-    public void setToken(int token) {
-        this.token = token;
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     public ArrayList<String> getJoinedTeamID() {
@@ -174,5 +176,13 @@ public class Participant {
 
     public void setJoinedTeamID(ArrayList<String> joinedTeamID) {
         this.joinedTeamID = joinedTeamID;
+    }
+
+    public ArrayList<String> getRewardClaimed() {
+        return rewardClaimed;
+    }
+
+    public void setRewardClaimed(ArrayList<String> rewardClaimed) {
+        this.rewardClaimed = rewardClaimed;
     }
 }

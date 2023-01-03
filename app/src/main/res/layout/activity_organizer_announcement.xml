@@ -11,7 +11,7 @@
         layout="@layout/normal_page_toolbar" />
 
     <Button
-        android:id="@+id/createAnnouncementBtn"
+        android:id="@+id/createNewsBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="70dp"
@@ -27,6 +27,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="24dp"
-        android:layout_below="@+id/createAnnouncementBtn"/>
+        android:layout_below="@+id/createNewsBtn"/>
 
 </RelativeLayout>

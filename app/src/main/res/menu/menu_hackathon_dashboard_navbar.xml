@@ -3,7 +3,7 @@
     <item
         android:id="@+id/announcementFragment"
         android:title="Announcement"
-        android:icon="@drawable/ic_baseline_bar_chart_24"/>
+        android:icon="@drawable/announcement"/>
 
     <item
         android:id="@+id/teamFragment"
@@ -13,5 +13,5 @@
     <item
         android:id="@+id/rankingFragment"
         android:title="Ranking"
-        android:icon="@drawable/ic_baseline_bar_chart_24" />
+        android:icon="@drawable/ranking" />
 </menu>

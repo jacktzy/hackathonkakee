@@ -268,6 +268,17 @@ public class CreateNewHackathonActivity extends AppCompatActivity {
                     }
                 });
 
+                Query newsQuery = FirebaseFirestore.getInstance().collection("News").whereEqualTo("hackathonID", hackathonID);
+                newsQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                        for (DocumentSnapshot ds: list) {
+                            ds.getReference().delete();
+                        }
+                    }
+                });
+
                 Query teamQuery = FirebaseFirestore.getInstance().collection("Teams").whereEqualTo("hackathonID", hackathonID);
                 teamQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override

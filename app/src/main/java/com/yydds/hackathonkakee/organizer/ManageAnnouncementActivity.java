@@ -36,7 +36,7 @@ public class ManageAnnouncementActivity extends AppCompatActivity {
     }
 
     private void initializeComponent() {
-        createAnnouncementBtn = findViewById(R.id.createAnnouncementBtn);
+        createAnnouncementBtn = findViewById(R.id.createNewsBtn);
         pageTitleTv = findViewById(R.id.pageTitleTv);
         backArrowIv = findViewById(R.id.backArrowIv);
         recyclerView = findViewById(R.id.recyclerview);
