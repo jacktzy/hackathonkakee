@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,9 +42,13 @@ public class AnnouncementAdapter extends FirestoreRecyclerAdapter<Announcement, 
 
     @Override
     protected void onBindViewHolder(@NonNull AnnouncementViewHolder holder, int position, @NonNull Announcement announcement) {
+        Animation animation = AnimationUtils.loadAnimation(holder.itemView.getContext(), android.R.anim.slide_in_left);
+
         holder.titleTV.setText(announcement.getTitle());
         holder.contentTV.setText(announcement.getContent());
         holder.timestampTV.setText(new SimpleDateFormat("dd/MM/yyyy").format(announcement.getTimestamp().toDate()));
+
+        holder.itemView.startAnimation(animation);
     }
 
     class AnnouncementViewHolder extends RecyclerView.ViewHolder {

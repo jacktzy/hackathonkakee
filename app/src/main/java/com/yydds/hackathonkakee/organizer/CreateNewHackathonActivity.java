@@ -362,7 +362,7 @@ public class CreateNewHackathonActivity extends AppCompatActivity {
             isValid = false;
         } else {
             try {
-                maxTeamMembers = Integer.parseInt(prizePoolTIET.getText().toString());
+                maxTeamMembers = Integer.parseInt(maxTeamMembersTIET.getText().toString());
                 maxTeamMembersTIL.setErrorEnabled(false);
             } catch (Exception e) {
                 maxTeamMembersTIL.setErrorEnabled(true);

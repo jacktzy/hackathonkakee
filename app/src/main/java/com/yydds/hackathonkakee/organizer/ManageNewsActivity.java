@@ -11,7 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.firestore.AggregateQuery;
+import com.google.firebase.firestore.AggregateQuerySnapshot;
+import com.google.firebase.firestore.AggregateSource;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.yydds.hackathonkakee.R;
@@ -25,6 +30,7 @@ public class ManageNewsActivity extends AppCompatActivity {
     TextView pageTitleTV;
     ImageView backArrowIV;
     NewsAdapter newsAdapter;
+    MaterialCardView noNewsMCV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,7 @@ public class ManageNewsActivity extends AppCompatActivity {
         newsListRV = findViewById(R.id.newsListRV);
         pageTitleTV = findViewById(R.id.pageTitleTv);
         backArrowIV = findViewById(R.id.backArrowIv);
+        noNewsMCV = findViewById(R.id.noNewsMCV);
 
         pageTitleTV.setText("Manage News");
         createNewsBtn.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +71,18 @@ public class ManageNewsActivity extends AppCompatActivity {
                 .whereEqualTo("hackathonID", hackathonID)
                 .orderBy("timestamp", com.google.firebase.firestore.Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<News> options = new FirestoreRecyclerOptions.Builder<News>().setQuery(query, News.class).build();
+        AggregateQuery aggregateQuery = query.count();
+        aggregateQuery.get(AggregateSource.SERVER).addOnSuccessListener(new OnSuccessListener<AggregateQuerySnapshot>() {
+            @Override
+            public void onSuccess(AggregateQuerySnapshot aggregateQuerySnapshot) {
+                long size = aggregateQuerySnapshot.getCount();
+                if (size <= 0) {
+                    noNewsMCV.setVisibility(View.VISIBLE);
+                } else {
+                    noNewsMCV.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
         newsListRV.setLayoutManager(new LinearLayoutManager(this));
         newsAdapter = new NewsAdapter(options, this, hackathonID);
         newsListRV.setAdapter(newsAdapter);

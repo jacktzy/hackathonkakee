@@ -11,6 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.firestore.AggregateQuery;
+import com.google.firebase.firestore.AggregateQuerySnapshot;
+import com.google.firebase.firestore.AggregateSource;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.yydds.hackathonkakee.R;
@@ -24,6 +29,7 @@ public class ShowTeams extends AppCompatActivity {
     ImageView backArrowIv;
     TextView pageTitleTv;
     String hackathonID;
+    MaterialCardView noTeamMCV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +46,18 @@ public class ShowTeams extends AppCompatActivity {
         Query query = FirebaseFirestore.getInstance().collection("Teams")
                 .whereEqualTo("hackathonID", hackathonID);
         FirestoreRecyclerOptions<Team> options = new FirestoreRecyclerOptions.Builder<Team>().setQuery(query, Team.class).build();
+        AggregateQuery aggregateQuery = query.count();
+        aggregateQuery.get(AggregateSource.SERVER).addOnSuccessListener(new OnSuccessListener<AggregateQuerySnapshot>() {
+            @Override
+            public void onSuccess(AggregateQuerySnapshot aggregateQuerySnapshot) {
+                long size = aggregateQuerySnapshot.getCount();
+                if (size <= 0) {
+                    noTeamMCV.setVisibility(View.VISIBLE);
+                } else {
+                    noTeamMCV.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
         teamsRV.setLayoutManager(new LinearLayoutManager(this));
         adapter = new TeamAdapter(options, this, hackathonID);
         teamsRV.setAdapter(adapter);
@@ -90,6 +108,7 @@ public class ShowTeams extends AppCompatActivity {
         pageTitleTv.setText("Show Teams");
         backArrowIv = findViewById(R.id.backArrowIv);
         teamsRV = findViewById(R.id.teamsRV);
+        noTeamMCV = findViewById(R.id.noTeamMCV);
 
 
         backArrowIv.setOnClickListener(new View.OnClickListener() {

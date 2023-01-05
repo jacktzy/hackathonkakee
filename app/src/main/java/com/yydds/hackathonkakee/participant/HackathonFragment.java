@@ -83,7 +83,6 @@ public class HackathonFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.participantAllHackathonFragment);
             }
         });
-        //TODO set onclick listener on participatedHackathonBtn
         participatedHackathonBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

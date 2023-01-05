@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.firestore.AggregateQuery;
+import com.google.firebase.firestore.AggregateQuerySnapshot;
+import com.google.firebase.firestore.AggregateSource;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.yydds.hackathonkakee.R;
@@ -37,6 +44,8 @@ public class ParticipatedHackathonFragment extends Fragment {
     private String participantID;
     private HackathonItemAdapter hackathonItemAdapter;
     private FirebaseFirestore db;
+    MaterialCardView noHackathonMCV;
+    MaterialButton findHackathonBtn;
 
     public ParticipatedHackathonFragment() {
         // Required empty public constructor
@@ -84,9 +93,30 @@ public class ParticipatedHackathonFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         RecyclerView hackathonListRV = view.findViewById(R.id.hackathonListRV);
+        noHackathonMCV = view.findViewById(R.id.noHackathonMCV);
+        findHackathonBtn = view.findViewById(R.id.findHackathonBtn);
+
+        findHackathonBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.participantAllHackathonFragment);
+            }
+        });
 
         Query query = db.collection("Hackathons").whereArrayContains("participantsID", participantID);
         FirestoreRecyclerOptions<Hackathon> options = new FirestoreRecyclerOptions.Builder<Hackathon>().setQuery(query, Hackathon.class).build();
+        AggregateQuery aggregateQuery = query.count();
+        aggregateQuery.get(AggregateSource.SERVER).addOnSuccessListener(new OnSuccessListener<AggregateQuerySnapshot>() {
+            @Override
+            public void onSuccess(AggregateQuerySnapshot aggregateQuerySnapshot) {
+                long size = aggregateQuerySnapshot.getCount();
+                if (size <= 0) {
+                    noHackathonMCV.setVisibility(View.VISIBLE);
+                } else {
+                    noHackathonMCV.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
         hackathonListRV.setLayoutManager(new LinearLayoutManager(getContext()));
         hackathonItemAdapter = new HackathonItemAdapter(options, getContext(), participantID, true);
         hackathonListRV.setAdapter(hackathonItemAdapter);

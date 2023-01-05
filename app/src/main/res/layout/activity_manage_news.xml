@@ -23,12 +23,37 @@
         app:cornerRadius="15dp"
         android:layout_below="@+id/include"/>
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/noNewsMCV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/createNewsBtn"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"
+        app:cardCornerRadius="15dp"
+        app:strokeColor="@color/primary"
+        app:strokeWidth="1dp"
+        android:visibility="invisible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="14dp"
+            android:textColor="@color/black"
+            android:text="No news available."
+            android:layout_marginVertical="20dp"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/newsListRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="24dp"
         android:layout_below="@+id/createNewsBtn"/>
+
 
 
 </RelativeLayout>
