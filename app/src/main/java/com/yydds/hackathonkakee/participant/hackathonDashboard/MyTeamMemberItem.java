@@ -6,6 +6,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,7 +46,8 @@ public class MyTeamMemberItem extends RecyclerView.Adapter<MyTeamMemberItem.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        System.out.println(position);
+        Animation animation = AnimationUtils.loadAnimation(holder.itemView.getContext(), android.R.anim.slide_in_left);
+
         if (participantID.equals(membersID.get(position))) {
             holder.deleteMemberBtn.setVisibility(View.INVISIBLE);
         }
@@ -59,6 +62,8 @@ public class MyTeamMemberItem extends RecyclerView.Adapter<MyTeamMemberItem.View
                 Toast.makeText(view.getContext(), "Delete " + membersName.get(position) + " successfully.", Toast.LENGTH_SHORT).show();
             }
         });
+
+        holder.itemView.startAnimation(animation);
     }
 
     @Override

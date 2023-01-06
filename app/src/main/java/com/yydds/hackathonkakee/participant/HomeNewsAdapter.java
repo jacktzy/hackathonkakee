@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,6 +37,8 @@ public class HomeNewsAdapter extends FirestoreRecyclerAdapter<News, HomeNewsAdap
 
     @Override
     protected void onBindViewHolder(@NonNull HomeNewsViewHolder holder, int position, @NonNull News news) {
+        Animation animation = AnimationUtils.loadAnimation(holder.itemView.getContext(), android.R.anim.slide_in_left);
+
         holder.titleTV.setText(news.getTitle());
         String publishDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(news.getTimestamp().toDate());
         holder.timestampTV.setText(publishDate);
@@ -50,6 +54,7 @@ public class HomeNewsAdapter extends FirestoreRecyclerAdapter<News, HomeNewsAdap
             }
         });
 
+        holder.itemView.startAnimation(animation);
     }
 
     @NonNull

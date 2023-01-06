@@ -12,6 +12,46 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/noHackathonMCV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"
+        app:cardCornerRadius="15dp"
+        app:strokeColor="@color/primary"
+        app:strokeWidth="1dp"
+        android:visibility="invisible">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:textSize="14dp"
+                android:textColor="@color/black"
+                android:text="You haven't join any hackathon."/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/findHackathonBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginVertical="30dp"
+                app:cornerRadius="15dp"
+                android:text="Find hackathon"
+                android:textAllCaps="false"
+                android:layout_below="@id/text"/>
+
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
 
 
 </RelativeLayout>

@@ -89,7 +89,7 @@ public class ParticipantEditProfileActivity extends AppCompatActivity {
         levelEduET = findViewById(R.id.levelOfEducationET);
         CGPAET = findViewById(R.id.CGPAET);
         interestFieldET = findViewById(R.id.interestFieldET);
-        interestJobPosET = findViewById(R.id.jobPositionET);
+        interestJobPosET = findViewById(R.id.jobPositionTV);
         uploadResumeBtn = findViewById(R.id.uploadResumeBtn);
         deleteResumeBtn = findViewById(R.id.deleteResumeBtn);
         deletePicBtn = findViewById(R.id.deletePicBtn);

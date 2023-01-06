@@ -224,7 +224,7 @@
                 app:layout_constraintTop_toTopOf="@+id/phoneNumber" />
 
             <EditText
-                android:id="@+id/jobPositionET"
+                android:id="@+id/jobPositionTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="130dp"

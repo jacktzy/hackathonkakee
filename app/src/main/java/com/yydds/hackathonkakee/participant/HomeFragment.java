@@ -19,7 +19,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.AggregateQuery;
+import com.google.firebase.firestore.AggregateQuerySnapshot;
+import com.google.firebase.firestore.AggregateSource;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.yydds.hackathonkakee.R;
@@ -38,7 +43,7 @@ public class HomeFragment extends Fragment {
     String participantID;
     HomeHackathonAdapter homeHackathonAdapter;
     HomeNewsAdapter homeNewsAdapter;
-    TextView moreHackathonTV, hiTV;
+    TextView moreHackathonTV, hiTV, noHackathonTV, noNewsTV;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -101,6 +106,8 @@ public class HomeFragment extends Fragment {
         newsRV = view.findViewById(R.id.newsRV);
         hiTV = view.findViewById(R.id.hiTV);
         moreHackathonTV = view.findViewById(R.id.moreHackathonTV);
+        noHackathonTV = view.findViewById(R.id.noHackathonTV);
+        noNewsTV = view.findViewById(R.id.noNewsTV);
 
         hiTV.setText("Hi " + getActivity().getIntent().getStringExtra("participantName"));
 
@@ -114,15 +121,42 @@ public class HomeFragment extends Fragment {
     }
 
     private void setupRecyclerView() {
-        Query hackathonQuery = FirebaseFirestore.getInstance().collection("Hackathons");
-//        query = query.whereEqualTo("mode", "jdfkaj");
+        Query hackathonQuery = FirebaseFirestore.getInstance().collection("Hackathons").whereGreaterThan("startDateTS", Timestamp.now());
         FirestoreRecyclerOptions<Hackathon> hackathonOptions = new FirestoreRecyclerOptions.Builder<Hackathon>().setQuery(hackathonQuery, Hackathon.class).build();
+        AggregateQuery hackathonCountQuery = hackathonQuery.count();
+        hackathonCountQuery.get(AggregateSource.SERVER).addOnSuccessListener(new OnSuccessListener<AggregateQuerySnapshot>() {
+            @Override
+            public void onSuccess(AggregateQuerySnapshot aggregateQuerySnapshot) {
+                long size = aggregateQuerySnapshot.getCount();
+                if (size <= 0) {
+                    noHackathonTV.setVisibility(View.VISIBLE);
+                    upcomingHackathonRV.setVisibility(View.GONE);
+                } else {
+                    noHackathonTV.setVisibility(View.GONE);
+                    upcomingHackathonRV.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         upcomingHackathonRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         homeHackathonAdapter = new HomeHackathonAdapter(hackathonOptions, getContext(), participantID);
         upcomingHackathonRV.setAdapter(homeHackathonAdapter);
 
         Query newsQuery = FirebaseFirestore.getInstance().collection("News").orderBy("timestamp", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<News> newsOptions = new FirestoreRecyclerOptions.Builder<News>().setQuery(newsQuery, News.class).build();
+        AggregateQuery newsCountQuery = newsQuery.count();
+        newsCountQuery.get(AggregateSource.SERVER).addOnSuccessListener(new OnSuccessListener<AggregateQuerySnapshot>() {
+            @Override
+            public void onSuccess(AggregateQuerySnapshot aggregateQuerySnapshot) {
+                long size = aggregateQuerySnapshot.getCount();
+                if (size <= 0) {
+                    noNewsTV.setVisibility(View.VISIBLE);
+                    newsRV.setVisibility(View.GONE);
+                } else {
+                    noNewsTV.setVisibility(View.GONE);
+                    newsRV.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         newsRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         homeNewsAdapter = new HomeNewsAdapter(newsOptions, getContext());
         newsRV.setAdapter(homeNewsAdapter);

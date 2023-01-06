@@ -13,10 +13,13 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.Fragment;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -25,6 +28,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.button.MaterialButton;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -32,9 +37,12 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.yydds.hackathonkakee.R;
 import com.yydds.hackathonkakee.classes.Hackathon;
+import com.yydds.hackathonkakee.classes.Participant;
 import com.yydds.hackathonkakee.classes.Team;
 import com.yydds.hackathonkakee.general.Utility;
+import com.yydds.hackathonkakee.participant.HackathonDetailActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HackathonDashboardActivity extends AppCompatActivity {
@@ -42,6 +50,8 @@ public class HackathonDashboardActivity extends AppCompatActivity {
     String hackathonID, participantID, hackathonName;
     TextView pageTitleTV;
     ImageView backArrowIB, menuIV;
+    Dialog dialog;
+    MaterialButton yesBtn, noBtn;
 
     AnnouncementFragment announcementFragment;
 
@@ -102,7 +112,35 @@ public class HackathonDashboardActivity extends AppCompatActivity {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         if (menuItem.getTitle() == "Withdraw") {
-                            withdrawHackathon();
+                            dialog = new Dialog(HackathonDashboardActivity.this);
+                            dialog.setContentView(R.layout.confirmation_pop_up);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialog_background));
+                            }
+                            dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            dialog.setCancelable(false); //Optional
+                            dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation; //Setting the animations to dialog
+
+                            TextView titleTV = dialog.findViewById(R.id.titleTV), contentTV = dialog.findViewById(R.id.contentTV);
+                            titleTV.setText("Withdraw Confirmation");
+                            contentTV.setText("Are you sure to withdraw from " + hackathonName + "?");
+                            yesBtn = dialog.findViewById(R.id.yesBtn);
+                            noBtn = dialog.findViewById(R.id.noBtn);
+
+                            dialog.show();
+
+                            yesBtn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    withdrawHackathon();
+                                }
+                            });
+                            noBtn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    dialog.dismiss();
+                                }
+                            });
                             return true;
                         }
                         return false;

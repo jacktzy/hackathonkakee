@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,8 +32,12 @@ public class RankingTeamAdapter extends FirestoreRecyclerAdapter<Team, RankingTe
 
     @Override
     protected void onBindViewHolder(@NonNull RankingTeamViewHolder holder, int position, @NonNull Team team) {
+        Animation animation = AnimationUtils.loadAnimation(holder.itemView.getContext(), android.R.anim.slide_in_left);
+
         holder.rankingTV.setText("#" + team.getRanking());
         holder.teamNameTV.setText(team.getTeamName());
+
+        holder.itemView.startAnimation(animation);
     }
 
     @NonNull

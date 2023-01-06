@@ -12,6 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.firestore.AggregateQuery;
+import com.google.firebase.firestore.AggregateQuerySnapshot;
+import com.google.firebase.firestore.AggregateSource;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.yydds.hackathonkakee.R;
@@ -24,6 +29,7 @@ public class ManageAnnouncementActivity extends AppCompatActivity {
     TextView pageTitleTv;
     String hackathonID;
     AnnouncementAdapter announcementAdapter;
+    MaterialCardView noAnnouncementMCV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +46,7 @@ public class ManageAnnouncementActivity extends AppCompatActivity {
         pageTitleTv = findViewById(R.id.pageTitleTv);
         backArrowIv = findViewById(R.id.backArrowIv);
         recyclerView = findViewById(R.id.recyclerview);
+        noAnnouncementMCV = findViewById(R.id.noAnnouncementMCV);
 
         pageTitleTv.setText("Announcement");
         createAnnouncementBtn.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +71,18 @@ public class ManageAnnouncementActivity extends AppCompatActivity {
                 .whereEqualTo("hackathonID", hackathonID)
                 .orderBy("timestamp", com.google.firebase.firestore.Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Announcement> options = new FirestoreRecyclerOptions.Builder<Announcement>().setQuery(query, Announcement.class).build();
+        AggregateQuery aggregateQuery = query.count();
+        aggregateQuery.get(AggregateSource.SERVER).addOnSuccessListener(new OnSuccessListener<AggregateQuerySnapshot>() {
+            @Override
+            public void onSuccess(AggregateQuerySnapshot aggregateQuerySnapshot) {
+                long size = aggregateQuerySnapshot.getCount();
+                if (size <= 0) {
+                    noAnnouncementMCV.setVisibility(View.VISIBLE);
+                } else {
+                    noAnnouncementMCV.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         announcementAdapter = new AnnouncementAdapter(options, this);
         recyclerView.setAdapter(announcementAdapter);
@@ -85,5 +104,12 @@ public class ManageAnnouncementActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         announcementAdapter.notifyDataSetChanged();
+
+//        try {
+//            announcementAdapter.getSnapshots().getSnapshot(0);
+//            noAnnouncementMCV.setVisibility(View.GONE);
+//        } catch (Exception e) {
+//            noAnnouncementMCV.setVisibility(View.VISIBLE);
+//        }
     }
 }

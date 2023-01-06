@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,6 +39,8 @@ public class HomeHackathonAdapter extends FirestoreRecyclerAdapter<Hackathon, Ho
 
     @Override
     protected void onBindViewHolder(@NonNull HomeHackathonViewHolder holder, int position, @NonNull Hackathon hackathon) {
+        Animation animation = AnimationUtils.loadAnimation(holder.itemView.getContext(), android.R.anim.slide_in_left);
+
         holder.hackathonNameTV.setText(hackathon.getName());
         String startDate = new SimpleDateFormat("dd/MM/yyyy").format(hackathon.getStartDateTS().toDate());
         holder.dateTV.setText(startDate);
@@ -54,6 +58,8 @@ public class HomeHackathonAdapter extends FirestoreRecyclerAdapter<Hackathon, Ho
                 context.startActivity(intent);
             }
         });
+
+        holder.itemView.startAnimation(animation);
     }
 
     @NonNull

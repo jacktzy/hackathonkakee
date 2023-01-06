@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,11 +34,15 @@ public class HOFPersonAdapter extends FirestoreRecyclerAdapter<Participant, HOFP
 
     @Override
     protected void onBindViewHolder(@NonNull HOFPersonViewHolder holder, int position, @NonNull Participant participant) {
+        Animation animation = AnimationUtils.loadAnimation(holder.itemView.getContext(), android.R.anim.slide_in_left);
+
         if (!participant.getProfilePicUrl().isEmpty()) Picasso.get().load(participant.getProfilePicUrl()).into(holder.profilePicIV);
         holder.rankingTV.setText("#" + (position + 1));
         holder.nameTV.setText(participant.getName());
         holder.pointTV.setText(Integer.toString(participant.getPoints()));
         System.out.println(participant.getPoints());
+
+        holder.itemView.startAnimation(animation);
     }
 
     @NonNull
@@ -46,7 +52,7 @@ public class HOFPersonAdapter extends FirestoreRecyclerAdapter<Participant, HOFP
         return new HOFPersonViewHolder(view);
     }
 
-    class  HOFPersonViewHolder extends RecyclerView.ViewHolder {
+    class HOFPersonViewHolder extends RecyclerView.ViewHolder {
         TextView rankingTV, nameTV, pointTV;
         ImageView profilePicIV;
 

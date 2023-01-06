@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".participant.HackathonDetailActivity">
+    tools:context=".participant.HackathonDetailActivity"
+    android:background="@color/blueBG">
 
     <include
         android:id="@+id/include"
