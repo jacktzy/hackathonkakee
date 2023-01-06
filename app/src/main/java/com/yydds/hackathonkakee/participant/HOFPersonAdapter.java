@@ -52,7 +52,7 @@ public class HOFPersonAdapter extends FirestoreRecyclerAdapter<Participant, HOFP
         return new HOFPersonViewHolder(view);
     }
 
-    class  HOFPersonViewHolder extends RecyclerView.ViewHolder {
+    class HOFPersonViewHolder extends RecyclerView.ViewHolder {
         TextView rankingTV, nameTV, pointTV;
         ImageView profilePicIV;
 

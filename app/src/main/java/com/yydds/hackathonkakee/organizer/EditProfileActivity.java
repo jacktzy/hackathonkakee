@@ -35,7 +35,6 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 import com.yydds.hackathonkakee.R;
 import com.yydds.hackathonkakee.classes.Organizer;
-import com.yydds.hackathonkakee.participant.ParticipantEditProfileActivity;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -77,7 +76,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private void initComponents() {
         nameET = findViewById(R.id.nameET);
         phoneNumET = findViewById(R.id.phoneNumberET);
-        jobPosET = findViewById(R.id.jobPositionET);
+        jobPosET = findViewById(R.id.jobPositionTV);
         employerET = findViewById(R.id.employerET);
         nameET = findViewById(R.id.nameET);
         birthDateBtn = findViewById(R.id.birthDateBtn);

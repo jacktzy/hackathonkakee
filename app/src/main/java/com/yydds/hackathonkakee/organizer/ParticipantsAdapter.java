@@ -1,6 +1,7 @@
 package com.yydds.hackathonkakee.organizer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,7 @@ public class ParticipantsAdapter extends FirestoreRecyclerAdapter<Participant, P
      */
     Context context;
     ArrayList<String> hackathonTeamsID;
-    String hackathonID, participantTeamID, participantID;
+    String hackathonID, participantTeamID;
     boolean hasTeam;
 
     public ParticipantsAdapter(@NonNull FirestoreRecyclerOptions<Participant> options, Context context, String hackathonID) {
@@ -49,7 +50,7 @@ public class ParticipantsAdapter extends FirestoreRecyclerAdapter<Participant, P
     protected void onBindViewHolder(@NonNull ParticipantViewHolder holder, int position, @NonNull Participant participant) {
         hasTeam = false;
         participantTeamID = "";
-        participantID = this.getSnapshots().getSnapshot(position).getId();
+        String participantID = this.getSnapshots().getSnapshot(position).getId();
         if (!participant.getProfilePicUrl().isEmpty())
             Picasso.get().load(participant.getProfilePicUrl()).into(holder.profilePicIV);
         holder.noTV.setText("No: " + (position + 1));
@@ -70,20 +71,27 @@ public class ParticipantsAdapter extends FirestoreRecyclerAdapter<Participant, P
                         if (hasTeam) {
                             String finalParticipantTeamID = participantTeamID;
                             holder.deleteIV.setOnClickListener((v) -> {
-//                                System.out.println("has team one");
                                 FirebaseFirestore.getInstance().collection("Participants").document(participantID).update("participatedHackathonId", FieldValue.arrayRemove(hackathonID));
                                 FirebaseFirestore.getInstance().collection("Hackathons").document(hackathonID).update("participantsID", FieldValue.arrayRemove(participantID));
                                 Utility.deleteAMemberFromTeam(participantID, finalParticipantTeamID, hackathonID);
                             });
                         } else {
                             holder.deleteIV.setOnClickListener((v) -> {
-//                                System.out.println("dont have team one");
                                 FirebaseFirestore.getInstance().collection("Participants").document(participantID).update("participatedHackathonId", FieldValue.arrayRemove(hackathonID));
                                 FirebaseFirestore.getInstance().collection("Hackathons").document(hackathonID).update("participantsID", FieldValue.arrayRemove(participantID));
                             });
                         }
                     }
                 });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ParticipantDetailActivity.class);
+                intent.putExtra("participantID", participantID);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @NonNull

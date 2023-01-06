@@ -426,7 +426,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
 
                     <EditText
-                        android:id="@+id/jobPositionET"
+                        android:id="@+id/jobPositionTV"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="150dp"
@@ -449,7 +449,7 @@
                         android:visibility="visible"
                         app:cornerRadius="15dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/jobPositionET"/>
+                        app:layout_constraintTop_toBottomOf="@+id/jobPositionTV"/>
 
 
                     <ImageView

@@ -44,7 +44,7 @@ public class ProfileActivity extends AppCompatActivity {
         birthDateTV = findViewById(R.id.birthDateTV);
         genderTV = findViewById(R.id.genderTV);
         phoneNumberTV = findViewById(R.id.phoneNumberTV);
-        jobPositionTV = findViewById(R.id.jobPositionET);
+        jobPositionTV = findViewById(R.id.jobPositionTV);
         employerTV = findViewById(R.id.employerTV);
         profilePictureIV = findViewById(R.id.profilePictureIV);
         editProfileBtn = findViewById(R.id.editProfileBtn);

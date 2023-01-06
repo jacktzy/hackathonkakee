@@ -4,12 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".participant.ProfileFragment"
-    android:background="@color/blueBG">
+    tools:context=".organizer.ParticipantDetailActivity"
+    android:background="@color/greyBG">
+
+    <include
+        layout="@layout/normal_page_toolbar"
+        android:id="@+id/include" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/include">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -432,34 +437,8 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/logoutBtn"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:text="Log Out"
-                android:textAllCaps="false"
-                app:cornerRadius="15dp"
-                android:layout_below="@id/jobPreferences"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="40dp"/>
-
-
         </RelativeLayout>
 
     </ScrollView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editProfileBtn"
-        android:src="@drawable/ic_baseline_edit_24"
-        app:elevation="10dp"
-        app:backgroundTint="@color/primary"
-        android:backgroundTint="@color/white"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="15dp"/>
-
 </RelativeLayout>
-
