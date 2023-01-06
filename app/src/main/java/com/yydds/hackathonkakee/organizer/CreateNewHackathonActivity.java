@@ -6,12 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -28,6 +31,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
@@ -42,6 +46,7 @@ import com.squareup.picasso.Picasso;
 import com.yydds.hackathonkakee.R;
 import com.yydds.hackathonkakee.classes.Hackathon;
 import com.yydds.hackathonkakee.classes.Team;
+import com.yydds.hackathonkakee.general.LoginActivity;
 import com.yydds.hackathonkakee.general.Utility;
 
 import java.io.FileNotFoundException;
@@ -156,7 +161,40 @@ public class CreateNewHackathonActivity extends AppCompatActivity {
         endDateBtn.setOnClickListener((v) -> handleEndDateBtn());
 
         createHackathonBtn.setOnClickListener((v) -> saveHackathon());
-        deleteHackathonBtn.setOnClickListener((v) -> deleteHackathonFromFirebase());
+        deleteHackathonBtn.setOnClickListener((v) -> {
+            Dialog dialog;
+            MaterialButton yesBtn, noBtn;
+            dialog = new Dialog(CreateNewHackathonActivity.this);
+            dialog.setContentView(R.layout.confirmation_pop_up);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialog_background));
+            }
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialog.setCancelable(false); //Optional
+            dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation; //Setting the animations to dialog
+
+            TextView titleTV = dialog.findViewById(R.id.titleTV), contentTV = dialog.findViewById(R.id.contentTV);
+            titleTV.setText("Delete Hackathon");
+            contentTV.setText("Are you sure to delete hackathon?");
+            yesBtn = dialog.findViewById(R.id.yesBtn);
+            noBtn = dialog.findViewById(R.id.noBtn);
+
+            dialog.show();
+
+            yesBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    deleteHackathonFromFirebase();
+                    dialog.dismiss();
+                }
+            });
+            noBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+        });
 
         modeAdapterItems = new ArrayAdapter<String>(this, R.layout.create_hackathon_mode_list_view, modes);
         modeActv.setAdapter(modeAdapterItems);

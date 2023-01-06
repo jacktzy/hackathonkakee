@@ -1,6 +1,8 @@
 package com.yydds.hackathonkakee.participant.hackathonDashboard;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -138,7 +140,8 @@ public class MyTeamFragment extends Fragment {
         findTeamBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO find team Btn
+                Navigation.findNavController(getActivity(), R.id.hackathonDashboardFragmentContainer).navigateUp();
+                Navigation.findNavController(view).navigate(R.id.findTeamFragment);
             }
         });
         editTeamBtn.setOnClickListener(new View.OnClickListener() {
@@ -155,8 +158,39 @@ public class MyTeamFragment extends Fragment {
         quitTeamBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utility.deleteAMemberFromTeam(participantID, teamID, hackathonID);
-                Navigation.findNavController(getActivity(), R.id.hackathonDashboardFragmentContainer).navigateUp();
+                Dialog dialog;
+                MaterialButton yesBtn, noBtn;
+                dialog = new Dialog(getContext());
+                dialog.setContentView(R.layout.confirmation_pop_up);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    dialog.getWindow().setBackgroundDrawable(getActivity().getDrawable(R.drawable.dialog_background));
+                }
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.setCancelable(false); //Optional
+                dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation; //Setting the animations to dialog
+
+                TextView titleTV = dialog.findViewById(R.id.titleTV), contentTV = dialog.findViewById(R.id.contentTV);
+                titleTV.setText("Quit  team");
+                contentTV.setText("Are you sure to quit from team?");
+                yesBtn = dialog.findViewById(R.id.yesBtn);
+                noBtn = dialog.findViewById(R.id.noBtn);
+
+                dialog.show();
+
+                yesBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Utility.deleteAMemberFromTeam(participantID, teamID, hackathonID);
+                        Navigation.findNavController(getActivity(), R.id.hackathonDashboardFragmentContainer).navigateUp();
+                        dialog.dismiss();
+                    }
+                });
+                noBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
             }
         });
 

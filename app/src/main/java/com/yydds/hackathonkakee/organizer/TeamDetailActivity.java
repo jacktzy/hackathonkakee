@@ -2,8 +2,11 @@ package com.yydds.hackathonkakee.organizer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -149,8 +152,39 @@ public class TeamDetailActivity extends AppCompatActivity {
         deleteTeamBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteTeamBtn.setVisibility(View.INVISIBLE);
-                deleteTeam();
+                Dialog dialog;
+                MaterialButton yesBtn, noBtn;
+                dialog = new Dialog(TeamDetailActivity.this);
+                dialog.setContentView(R.layout.confirmation_pop_up);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialog_background));
+                }
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.setCancelable(false); //Optional
+                dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation; //Setting the animations to dialog
+
+                TextView titleTV = dialog.findViewById(R.id.titleTV), contentTV = dialog.findViewById(R.id.contentTV);
+                titleTV.setText("Delete Team");
+                contentTV.setText("Are you sure to delete team \"" + teamMap.get("teamName") + "\"?");
+                yesBtn = dialog.findViewById(R.id.yesBtn);
+                noBtn = dialog.findViewById(R.id.noBtn);
+
+                dialog.show();
+
+                yesBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        deleteTeamBtn.setVisibility(View.INVISIBLE);
+                        deleteTeam();
+                        dialog.dismiss();
+                    }
+                });
+                noBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
             }
         });
     }

@@ -104,5 +104,12 @@ public class ManageAnnouncementActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         announcementAdapter.notifyDataSetChanged();
+
+//        try {
+//            announcementAdapter.getSnapshots().getSnapshot(0);
+//            noAnnouncementMCV.setVisibility(View.GONE);
+//        } catch (Exception e) {
+//            noAnnouncementMCV.setVisibility(View.VISIBLE);
+//        }
     }
 }

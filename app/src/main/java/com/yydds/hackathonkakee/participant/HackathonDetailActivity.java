@@ -2,7 +2,6 @@ package com.yydds.hackathonkakee.participant;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,8 +21,6 @@ import com.squareup.picasso.Picasso;
 import com.yydds.hackathonkakee.R;
 import com.yydds.hackathonkakee.classes.Hackathon;
 import com.yydds.hackathonkakee.classes.Participant;
-
-import org.checkerframework.checker.units.qual.A;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -102,23 +99,17 @@ public class HackathonDetailActivity extends AppCompatActivity {
                 participantsIdList = hackathon.getParticipantsID();
                 System.out.println(participantsIdList.contains(participantID));
                 if (participantsIdList.contains(participantID)) {
-                    System.out.println("got");
-                    button.setText("Go to " + hackathon.getName());
+                    button.setVisibility(View.GONE);
                     buttonInsTV.setText("You already register in " + hackathon.getName() + "!");
-                    button.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            //TODO link to participated particular hackathon page
-                        }
-                    });
                 } else {
+                    button.setVisibility(View.VISIBLE);
                     button.setText("Register now!");
                     buttonInsTV.setText("Click the button below to register now!");
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             dialog = new Dialog(HackathonDetailActivity.this);
-                            dialog.setContentView(R.layout.register_hackathon_confirmation);
+                            dialog.setContentView(R.layout.confirmation_pop_up);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                                 dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialog_background));
                             }
@@ -126,6 +117,9 @@ public class HackathonDetailActivity extends AppCompatActivity {
                             dialog.setCancelable(false); //Optional
                             dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation; //Setting the animations to dialog
 
+                            TextView titleTV = dialog.findViewById(R.id.titleTV), contentTV = dialog.findViewById(R.id.contentTV);
+                            titleTV.setText("Registration Confirmation");
+                            contentTV.setText("Are you sure to register?");
                             yesBtn = dialog.findViewById(R.id.yesBtn);
                             noBtn = dialog.findViewById(R.id.noBtn);
 

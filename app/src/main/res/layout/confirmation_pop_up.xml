@@ -12,10 +12,11 @@
         android:background="@color/primary">
 
         <TextView
+            android:id="@+id/titleTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:text="Registration Confirmation"
+            android:text=""
             android:textSize="16sp"
             android:textColor="@color/white"
             android:layout_centerVertical="true"/>
@@ -28,11 +29,11 @@
         android:padding="10dp">
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/contentTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="Are you sure to register?"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="14sp"
             app:flow_horizontalAlign="center"
@@ -53,11 +54,13 @@
                 android:id="@+id/yesBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#00FF00"
+                android:backgroundTint="@color/white"
                 android:text="YES"
-                android:textColor="@color/black"
+                android:textColor="@color/primary"
                 android:textStyle="bold"
                 app:cornerRadius="15dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/primary"
                 android:layout_gravity="start"
                 android:layout_marginHorizontal="10dp"/>
 
@@ -65,10 +68,12 @@
                 android:id="@+id/noBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#FF0000"
+                android:backgroundTint="@color/white"
                 android:text="NO"
-                android:textColor="@color/black"
+                android:textColor="@color/primary"
                 android:textStyle="bold"
+                app:strokeColor="@color/primary"
+                app:strokeWidth="1dp"
                 app:cornerRadius="15dp"
                 android:layout_marginHorizontal="10dp"/>
 
