@@ -46,18 +46,18 @@ public class ShowTeams extends AppCompatActivity {
         Query query = FirebaseFirestore.getInstance().collection("Teams")
                 .whereEqualTo("hackathonID", hackathonID);
         FirestoreRecyclerOptions<Team> options = new FirestoreRecyclerOptions.Builder<Team>().setQuery(query, Team.class).build();
-        AggregateQuery aggregateQuery = query.count();
-        aggregateQuery.get(AggregateSource.SERVER).addOnSuccessListener(new OnSuccessListener<AggregateQuerySnapshot>() {
-            @Override
-            public void onSuccess(AggregateQuerySnapshot aggregateQuerySnapshot) {
-                long size = aggregateQuerySnapshot.getCount();
-                if (size <= 0) {
-                    noTeamMCV.setVisibility(View.VISIBLE);
-                } else {
-                    noTeamMCV.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
+//        AggregateQuery aggregateQuery = query.count();
+//        aggregateQuery.get(AggregateSource.SERVER).addOnSuccessListener(new OnSuccessListener<AggregateQuerySnapshot>() {
+//            @Override
+//            public void onSuccess(AggregateQuerySnapshot aggregateQuerySnapshot) {
+//                long size = aggregateQuerySnapshot.getCount();
+//                if (size <= 0) {
+//                    noTeamMCV.setVisibility(View.VISIBLE);
+//                } else {
+//                    noTeamMCV.setVisibility(View.INVISIBLE);
+//                }
+//            }
+//        });
         teamsRV.setLayoutManager(new LinearLayoutManager(this));
         adapter = new TeamAdapter(options, this, hackathonID);
         teamsRV.setAdapter(adapter);

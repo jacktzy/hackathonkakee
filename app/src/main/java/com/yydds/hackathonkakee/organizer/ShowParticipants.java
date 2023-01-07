@@ -46,18 +46,18 @@ public class ShowParticipants extends AppCompatActivity {
         Query query = FirebaseFirestore.getInstance().collection("Participants")
                 .whereArrayContains("participatedHackathonId", hackathonID);
         FirestoreRecyclerOptions<Participant> options = new FirestoreRecyclerOptions.Builder<Participant>().setQuery(query, Participant.class).build();
-        AggregateQuery aggregateQuery = query.count();
-        aggregateQuery.get(AggregateSource.SERVER).addOnSuccessListener(new OnSuccessListener<AggregateQuerySnapshot>() {
-            @Override
-            public void onSuccess(AggregateQuerySnapshot aggregateQuerySnapshot) {
-                long size = aggregateQuerySnapshot.getCount();
-                if (size <= 0) {
-                    noParticipantMCV.setVisibility(View.VISIBLE);
-                } else {
-                    noParticipantMCV.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
+//        AggregateQuery aggregateQuery = query.count();
+//        aggregateQuery.get(AggregateSource.SERVER).addOnSuccessListener(new OnSuccessListener<AggregateQuerySnapshot>() {
+//            @Override
+//            public void onSuccess(AggregateQuerySnapshot aggregateQuerySnapshot) {
+//                long size = aggregateQuerySnapshot.getCount();
+//                if (size <= 0) {
+//                    noParticipantMCV.setVisibility(View.VISIBLE);
+//                } else {
+//                    noParticipantMCV.setVisibility(View.INVISIBLE);
+//                }
+//            }
+//        });
         participantsRV.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ParticipantsAdapter(options, this, hackathonID);
         participantsRV.setAdapter(adapter);

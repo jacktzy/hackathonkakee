@@ -71,18 +71,18 @@ public class ManageNewsActivity extends AppCompatActivity {
                 .whereEqualTo("hackathonID", hackathonID)
                 .orderBy("timestamp", com.google.firebase.firestore.Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<News> options = new FirestoreRecyclerOptions.Builder<News>().setQuery(query, News.class).build();
-        AggregateQuery aggregateQuery = query.count();
-        aggregateQuery.get(AggregateSource.SERVER).addOnSuccessListener(new OnSuccessListener<AggregateQuerySnapshot>() {
-            @Override
-            public void onSuccess(AggregateQuerySnapshot aggregateQuerySnapshot) {
-                long size = aggregateQuerySnapshot.getCount();
-                if (size <= 0) {
-                    noNewsMCV.setVisibility(View.VISIBLE);
-                } else {
-                    noNewsMCV.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
+//        AggregateQuery aggregateQuery = query.count();
+//        aggregateQuery.get(AggregateSource.SERVER).addOnSuccessListener(new OnSuccessListener<AggregateQuerySnapshot>() {
+//            @Override
+//            public void onSuccess(AggregateQuerySnapshot aggregateQuerySnapshot) {
+//                long size = aggregateQuerySnapshot.getCount();
+//                if (size <= 0) {
+//                    noNewsMCV.setVisibility(View.VISIBLE);
+//                } else {
+//                    noNewsMCV.setVisibility(View.INVISIBLE);
+//                }
+//            }
+//        });
         newsListRV.setLayoutManager(new LinearLayoutManager(this));
         newsAdapter = new NewsAdapter(options, this, hackathonID);
         newsListRV.setAdapter(newsAdapter);

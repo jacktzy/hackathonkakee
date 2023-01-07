@@ -269,13 +269,26 @@ Senectus morbi dolor, neque morbi ac, in suspendisse. Nulla lobortis vel, maiore
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button"
-        android:layout_width="300dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Join now!"
         android:textAllCaps="false"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         app:cornerRadius="15dp"
+        android:layout_marginBottom="20dp"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/shareBtn"
+        android:src="@drawable/ic_baseline_share_24"
+        app:elevation="10dp"
+        app:backgroundTint="@color/primary"
+        android:backgroundTint="@color/white"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"/>
 
 </RelativeLayout>

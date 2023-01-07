@@ -3,6 +3,7 @@ package com.yydds.hackathonkakee.participant;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -34,6 +36,7 @@ public class HackathonDetailActivity extends AppCompatActivity {
     String participantID, hackathonID, hackathonName;
     Hackathon hackathon;
     ArrayList<String> participantsIdList;
+    FloatingActionButton shareBtn;
 
     Dialog dialog;
 
@@ -63,6 +66,7 @@ public class HackathonDetailActivity extends AppCompatActivity {
         button = findViewById(R.id.button);
         backArrowIV = findViewById(R.id.backArrowIv);
         hackathonIconIV = findViewById(R.id.hackathonIconIV);
+        shareBtn = findViewById(R.id.shareBtn);
 
         pageTitleTV.setText(hackathonName);
 
@@ -72,7 +76,6 @@ public class HackathonDetailActivity extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 
     private void assignHackathonDetails() {
@@ -158,6 +161,29 @@ public class HackathonDetailActivity extends AppCompatActivity {
                         }
                     });
                 }
+                shareBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+
+                        // type of the content to be shared
+                        sharingIntent.setType("text/plain");
+
+                        // Body of the content
+                        String shareBody = "< " + hackathon.getName() + " >" + "\n\n" + hackathon.getShortDesc() + "\n\n" + "Come and join " + hackathon.getName() + " by downloading Hackathon Kakee mobile application!";
+
+                        // subject of the content. you can share anything
+                        String shareSubject = hackathon.getName();
+
+                        // passing body of the content
+                        sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+
+                        // passing subject of the content
+                        sharingIntent.putExtra(Intent.EXTRA_SUBJECT, shareSubject);
+                        startActivity(Intent.createChooser(sharingIntent, "Share using"));
+
+                    }
+                });
             }
         });
     }
