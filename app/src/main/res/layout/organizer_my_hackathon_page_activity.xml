@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".organizer.OrganizerMyHackathonPageActivity"
     android:orientation="vertical"
-    android:background="@color/greyBG">
+    android:background="@drawable/greyfadebg">
 
     <include
         android:id="@+id/include"

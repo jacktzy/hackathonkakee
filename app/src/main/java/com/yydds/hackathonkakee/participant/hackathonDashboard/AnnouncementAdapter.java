@@ -46,7 +46,7 @@ public class AnnouncementAdapter extends FirestoreRecyclerAdapter<Announcement, 
 
         holder.titleTV.setText(announcement.getTitle());
         holder.contentTV.setText(announcement.getContent());
-        holder.timestampTV.setText(new SimpleDateFormat("dd/MM/yyyy").format(announcement.getTimestamp().toDate()));
+        holder.timestampTV.setText(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(announcement.getTimestamp().toDate()));
 
         holder.itemView.startAnimation(animation);
     }

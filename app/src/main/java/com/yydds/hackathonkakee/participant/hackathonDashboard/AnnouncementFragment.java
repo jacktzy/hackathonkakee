@@ -84,8 +84,7 @@ public class AnnouncementFragment extends Fragment {
 
         RecyclerView announcementListRV = view.findViewById(R.id.announcementListRV);
 
-        Query query = FirebaseFirestore.getInstance().collection("Announcements").whereEqualTo("hackathonID", hackathonID);
-        query.orderBy("timestamp", Query.Direction.DESCENDING);
+        Query query = FirebaseFirestore.getInstance().collection("Announcements").whereEqualTo("hackathonID", hackathonID).orderBy("timestamp", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Announcement> options = new FirestoreRecyclerOptions.Builder<Announcement>().setQuery(query, Announcement.class).build();
         announcementListRV.setLayoutManager(new LinearLayoutManager(getContext()));
         announcementAdapter = new AnnouncementAdapter(options, getContext());

@@ -7,7 +7,7 @@
     tools:context=".general.LoginActivity"
     android:paddingVertical="16dp"
     android:paddingHorizontal="32dp"
-    android:background="@color/blueBG">
+    android:background="@drawable/bluefadebg">
 
     <ImageView
         android:layout_width="150dp"

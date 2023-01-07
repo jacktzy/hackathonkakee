@@ -12,7 +12,7 @@ public class Hackathon {
     private ArrayList<String> participantsID, teamsID, participantsWithTeam;
     private Timestamp startDateTS, endDateTS;
 
-    public Hackathon(String name, String shortDesc, String longDesc, String mode, String venue, String organizerID, String iconUri, Timestamp startDateTS, Timestamp endDateTS, int prizePool, int maxTeamMembers) {
+    public Hackathon(String name, String shortDesc, String longDesc, String mode, String venue, String organizerID, String iconUri, Timestamp startDateTS, Timestamp endDateTS, int prizePool, int maxTeamMembers, ArrayList<String> participantsID, ArrayList<String> participantsWithTeam, ArrayList<String> teamsID) {
         this.name = name;
         this.shortDesc = shortDesc;
         this.longDesc = longDesc;
@@ -20,9 +20,9 @@ public class Hackathon {
         this.venue = venue;
         this.prizePool = prizePool;
         this.maxTeamMembers = maxTeamMembers;
-        this.participantsID = new ArrayList<>();
-        this.teamsID = new ArrayList<>();
-        this.participantsWithTeam = new ArrayList<>();
+        this.participantsID = participantsID;
+        this.teamsID = teamsID;
+        this.participantsWithTeam = participantsWithTeam;
         this.iconUri = iconUri;
         this.organizerID = organizerID;
         this.startDateTS = startDateTS;

@@ -187,7 +187,8 @@ public class HackathonDashboardActivity extends AppCompatActivity {
                 FirebaseFirestore.getInstance().collection("Participants").document(participantID).update("participatedHackathonId", FieldValue.arrayRemove(hackathonID));
                 FirebaseFirestore.getInstance().collection("Hackathons").document(hackathonID).update("participantsID", FieldValue.arrayRemove(participantID));
                 if (hasTeam) {
-                    Utility.deleteAMemberFromTeam(participantID, teamID, hackathonID); FirebaseFirestore.getInstance().collection("Hackathons").document(hackathonID).update("participantsID", FieldValue.arrayRemove(participantID));
+                    Utility.deleteAMemberFromTeam(participantID, teamID, hackathonID);
+                    FirebaseFirestore.getInstance().collection("Hackathons").document(hackathonID).update("participantsID", FieldValue.arrayRemove(participantID));
                 }
                 finish();
             }
