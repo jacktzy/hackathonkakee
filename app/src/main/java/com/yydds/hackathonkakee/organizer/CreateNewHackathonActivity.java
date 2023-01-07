@@ -51,8 +51,10 @@ import com.yydds.hackathonkakee.general.Utility;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -263,13 +265,21 @@ public class CreateNewHackathonActivity extends AppCompatActivity {
 //        String startDate = startDateBtn.getText().toString();
 //        String endDate = endDateBtn.getText().toString();
 
-        Hackathon newHackathon = new Hackathon(hackathonName, shortDesc, longDesc, mode, hackathonVenue, organizerID, iconUri, startDateTS, endDateTS, prizePool, maxTeamMembers);
+        ArrayList<String> participantsID, participantsWithTeam, teamsID;
+
         DocumentReference documentReference;
         if (hackathonID != null && !hackathonID.isEmpty()) {
             documentReference = firebaseFirestore.collection("Hackathons").document(hackathonID);
+            participantsID = hackathon.getParticipantsID();
+            participantsWithTeam = hackathon.getParticipantsWithTeam();
+            teamsID = hackathon.getTeamsID();
         } else {
             documentReference = firebaseFirestore.collection("Hackathons").document(newHackathonID);
+            participantsID = new ArrayList<>();
+            participantsWithTeam = new ArrayList<>();
+            teamsID = new ArrayList<>();
         }
+        Hackathon newHackathon = new Hackathon(hackathonName, shortDesc, longDesc, mode, hackathonVenue, organizerID, iconUri, startDateTS, endDateTS, prizePool, maxTeamMembers, participantsID, participantsWithTeam, teamsID);
         documentReference.set(newHackathon).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {

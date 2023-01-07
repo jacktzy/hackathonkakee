@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/blueBG">
+    android:background="@drawable/bluefadebg">
 
     <include
         android:id="@+id/include"
@@ -140,7 +140,8 @@
                         android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+                        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+                        android:singleLine="true"/>
 
                     <TextView
                         android:id="@+id/emailTV"
@@ -153,7 +154,8 @@
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="@+id/email"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/email" />
+                        app:layout_constraintTop_toTopOf="@+id/email"
+                        android:singleLine="true"/>
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/birthDateBtn"
@@ -203,6 +205,7 @@
                         android:text="Phone Number"
                         android:textColor="@color/black"
                         android:textSize="14sp"
+                        android:singleLine="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/genderRG" />
@@ -298,6 +301,7 @@
                         android:text=" "
                         android:textColor="@color/black"
                         android:textSize="14sp"
+                        android:singleLine="true"
                         app:layout_constraintEnd_toEndOf="@+id/relativeLayout1"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/relativeLayout1" />
@@ -311,6 +315,7 @@
                         android:text=" "
                         android:textColor="@color/black"
                         android:textSize="14sp"
+                        android:singleLine="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/institutionNameET" />
@@ -324,6 +329,7 @@
                         android:text=" "
                         android:textColor="@color/black"
                         android:textSize="14sp"
+                        android:singleLine="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/fieldMajorET" />
@@ -336,6 +342,7 @@
                         android:text=" "
                         android:textColor="@color/black"
                         android:textSize="14sp"
+                        android:singleLine="true"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/levelOfEducationET" />
 
@@ -421,6 +428,7 @@
                         android:text=" "
                         android:textColor="@color/black"
                         android:textSize="14sp"
+                        android:singleLine="true"
                         app:layout_constraintEnd_toEndOf="@+id/relativeLayout2"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
@@ -434,6 +442,7 @@
                         android:text=" "
                         android:textColor="@color/black"
                         android:textSize="14sp"
+                        android:singleLine="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/interestFieldET" />

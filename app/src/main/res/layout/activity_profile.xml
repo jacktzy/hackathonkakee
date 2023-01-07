@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".organizer.ProfileActivity"
-    android:background="@color/greyBG">
+    android:background="@drawable/greyfadebg">
 
     <include
         android:id="@+id/include"

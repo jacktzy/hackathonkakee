@@ -114,7 +114,6 @@ public class HomeFragment extends Fragment {
         moreHackathonTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.hackathonFragment);
                 Navigation.findNavController(view).navigate(R.id.participantAllHackathonFragment);
             }
         });

@@ -56,8 +56,8 @@ public class ParticipantsAdapter extends FirestoreRecyclerAdapter<Participant, P
         hasTeam = false;
         participantTeamID = "";
         String participantID = this.getSnapshots().getSnapshot(position).getId();
-        if (!participant.getProfilePicUrl().isEmpty())
-            Picasso.get().load(participant.getProfilePicUrl()).into(holder.profilePicIV);
+        if (!participant.getProfilePicUrl().isEmpty()) Picasso.get().load(participant.getProfilePicUrl()).into(holder.profilePicIV);
+        else holder.profilePicIV.setImageResource(R.drawable.ic_baseline_person_24);
         holder.noTV.setText("No: " + (position + 1));
         holder.nameTV.setText("Name: " + participant.getName());
         holder.teamTV.setText("Team ID: -");

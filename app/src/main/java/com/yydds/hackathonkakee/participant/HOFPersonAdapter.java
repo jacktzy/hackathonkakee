@@ -37,6 +37,7 @@ public class HOFPersonAdapter extends FirestoreRecyclerAdapter<Participant, HOFP
         Animation animation = AnimationUtils.loadAnimation(holder.itemView.getContext(), android.R.anim.slide_in_left);
 
         if (!participant.getProfilePicUrl().isEmpty()) Picasso.get().load(participant.getProfilePicUrl()).into(holder.profilePicIV);
+        else holder.profilePicIV.setImageResource(R.drawable.ic_baseline_person_24);
         holder.rankingTV.setText("#" + (position + 1));
         holder.nameTV.setText(participant.getName());
         holder.pointTV.setText(Integer.toString(participant.getPoints()));
