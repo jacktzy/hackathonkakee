@@ -13,6 +13,9 @@ import java.util.ArrayList;
 
 public class Utility {
     public static final int[] POINT_REFERENCE = {500, 300, 200, 100, 100};
+    public static final String EMAIL = "hackathonkakee@gmail.com";
+    public static final String PASSWORD = "wtcvnydpszyyfywl";
+
 
 
     //generate hackathon ID

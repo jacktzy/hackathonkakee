@@ -19,6 +19,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.yydds.hackathonkakee.R;
 import com.yydds.hackathonkakee.classes.Participant;
+import com.yydds.hackathonkakee.general.JavaMailAPI;
 
 import java.util.ArrayList;
 
@@ -101,6 +102,7 @@ public class ClaimRewardFragment extends Fragment {
                 participant = documentSnapshot.toObject(Participant.class);
                 pointTV.setText(Integer.toString(participant.getPoints()));
                 rewardClaimed = participant.getRewardClaimed();
+                String participantEmail = participant.getEmail();
 
                 for (int i = 0; i < 5; i++) {
                     if (Integer.parseInt(rewardClaimed.get(i)) == 1) {
@@ -132,6 +134,8 @@ public class ClaimRewardFragment extends Fragment {
                             claim1Btn.setText("Claimed");
                             rewardClaimed.set(0, "1");
                             participantDR.update("rewardClaimed", rewardClaimed);
+                            sendClaimRewardEmail("Hackathon Kakee Keychain", participantEmail);
+                            Toast.makeText(getContext(), "You have claimed Hackathon Kakee Keychain!", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getContext(), "Not enough points!", Toast.LENGTH_SHORT).show();
                         }
@@ -146,6 +150,8 @@ public class ClaimRewardFragment extends Fragment {
                             claim2Btn.setText("Claimed");
                             rewardClaimed.set(1, "1");
                             participantDR.update("rewardClaimed", rewardClaimed);
+                            sendClaimRewardEmail("Notebook with Big O", participantEmail);
+                            Toast.makeText(getContext(), "You have claimed Notebook with Big O!", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getContext(), "Not enough points!", Toast.LENGTH_SHORT).show();
                         }
@@ -160,6 +166,8 @@ public class ClaimRewardFragment extends Fragment {
                             claim3Btn.setText("Claimed");
                             rewardClaimed.set(2, "1");
                             participantDR.update("rewardClaimed", rewardClaimed);
+                            sendClaimRewardEmail("Thermos", participantEmail);
+                            Toast.makeText(getContext(), "You have claimed Thermos!", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getContext(), "Not enough points!", Toast.LENGTH_SHORT).show();
                         }
@@ -174,6 +182,8 @@ public class ClaimRewardFragment extends Fragment {
                             claim4Btn.setText("Claimed");
                             rewardClaimed.set(3, "1");
                             participantDR.update("rewardClaimed", rewardClaimed);
+                            sendClaimRewardEmail("Hackathon Kakee Tee", participantEmail);
+                            Toast.makeText(getContext(), "You have claimed Hackathon Kakee Tee!", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getContext(), "Not enough points!", Toast.LENGTH_SHORT).show();
                         }
@@ -188,6 +198,8 @@ public class ClaimRewardFragment extends Fragment {
                             claim5Btn.setText("Claimed");
                             rewardClaimed.set(4, "1");
                             participantDR.update("rewardClaimed", rewardClaimed);
+                            sendClaimRewardEmail("Laptop Bag", participantEmail);
+                            Toast.makeText(getContext(), "You have claimed Laptop Bag!", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getContext(), "Not enough points!", Toast.LENGTH_SHORT).show();
                         }
@@ -195,6 +207,20 @@ public class ClaimRewardFragment extends Fragment {
                 });
             }
         });
+    }
+
+    private void sendClaimRewardEmail(String rewardName, String email) {
+        String subject = "Hall of Fame Reward Claimed";
+        String message =
+                "Congratulations! You successfully claimed " + rewardName + " which only limited in Hackathon Kakee!\n\n" +
+                        "For merchandise delivering, please provide us your name, phone number and delivering address by replying this email.\n\n\n" +
+                        "Regards,\n" +
+                        "TAN ZI YANG\n" +
+                        "Director of Hackathon Kakee Company";
+
+        JavaMailAPI javaMailAPI = new JavaMailAPI(getContext(), email, subject, message);
+
+        javaMailAPI.execute();
     }
 
 }

@@ -71,18 +71,18 @@ public class ManageAnnouncementActivity extends AppCompatActivity {
                 .whereEqualTo("hackathonID", hackathonID)
                 .orderBy("timestamp", com.google.firebase.firestore.Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Announcement> options = new FirestoreRecyclerOptions.Builder<Announcement>().setQuery(query, Announcement.class).build();
-        AggregateQuery aggregateQuery = query.count();
-        aggregateQuery.get(AggregateSource.SERVER).addOnSuccessListener(new OnSuccessListener<AggregateQuerySnapshot>() {
-            @Override
-            public void onSuccess(AggregateQuerySnapshot aggregateQuerySnapshot) {
-                long size = aggregateQuerySnapshot.getCount();
-                if (size <= 0) {
-                    noAnnouncementMCV.setVisibility(View.VISIBLE);
-                } else {
-                    noAnnouncementMCV.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
+//        AggregateQuery aggregateQuery = query.count();
+//        aggregateQuery.get(AggregateSource.SERVER).addOnSuccessListener(new OnSuccessListener<AggregateQuerySnapshot>() {
+//            @Override
+//            public void onSuccess(AggregateQuerySnapshot aggregateQuerySnapshot) {
+//                long size = aggregateQuerySnapshot.getCount();
+//                if (size <= 0) {
+//                    noAnnouncementMCV.setVisibility(View.VISIBLE);
+//                } else {
+//                    noAnnouncementMCV.setVisibility(View.INVISIBLE);
+//                }
+//            }
+//        });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         announcementAdapter = new AnnouncementAdapter(options, this);
         recyclerView.setAdapter(announcementAdapter);
