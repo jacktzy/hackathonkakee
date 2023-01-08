@@ -41,8 +41,7 @@ public class ParticipantsAdapter extends FirestoreRecyclerAdapter<Participant, P
      */
     Context context;
     ArrayList<String> hackathonTeamsID;
-    String hackathonID, participantTeamID;
-    boolean hasTeam;
+    String hackathonID;
 
     public ParticipantsAdapter(@NonNull FirestoreRecyclerOptions<Participant> options, Context context, String hackathonID) {
         super(options);
@@ -53,12 +52,11 @@ public class ParticipantsAdapter extends FirestoreRecyclerAdapter<Participant, P
 
     @Override
     protected void onBindViewHolder(@NonNull ParticipantViewHolder holder, int position, @NonNull Participant participant) {
-        hasTeam = false;
-        participantTeamID = "";
+        final boolean[] hasTeam = {false};
+        final String[] participantTeamID = {""};
         String participantID = this.getSnapshots().getSnapshot(position).getId();
         if (!participant.getProfilePicUrl().isEmpty()) Picasso.get().load(participant.getProfilePicUrl()).into(holder.profilePicIV);
         else holder.profilePicIV.setImageResource(R.drawable.ic_baseline_person_24);
-        holder.noTV.setText("No: " + (position + 1));
         holder.nameTV.setText("Name: " + participant.getName());
         holder.teamTV.setText("Team ID: -");
 
@@ -68,11 +66,16 @@ public class ParticipantsAdapter extends FirestoreRecyclerAdapter<Participant, P
         query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if (queryDocumentSnapshots.size() == 1) hasTeam = true;
-                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                            participantTeamID = documentSnapshot.getId();
+                        if (queryDocumentSnapshots.size() == 1) {
+                            for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                participantTeamID[0] = documentSnapshot.getId();
+                            }
+                            hasTeam[0] = true;
+                        } else {
+                            participantTeamID[0] = "none";
+                            hasTeam[0] = false;
                         }
-                        holder.teamTV.setText((hasTeam) ? "Team ID: " + participantTeamID : "Team ID: None");
+                        holder.teamTV.setText((hasTeam[0]) ? "Team ID: " + participantTeamID[0] : "Team ID: None");
                         holder.deleteIV.setOnClickListener((v) -> {
                             Dialog dialog;
                             MaterialButton yesBtn, noBtn;
@@ -96,11 +99,26 @@ public class ParticipantsAdapter extends FirestoreRecyclerAdapter<Participant, P
                             yesBtn.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    if (hasTeam) {
-                                        String finalParticipantTeamID = participantTeamID;
-                                        FirebaseFirestore.getInstance().collection("Participants").document(participantID).update("participatedHackathonId", FieldValue.arrayRemove(hackathonID));
-                                        FirebaseFirestore.getInstance().collection("Hackathons").document(hackathonID).update("participantsID", FieldValue.arrayRemove(participantID));
-                                        Utility.deleteAMemberFromTeam(participantID, finalParticipantTeamID, hackathonID);
+                                    if (hasTeam[0]) {
+                                        System.out.println("enter has team");
+                                        System.out.println(participantTeamID[0]);
+                                        String finalParticipantTeamID = participantTeamID[0];
+                                        System.out.println(finalParticipantTeamID);
+                                        FirebaseFirestore.getInstance().collection("Participants").document(participantID)
+                                                .update("participatedHackathonId", FieldValue.arrayRemove(hackathonID))
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        FirebaseFirestore.getInstance().collection("Hackathons").document(hackathonID)
+                                                                .update("participantsID", FieldValue.arrayRemove(participantID))
+                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                    @Override
+                                                                    public void onSuccess(Void unused) {
+                                                                        Utility.deleteAMemberFromTeam(participantID, finalParticipantTeamID, hackathonID);
+                                                                    }
+                                                                });
+                                                    }
+                                                });
                                     } else {
                                         FirebaseFirestore.getInstance().collection("Participants").document(participantID).update("participatedHackathonId", FieldValue.arrayRemove(hackathonID));
                                         FirebaseFirestore.getInstance().collection("Hackathons").document(hackathonID).update("participantsID", FieldValue.arrayRemove(participantID));
@@ -137,13 +155,12 @@ public class ParticipantsAdapter extends FirestoreRecyclerAdapter<Participant, P
 
     class ParticipantViewHolder extends RecyclerView.ViewHolder {
         ImageView profilePicIV, deleteIV;
-        TextView noTV, nameTV, teamTV;
+        TextView nameTV, teamTV;
 
         public ParticipantViewHolder(@NonNull View itemView) {
             super(itemView);
             profilePicIV = itemView.findViewById(R.id.profilePictureIV);
             deleteIV = itemView.findViewById(R.id.deleteIV);
-            noTV = itemView.findViewById(R.id.noTV);
             nameTV = itemView.findViewById(R.id.nameTV);
             teamTV = itemView.findViewById(R.id.teamTV);
         }
