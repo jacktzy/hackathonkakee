@@ -133,6 +133,7 @@ public class HackathonDashboardActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                     withdrawHackathon();
+                                    dialog.dismiss();
                                 }
                             });
                             noBtn.setOnClickListener(new View.OnClickListener() {
@@ -171,7 +172,7 @@ public class HackathonDashboardActivity extends AppCompatActivity {
     }
 
     private void withdrawHackathon() {
-        Query query = FirebaseFirestore.getInstance().collection("Teams").whereArrayContains("membersID", participantID);
+        Query query = FirebaseFirestore.getInstance().collection("Teams").whereArrayContains("membersID", participantID).whereEqualTo("hackathonID", hackathonID);
         query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
