@@ -100,6 +100,12 @@ public class LoginActivity extends AppCompatActivity {
                 documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (!firebaseAuth.getCurrentUser().isEmailVerified()) {
+                            Toast.makeText(LoginActivity.this, "Email not verified, please verify your email.", Toast.LENGTH_SHORT).show();
+                            firebaseAuth.getInstance().signOut();
+                            changeInProgress(false);
+                            return;
+                        }
                         if (documentSnapshot.exists()) {
                             Participant participant = documentSnapshot.toObject(Participant.class);
                             Intent intent = new Intent(getApplicationContext(), ParticipantHomePageActivity.class);
