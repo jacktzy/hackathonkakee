@@ -14,11 +14,14 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.yydds.hackathonkakee.R;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
-    EditText emailEt;
+    TextInputLayout emailTIL;
+    TextInputEditText emailTIET;
     Button resetPasswordBtn;
     TextView loginTvBtn;
     ProgressBar resetPasswordLoadPB;
@@ -36,7 +39,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     private void initializeComponents() {
-        emailEt = findViewById(R.id.emailEt);
+        emailTIL = findViewById(R.id.emailTIL);
+        emailTIET = findViewById(R.id.emailTIET);
         resetPasswordBtn = findViewById(R.id.resetPasswordBtn);
         loginTvBtn = findViewById(R.id.loginTvBtn);
         resetPasswordLoadPB = findViewById(R.id.resetPasswordLoadPB);
@@ -56,16 +60,20 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     private void resetPassword() {
-        String email = emailEt.getText().toString();
+        String email = emailTIET.getText().toString();
         if (email.isEmpty()) {
-            emailEt.setError("Please provide email.");
-            emailEt.requestFocus();
+            emailTIL.setErrorEnabled(true);
+            emailTIL.setError("Please provide email.");
             return;
+        } else {
+            emailTIL.setErrorEnabled(false);
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailEt.setError("Email is invalid.");
-            emailEt.requestFocus();
+            emailTIL.setErrorEnabled(true);
+            emailTIL.setError("Email is invalid.");
             return;
+        } else {
+            emailTIL.setErrorEnabled(false);
         }
         changeInProgress(true);
         firebaseAuth.sendPasswordResetEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
