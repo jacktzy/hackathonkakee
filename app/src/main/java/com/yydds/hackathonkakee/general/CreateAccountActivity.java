@@ -168,7 +168,7 @@ public class CreateAccountActivity extends AppCompatActivity {
             public void onSuccess(AuthResult authResult) {
                 //Save user data in firestore database.
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                user.sendEmailVerification();
+//                user.sendEmailVerification();
                 if (role.equals("Participant")) {
                     DocumentReference documentReference = firebaseFirestore.collection("Participants").document(user.getUid());
                     Participant participant = null;
