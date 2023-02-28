@@ -7,7 +7,7 @@
 ## Introduction
 
 &nbsp;&nbsp;&nbsp;&nbsp;Nowadays, there are rising number of hackathons have been held in Malaysia. Many sponsors are willing to cooperate with the hackathons organizers to discover talented individuals among universities students. However, it is difficult for hackathon organizers to promote their event among universities students. Some of the organizers need to rely on other social media apps to promote their hackathons. Besides, participants are also difficult to discover hackathon events efficiently. Although they can find hackathons on certain social media platforms, it is also quite hard to find teammates if they are one of the solo participants.<br />
-&nbsp;&nbsp;&nbsp;&nbsp;A platform is required, in which hackathon organizer can promote their events and participants can discover all happening hackathons in Malaysia easily. Therefore, ***Hackathon Kakee***, a hackathon promoting mobile application is produced which can solve the problems faced by hackathon organizers and universities students.
+&nbsp;&nbsp;&nbsp;&nbsp;A platform is required, in which hackathon organizer can promote their events and participants can discover all happening hackathons in Malaysia easily. Therefore, ***Hackathon Kakee***, a hackathon promoting mobile application is produced which can solve the problems faced by hackathon organizers and universities students. Hackathon organizers can easily promote their events, news and annoucements in this mobile application, while universities students can discover all hackathon happens in Malaysia easily, find hackathon teammates and join hackathon by one click only.
 
 ## Technical Stack
 
